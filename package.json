@@ -23,6 +23,7 @@
   "dependencies": {
     "babel": "^5.5.8",
     "bluebird": "^2.9.30",
+    "body-parser": "^1.13.1",
     "coffee-script": "^1.9.3",
     "config": "^1.14.0",
     "debug": "^2.2.0",
