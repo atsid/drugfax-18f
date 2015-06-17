@@ -1,38 +1,38 @@
 {
-  "name": "ats-18f-demo",
-  "version": "0.1.0",
-  "description": "ATS 18F Demonstration Project",
-  "main": "index.js",
-  "scripts": {
-    "test": "gulp"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/atsid/18f-RFQ993471.git"
-  },
-  "keywords": [
-    "18F"
-  ],
-  "author": "Applied Technical Systems, Inc",
-  "license": "Apache 2",
-  "bugs": {
-    "url": "https://github.com/atsid/18f-RFQ993471/issues"
-  },
-  "homepage": "https://github.com/atsid/18f-RFQ993471",
-  "dependencies": {
-    "babel": "^5.5.8",
-    "bluebird": "^2.9.30",
-    "express": "^4.12.4",
-    "express-jefferson": "^2.1.0",
-    "express-mountie": "^3.0.0",
-    "express-session": "^1.11.3"
-  },
-  "devDependencies": {
-    "chai": "^3.0.0",
-    "gulp": "^3.9.0",
-    "gulp-eslint": "^0.14.0",
-    "gulp-mocha": "^2.1.1",
-    "gulp-util": "^3.0.5",
-    "mocha": "^2.2.5"
-  }
+    "name": "ats-18f-demo",
+    "version": "0.1.0",
+    "description": "ATS 18F Demonstration Project",
+    "main": "index.js",
+    "scripts": {
+        "test": "gulp"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/atsid/18f-RFQ993471.git"
+    },
+    "keywords": [
+        "18F"
+    ],
+    "author": "Applied Technical Systems, Inc",
+    "license": "Apache 2",
+    "bugs": {
+        "url": "https://github.com/atsid/18f-RFQ993471/issues"
+    },
+    "homepage": "https://github.com/atsid/18f-RFQ993471",
+    "dependencies": {
+        "babel": "^5.5.8",
+        "bluebird": "^2.9.30",
+        "express": "^4.12.4",
+        "express-jefferson": "^2.1.0",
+        "express-mountie": "^3.0.0",
+        "express-session": "^1.11.3"
+    },
+    "devDependencies": {
+        "chai": "^3.0.0",
+        "gulp": "^3.9.0",
+        "gulp-eslint": "^0.14.0",
+        "gulp-mocha": "^2.1.1",
+        "gulp-util": "^3.0.5",
+        "mocha": "^2.2.5"
+    }
 }
