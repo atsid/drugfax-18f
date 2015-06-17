@@ -1,2 +1,6 @@
 "use strict";
-console.log("This file should start the web server");
+module.exports = {
+    start () {
+        console.log("Starting up the application");
+    }
+};
