@@ -1,5 +1,4 @@
 "use strict";
-let express = require("express");
 let jefferson = require("express-jefferson");
 
 module.exports = jefferson.router({

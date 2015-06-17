@@ -19,7 +19,7 @@ module.exports = {
         mountie({
             parent: app,
             src: path.join(__dirname, "routers"),
-            prefix: (app) => (app === "root" ? "/api/" : `/api/${app}`)
+            prefix: (name) => (name === "root" ? "/api/" : `/api/${name}`)
         });
         startupHooks.resolve()
             .then(startListening)
