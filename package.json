@@ -18,5 +18,19 @@
   "bugs": {
     "url": "https://github.com/atsid/18f-RFQ993471/issues"
   },
-  "homepage": "https://github.com/atsid/18f-RFQ993471"
+  "homepage": "https://github.com/atsid/18f-RFQ993471",
+  "dependencies": {
+    "babel": "^5.5.8",
+    "bluebird": "^2.9.30",
+    "express": "^4.12.4",
+    "express-jefferson": "^2.1.0",
+    "express-mountie": "^3.0.0",
+    "express-session": "^1.11.3"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.1.1",
+    "mocha": "^2.2.5"
+  }
 }
