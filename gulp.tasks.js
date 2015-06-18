@@ -53,5 +53,5 @@ gulp.task("default", (cb) => {
         "lint",
         "server-unit-test",
         cb
-    )
+    );
 });
