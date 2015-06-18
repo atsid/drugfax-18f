@@ -1,14 +1,15 @@
 {
-  "env": {
-    "node": true,
-    "es6": true,
-    "mocha": true,
-    "browser": true
-  },
-  "rules": {
-    "no-underscore-dangle": 0
-  },
-  "globals": {
-    "expect": true
-  }
+    "env": {
+        "node": true,
+        "es6": true,
+        "mocha": true,
+        "browser": true
+    },
+    "rules": {
+        "no-underscore-dangle": 0,
+        "no-unused-expressions": 0
+    },
+    "globals": {
+        "expect": true
+    }
 }
