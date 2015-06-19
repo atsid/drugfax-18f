@@ -1,27 +1,10 @@
 "use strict";
+
 let gulp = require("gulp");
-let eslint = require("gulp-eslint");
 let mocha = require("gulp-mocha");
 let istanbul = require("gulp-istanbul");
 let isparta = require("isparta");
-let runSequence = require("run-sequence");
-
-let globs = {
-    lintSourceJs: ["client/**/*.js", "server/**/*.js", "*.js"],
-    serverUnitTests: ["server/**/*.spec.js"],
-    serverSource: ["server/**/*.spec.js"]
-};
-
-let paths = {
-    serverCoverageOutput: "target/test-reports/server"
-};
-
-gulp.task("lint", () => {
-    return gulp.src(globs.lintSourceJs)
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failOnError());
-});
+let config = require("../config");
 
 let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
     return new Promise((resolve, reject) => {
@@ -35,7 +18,7 @@ let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
                 gulp.src(testGlob)
                     .pipe(mocha({reporter: reporter || "spec"}))
                     .pipe(istanbul.writeReports({
-                        dir: paths.serverCoverageOutput,
+                        dir: config.paths.out.SERVER_COVERAGE_OUTPUT,
                         reporters: ["lcov", "text-summary"]
                     }))
                     .on("end", resolve);
@@ -45,13 +28,9 @@ let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
 };
 
 gulp.task("server-unit-test", () => {
-    return runTests(globs.serverUnitTests, globs.serverSource, process.env.TEST_REPORTER);
+    return runTests(config.paths.src.SERVER_TESTS, config.paths.src.SERVER_JS, process.env.TEST_REPORTER);
 });
 
-gulp.task("default", (cb) => {
-    return runSequence(
-        "lint",
-        "server-unit-test",
-        cb
-    );
+gulp.task("client-unit-test", () => {
+    return runTests(config.paths.src.CLIENT_TESTS, config.paths.src.CLIENT_JS, process.env.TEST_REPORTER);
 });
