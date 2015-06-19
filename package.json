@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp",
-    "start": "node index"
+    "start": "node index",
+    "postinstall": "./scripts/npm/postinstall.sh"
   },
   "repository": {
     "type": "git",
