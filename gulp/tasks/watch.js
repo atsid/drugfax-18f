@@ -12,14 +12,14 @@ let source = require("vinyl-source-stream");
 gulp.task("watch", function() {
 
     // watch js and lint
-    gulp.watch(config.paths.src.LINT_JS, ["lint"]);
+    gulp.watch(config.globs.src.LINT_JS, ["lint"]);
 
     // watch html
-    gulp.watch(config.paths.src.CLIENT_HTML, ["copy"]);
+    gulp.watch(config.globs.src.CLIENT_HTML, ["copy"]);
 
     // watch client js
     var watcher = watchify(browserify({
-        entries: config.paths.src.CLIENT_ENTRIES,
+        entries: config.globs.src.CLIENT_ENTRIES,
         transform: [babelify],
         debug: true,
         cache: {},
@@ -31,8 +31,8 @@ gulp.task("watch", function() {
         return watcher
             .bundle()
             .on("error", gutil.log.bind(gutil, "Browserify Error"))
-            .pipe(source(config.paths.out.CLIENT_DIST_BUNDLE))
-            .pipe(gulp.dest(config.paths.out.CLIENT_DIST));
+            .pipe(source(config.globs.out.CLIENT_DIST_BUNDLE))
+            .pipe(gulp.dest(config.globs.out.CLIENT_DIST));
     }
 
     watcher.on("update", bundle);

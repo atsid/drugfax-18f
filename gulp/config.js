@@ -1,8 +1,7 @@
 "use strict";
 
 module.exports = {
-    paths: {
-
+    globs: {
         src: {
             LINT_JS: ["client/**/*.js", "server/**/*.js", "*.js", "gulp/**/*.js"],
 

@@ -11,7 +11,7 @@ let source = require("vinyl-source-stream");
 gulp.task("browserify", function() {
 
     var b = browserify({
-        entries: config.paths.src.CLIENT_ENTRIES,
+        entries: config.globs.src.CLIENT_ENTRIES,
         transform: [babelify],
         debug: true,
         cache: {},
@@ -24,7 +24,7 @@ gulp.task("browserify", function() {
     return b
         .bundle()
         .on("error", gutil.log.bind(gutil, "Browserify Error"))
-        .pipe(source(config.paths.out.CLIENT_DIST_BUNDLE))
-        .pipe(gulp.dest(config.paths.out.CLIENT_DIST));
+        .pipe(source(config.globs.out.CLIENT_DIST_BUNDLE))
+        .pipe(gulp.dest(config.globs.out.CLIENT_DIST));
 
 });

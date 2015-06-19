@@ -18,7 +18,7 @@ let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
                 gulp.src(testGlob)
                     .pipe(mocha({reporter: reporter || "spec"}))
                     .pipe(istanbul.writeReports({
-                        dir: config.paths.out.SERVER_COVERAGE_OUTPUT,
+                        dir: config.globs.out.SERVER_COVERAGE_OUTPUT,
                         reporters: ["lcov", "text-summary"]
                     }))
                     .on("end", resolve);
@@ -28,9 +28,9 @@ let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
 };
 
 gulp.task("server-unit-test", () => {
-    return runTests(config.paths.src.SERVER_TESTS, config.paths.src.SERVER_JS, process.env.TEST_REPORTER);
+    return runTests(config.globs.src.SERVER_TESTS, config.globs.src.SERVER_JS, process.env.TEST_REPORTER);
 });
 
 gulp.task("client-unit-test", () => {
-    return runTests(config.paths.src.CLIENT_TESTS, config.paths.src.CLIENT_JS, process.env.TEST_REPORTER);
+    return runTests(config.globs.src.CLIENT_TESTS, config.globs.src.CLIENT_JS, process.env.TEST_REPORTER);
 });

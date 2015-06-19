@@ -6,6 +6,6 @@ let config = require("../config");
 gulp.task("copy", function() {
 
     // copy html
-    gulp.src(config.paths.src.CLIENT_HTML)
-        .pipe(gulp.dest(config.paths.out.CLIENT_DIST));
+    gulp.src(config.globs.src.CLIENT_HTML)
+        .pipe(gulp.dest(config.globs.out.CLIENT_DIST));
 });
