@@ -27,6 +27,10 @@ build:
         name: npm shrinkwrap
         code: |
           npm shrinkwrap
+    - script:
+        name: install ruby
+        code: |
+          sudo apt-get install ruby -Y
     - npm-test
     - script:
         name: echo nodejs information
