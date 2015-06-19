@@ -37,4 +37,6 @@ gulp.task("watch", function() {
 
     watcher.on("update", bundle);
     watcher.on("log", gutil.log);
+
+    return bundle();
 });
