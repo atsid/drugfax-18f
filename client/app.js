@@ -7,6 +7,7 @@ let HashHistory = require("react-router/lib/HashHistory");
 let ParentComponent = require("./components/parentComponent");
 let ChildComponent = require("./components/childComponent");
 
+
 window.onload = function () {
     React.render((
         <Router history={new HashHistory()}>
@@ -15,4 +16,4 @@ window.onload = function () {
             </Route>
         </Router>
     ), document.getElementById("app"));
-}
+};
