@@ -38,7 +38,7 @@ build:
     - script:
         name: install ruby
         code: |
-          sudo apt-cache search ruby
-          sudo apt-get install ruby1.9.3
+          sudo apt-get update
+          sudo apt-get install ruby
     - wantedly/pretty-slack-notify:
         webhook_url: $SLACK_WEBHOOK_URL
