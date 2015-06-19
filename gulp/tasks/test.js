@@ -34,3 +34,5 @@ gulp.task("server-unit-test", () => {
 gulp.task("client-unit-test", () => {
     return runTests(config.globs.src.CLIENT_TESTS, config.globs.src.CLIENT_JS, process.env.TEST_REPORTER);
 });
+
+gulp.task("test", ["server-unit-test", "client-unit-test"]);

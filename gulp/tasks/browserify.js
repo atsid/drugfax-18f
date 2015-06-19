@@ -7,6 +7,7 @@ let config = require("../config");
 let browserify = require("browserify");
 let babelify = require("babelify");
 let source = require("vinyl-source-stream");
+let buffer = require("vinyl-buffer");
 
 gulp.task("browserify", function() {
 
@@ -25,6 +26,7 @@ gulp.task("browserify", function() {
         .bundle()
         .on("error", gutil.log.bind(gutil, "Browserify Error"))
         .pipe(source(config.globs.out.CLIENT_DIST_BUNDLE))
+        .pipe(buffer())
         .pipe(gulp.dest(config.globs.out.CLIENT_DIST));
 
 });
