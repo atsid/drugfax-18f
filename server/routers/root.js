@@ -1,12 +1,15 @@
 "use strict";
 let jefferson = require("express-jefferson");
 
-module.exports = jefferson.router({
+module.exports = jefferson.app({
     routes: {
         "/": {
             get: [
                 (req, res, next) => {
-                    res.send("Hello!");
+                    let payload = {
+                        status: "ok"
+                    };
+                    res.json(payload);
                     next();
                 }
             ]

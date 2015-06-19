@@ -9,7 +9,7 @@ let runSequence = require("run-sequence");
 let globs = {
     lintSourceJs: ["client/**/*.js", "server/**/*.js", "*.js"],
     serverUnitTests: ["server/**/*.spec.js"],
-    serverSource: ["server/**/*.spec.js"]
+    serverSource: ["server/**/*.js", "!server/**/*.spec.js"]
 };
 
 let paths = {
