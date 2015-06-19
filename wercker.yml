@@ -27,10 +27,6 @@ build:
         name: npm shrinkwrap
         code: |
           npm shrinkwrap
-    - script:
-        name: install ruby
-        code: |
-          sudo apt-get install ruby-full -y
     - npm-test
     - script:
         name: echo nodejs information
@@ -39,5 +35,10 @@ build:
           echo "npm version $(npm -v) running"
 
   after-steps:
+    - script:
+        name: install ruby
+        code: |
+          sudo apt-cache search ruby
+          sudo apt-get install ruby1.9.3
     - wantedly/pretty-slack-notify:
         webhook_url: $SLACK_WEBHOOK_URL
