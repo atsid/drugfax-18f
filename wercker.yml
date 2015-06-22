@@ -42,7 +42,8 @@ build:
           sudo apt-get install ruby -y
     - wantedly/pretty-slack-notify:
         webhook_url: $SLACK_WEBHOOK_URL
-
+        channel: $SLACK_NOTIFICATION_CHANNEL
+        
 deploy:
     steps:
         - install-packages:
