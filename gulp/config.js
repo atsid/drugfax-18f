@@ -5,7 +5,7 @@ module.exports = {
         src: {
             LINT_JS: ["client/**/*.js", "server/**/*.js", "*.js", "gulp/**/*.js"],
 
-            CLIENT_JS: ["client/**/*.js"],
+            CLIENT_JS: ["client/**/*.js", "!client/**/*.spec.js"],
             CLIENT_ENTRIES: ["client/app.js"],
             SERVER_JS: ["server/**/*.js", "!server/**/*.spec.js"],
 

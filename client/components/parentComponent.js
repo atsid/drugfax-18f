@@ -8,10 +8,16 @@ let ParentComponent = React.createClass({
         children: React.PropTypes.node.isRequired
     },
 
+    getInitialState: function() {
+        return {
+            name: "Parent Component"
+        };
+    },
+
     render: function() {
         return (
             <div>
-                <h3>Parent Component</h3>
+                <h3>{ this.state.name }</h3>
                 {this.props.children}
             </div>
         );
