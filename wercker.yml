@@ -43,3 +43,71 @@ build:
     - wantedly/pretty-slack-notify:
         webhook_url: $SLACK_WEBHOOK_URL
         channel: $SLACK_NOTIFICATION_CHANNEL
+        
+deploy:
+    steps:
+        - install-packages:
+            packages: unzip
+
+        - script:
+            name: Install Beanstalk CLI
+            code: |-
+              apt-get update
+              apt-get install python-dev -y
+              curl -O https://bootstrap.pypa.io/get-pip.py
+              python get-pip.py
+              pip install awsebcli==3.4.5
+              export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
+              export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
+              mkdir -p "$WERCKER_SOURCE_DIR/.tmp/.elasticbeanstalk/"
+
+        - create-file:
+            name: Add beanstalk config
+            filename: $WERCKER_SOURCE_DIR/.tmp/.elasticbeanstalk/config.yml
+            content: |-
+                global:
+                  application_name: 18F
+                  default_ec2_keyname: 18f
+                  default_platform: 64bit Amazon Linux 2015.03 v1.4.3 running Docker 1.6.2
+                  default_region: us-west-2
+                  profile: null
+                  sc: null
+
+      # Check if beanstalk CLI is there
+        - script:
+            name: Beanstalk there?
+            code: eb --version
+
+        - internal/docker-push:
+            username: $DOCKER_REGISTRY_USERNAME
+            password: $DOCKER_REGISTRY_PASSWORD
+            tag: "$WERCKER_GIT_COMMIT"
+            ports: "9000"
+            cmd: "bash -c 'cd /pipeline/source/ && node index.js'"
+            repository: atsid/18f-rfq993471-pool2
+            registry: https://registry.hub.docker.com
+
+        - create-file:
+            name: Add generated Dockerrun.aws.json
+            filename: $WERCKER_SOURCE_DIR/.tmp/Dockerrun.aws.json
+            content: |-
+                {
+                  "AWSEBDockerrunVersion": "1",
+                  "Authentication": {
+                    "Bucket": "sensitive-keys",
+                    "Key": "docker/atsid/dockercfg"
+                  },
+                  "Image": {
+                    "Name": "atsid/18f-rfq993471-pool2:$WERCKER_GIT_COMMIT",
+                    "Update": "true"
+                  },
+                  "Ports": [
+                    {
+                      "ContainerPort": "9000"
+                    }
+                  ]
+                }
+
+        - script:
+            name: Deploy to elastic beanstalk
+            code: cd $WERCKER_SOURCE_DIR/.tmp && eb deploy $WERCKER_DEPLOYTARGET_NAME -l "1.0.$WERCKER_GIT_COMMIT"
