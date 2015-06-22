@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+*~
 
 # Runtime data
 pids
@@ -34,3 +35,4 @@ client/web_modules
 
 # IDE Directories
 .idea/
+.vagrant/

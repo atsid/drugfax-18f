@@ -18,7 +18,7 @@
   "authors": [
     "Chris Trevino <chris.trevino@atsid.com>"
   ],
-  "license": "Apache 2",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/atsid/18f-RFQ993471-POOL2/issues"
   },
