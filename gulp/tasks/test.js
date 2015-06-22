@@ -6,7 +6,7 @@ let istanbul = require("gulp-istanbul");
 let isparta = require("isparta");
 let config = require("../config");
 
-let runTests = (testGlob, sourceGlob, reportDir, outDir, reporter) => {
+let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
     return new Promise((resolve, reject) => {
         gulp.src(sourceGlob)
             .pipe(istanbul({
@@ -18,7 +18,7 @@ let runTests = (testGlob, sourceGlob, reportDir, outDir, reporter) => {
                 gulp.src(testGlob)
                     .pipe(mocha({reporter: reporter || "spec"}))
                     .pipe(istanbul.writeReports({
-                        dir: outDir,
+                        dir: reportDir,
                         reporters: ["lcov", "text-summary"]
                     }))
                     .on("end", resolve);
