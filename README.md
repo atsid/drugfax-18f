@@ -6,8 +6,8 @@
     > docker-compose build && docker-compose up
         
 ### Install Using Vagrant (Easy Non-Linux Approach, Slower Startup)
-    vagrant plugin install vagrant-docker-compose
-    vagrant up
+    > vagrant plugin install vagrant-docker-compose
+    > vagrant up
     
 ### Viewing the Application
     * Linux or OSX+Vagrant: http://localhost:9000/
