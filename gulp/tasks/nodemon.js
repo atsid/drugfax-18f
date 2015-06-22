@@ -10,6 +10,6 @@ gulp.task("develop", () => {
         ext: "js",
         tasks: ["lint", "test"]
     })
-    .on("error", gutil.log.bind(gutil, "Browserify Error"))
-    .on("restart", () => gutil.log.bind(gutil, "restarting server"));
+    .on("error", (err) => gutil.log("nodemon error", err))
+    .on("restart", () => gutil.log("restarting server"));
 });
