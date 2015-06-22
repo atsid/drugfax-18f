@@ -1,0 +1,10 @@
+app:
+  build: ./
+  links:
+    - mongo
+  ports:
+    - "9000:9000"
+  volumes:
+    - ./:/app/
+mongo:
+  image: mongo
