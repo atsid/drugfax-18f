@@ -6,7 +6,7 @@ let istanbul = require("gulp-istanbul");
 let isparta = require("isparta");
 let config = require("../config");
 
-let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
+let runTests = (testGlob, sourceGlob, reportDir, outDir, reporter) => {
     return new Promise((resolve, reject) => {
         gulp.src(sourceGlob)
             .pipe(istanbul({
@@ -18,7 +18,7 @@ let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
                 gulp.src(testGlob)
                     .pipe(mocha({reporter: reporter || "spec"}))
                     .pipe(istanbul.writeReports({
-                        dir: config.globs.out.SERVER_COVERAGE_OUTPUT,
+                        dir: outDir,
                         reporters: ["lcov", "text-summary"]
                     }))
                     .on("end", resolve);
@@ -28,11 +28,11 @@ let runTests = (testGlob, sourceGlob, reportDir, reporter) => {
 };
 
 gulp.task("server-unit-test", () => {
-    return runTests(config.globs.src.SERVER_TESTS, config.globs.src.SERVER_JS, process.env.TEST_REPORTER);
+    return runTests(config.globs.src.SERVER_TESTS, config.globs.src.SERVER_JS, config.globs.out.SERVER_COVERAGE_OUTPUT, process.env.TEST_REPORTER);
 });
 
 gulp.task("client-unit-test", () => {
-    return runTests(config.globs.src.CLIENT_TESTS, config.globs.src.CLIENT_JS, process.env.TEST_REPORTER);
+    return runTests(config.globs.src.CLIENT_TESTS, config.globs.src.CLIENT_JS, config.globs.out.CLIENT_COVERAGE_OUTPUT, process.env.TEST_REPORTER);
 });
 
 gulp.task("test", ["server-unit-test", "client-unit-test"]);
