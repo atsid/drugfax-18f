@@ -1,10 +1,16 @@
 module.exports =
     auth:
-        facebook: {}
+        facebook:
+            clientID: ""
+            clientSecret: ""
+            callbackUrl: "http://localhost:9000/api/auth/facebook/callback"
+
+    security:
+        password:
+            saltWorkFactor: 10
 
     server:
         port: 9000
-
         clustering:
             workerLimit: 1
             isEnabled: true

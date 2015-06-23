@@ -5,8 +5,6 @@ let config = require("config");
 let debug = require("debug")("app:main");
 let express = require("express");
 let mountie = require("express-mountie");
-
-require('./passport_strategies');
 let startupHooks = require("./startup_hooks");
 let initialization = require("./initialization");
 
