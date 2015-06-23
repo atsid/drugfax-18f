@@ -8,8 +8,7 @@ gulp.task("default", (cb) => {
         "lint",
         "copy",
         "browserify",
-        "server-unit-test",
-        "client-unit-test",
+        "test",
         cb
     );
 });
