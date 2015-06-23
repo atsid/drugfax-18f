@@ -5,6 +5,8 @@ let config = require("config");
 let debug = require("debug")("app:main");
 let express = require("express");
 let mountie = require("express-mountie");
+
+require('./passport_strategies');
 let startupHooks = require("./startup_hooks");
 let initialization = require("./initialization");
 
@@ -21,8 +23,9 @@ module.exports = {
             src: path.join(__dirname, "routers"),
             prefix: (name) => (name === "root" ? "/api/" : `/api/${name}`)
         });
-        startupHooks.resolve()
+        let startupPromise = startupHooks.resolve()
             .then(startListening)
             .catch(catchError);
+        return ({app, startupPromise});
     }
 };

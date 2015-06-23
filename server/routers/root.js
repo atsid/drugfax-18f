@@ -2,10 +2,12 @@
 let jefferson = require("express-jefferson");
 let root = require("app/middleware/root");
 
-module.exports = jefferson.app({
+let app = jefferson.app({
     routes: {
         "/": {
             get: [ root.get ]
         }
     }
 });
+
+module.exports = app;

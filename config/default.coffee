@@ -1,4 +1,7 @@
 module.exports =
+    auth:
+        facebook: {}
+
     server:
         port: 9000
 
