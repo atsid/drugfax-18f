@@ -1,3 +1,4 @@
+"use strict";
 let main = require("app/main");
 let startup = main.start();
 

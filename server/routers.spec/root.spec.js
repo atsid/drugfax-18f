@@ -2,7 +2,6 @@
 let chai = require("chai");
 let expect = chai.expect;
 let request = require("supertest");
-let app = require("app/routers/root");
 
 describe("/api", () => {
     let app = null;
