@@ -55,7 +55,7 @@ let LoginComponent = React.createClass({
                         <span>SIGN IN WITH FACEBOOK</span>
                     </StyledButton>
                     <div className={"seperator-or"}>or</div>
-                    <StyledButton className={"button--block button--large button--rounded"} onClick={ () => this.handleLogin("demo") }>
+                    <StyledButton className={"button--demo button--block button--large button--rounded"} onClick={ () => this.handleLogin("demo") }>
                         <span>DEMO ACCOUNT</span>
                     </StyledButton>
                 </div>

@@ -1,11 +1,11 @@
 "use strict";
 
-require("./spec.helpers");
+require("../../common.spec/spec.helpers");
 
 let React = require("react");
 require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
-let StyledButton = require("../components/common/styledButton");
+let StyledButton = require("../../components/common/styledButton");
 
 describe("StyledButton Component", function() {
     it("should load", function() {
@@ -27,18 +27,14 @@ describe("StyledButton Component", function() {
         expect(icon.getDOMNode().className).to.contain("MyTestIcon");
     });
 
-    it("should not load an icon if the icon property is set", function() {
+    it("should not load an icon if the icon property is not set", function() {
         var renderedComponent = ReactTestUtils.renderIntoDocument(
-          <StyledButton icon={"MyTestIcon"} />
+          <StyledButton />
         );
 
-        try {
-            // React will throw an exception if it can't find a given element
+        expect(() => {
             ReactTestUtils.findRenderedDOMComponentWithTag(renderedComponent, "i");
-            assert.fail("Should not find any components");
-        } catch (e) {
-            assert.ok("All Good");
-        }
+        }).to.throw();
     });
 
     it("should call onClick if the button was clicked", function() {

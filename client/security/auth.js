@@ -9,17 +9,21 @@ class Authentication {
      * Returns true if the current user is logged in
      */
     isLoggedIn() {
-        return false;
+        return !!this.user;
     }
 
     /**
      * Logs the current user in
-     * @param {string} loginType - The type of login: ['demo', 'facebook', 'twitter']
+     * @param {string} loginType - The type of login: ["demo", "facebook", "twitter"]
      * @returns A promise for the login service call
      */
     login (loginType) {
         return new Promise((resolve) => {
-            console.log(loginType);
+            if (loginType === "demo") {
+                this.user = {
+                    name: "Demo User"
+                };
+            }
             resolve();
         });
     }
@@ -28,6 +32,7 @@ class Authentication {
      * Logs the current user out
      */
     logout() {
+        this.user = undefined;
     }
 }
 
