@@ -6,6 +6,7 @@ module.exports =
             callbackUrl: "http://localhost:9000/api/auth/facebook/callback"
 
     security:
+        sessionStateSecret: "random_gibberish"
         password:
             saltWorkFactor: 10
 
