@@ -1,6 +1,6 @@
 "use strict";
 var LocalStrategy = require("passport-local").Strategy;
-var persistence = require("app:persistence");
+var persistence = require("app/persistence");
 var debug = require("debug")("app:auth");
 
 module.exports = () => {
@@ -22,8 +22,8 @@ module.exports = () => {
                                 debug("password not valid for user -" + email);
                             } else {
                                 debug("authenticated user with password - " + email);
-                                done(null, (isValid ? user : false));
                             }
+                            done(null, (isValid ? user : false));
                         });
                 }
             })

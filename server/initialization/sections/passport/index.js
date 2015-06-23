@@ -12,6 +12,6 @@ module.exports = {
         passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
 
         app.use(passport.initialize());
-
+        app.use(passport.session());
     }
 };

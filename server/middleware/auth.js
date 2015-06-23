@@ -10,6 +10,16 @@ let index = (req, res) => {
     res.end();
 };
 
+let getCurrentUser = (req, res) => {
+    if (!req.user) {
+        res.status(404).json({message: "No authenticated user found"});
+    } else {
+        res.json(req.user);
+    }
+    res.end();
+};
+
 module.exports = {
-    index
+    index,
+    getCurrentUser
 };

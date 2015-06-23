@@ -8,6 +8,9 @@ let app = jefferson.app({
     routes: {
         "/": {
             get: [ auth.index ]
+        },
+        "/current": {
+            get: [ auth.getCurrentUser ]
         }
     }
 });

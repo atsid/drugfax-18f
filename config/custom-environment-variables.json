@@ -5,5 +5,8 @@
             "clientSecret": "FACEBOOK_CLIENT_SECRET",
             "callbackUrl": "FACEBOOK_CALLBACK_URL"
         }
+    },
+    "database": {
+        "connectionString": "DB_CONNECTION_STRING"
     }
 }

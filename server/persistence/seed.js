@@ -11,7 +11,7 @@ function createTestUsers(User) {
     debug("creating test users");
     return User.createQ({
         email: "chris.trevino@atsid.com",
-        password: "test"
+        password: "abc123"
     });
 }
 

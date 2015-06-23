@@ -5,9 +5,14 @@ let request = require("supertest");
 let app = require("app/routers/root");
 
 describe("/api", () => {
+    let app = null;
+    beforeEach(() => {
+        return require("./app")().then((result) => app = result);
+    });
+
     it("is emits a root data payload", (done) => {
         request(app)
-            .get("/")
+            .get("/api")
             .expect(200)
             .expect("Content-Type", /json/)
             .end((err, res) => {

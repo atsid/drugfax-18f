@@ -14,3 +14,7 @@ module.exports =
         clustering:
             workerLimit: 1
             isEnabled: true
+
+    database:
+        connectionString: 'mongodb://localhost/18f'
+        populateSeedData: true
