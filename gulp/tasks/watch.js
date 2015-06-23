@@ -20,6 +20,9 @@ gulp.task("watch", function() {
     // watch html
     gulp.watch(config.globs.src.CLIENT_HTML, ["copy"]);
 
+    // watch sass
+    gulp.watch(config.globs.src.CLIENT_STYLES, ["sass"]);
+
     // watch client js
     lrload.monitor(`${config.globs.out.CLIENT_DIST}/${config.globs.out.CLIENT_DIST_BUNDLE}`, {displayNotification: true});
 

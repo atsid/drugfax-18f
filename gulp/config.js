@@ -9,7 +9,7 @@ module.exports = {
             CLIENT_ENTRIES: ["client/app.js"],
             SERVER_JS: ["server/**/*.js", "!server/**/*.spec.js"],
 
-            CLIENT_STYLES: ["client/styles/**/*.sass"],
+            CLIENT_STYLES: ["client/styles/**/*.scss"],
             CLIENT_ASSETS: ["client/assets/**/*.*"],
             CLIENT_HTML: ["client/**/*.html"],
 
@@ -22,6 +22,7 @@ module.exports = {
             CLIENT_COVERAGE_OUTPUT: "target/test-reports/client",
 
             CLIENT_DIST: "public",
+            CLIENT_STYLES_DIST: "public/styles",
             CLIENT_DIST_BUNDLE: "app.js"
         }
     }

@@ -1,0 +1,123 @@
+@import 'vars';
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    color: $defaultTextColor;
+    @include defaultFont;
+    overflow: hidden;
+}
+
+a {
+    color: $linkColor;
+}
+
+.muted {
+    color: $mutedColor;
+}
+
+.centered {
+    text-align: center;
+}
+
+.padded {
+    margin: 20px;
+}
+
+.text-sm {
+    font-size: .6em;
+}
+
+.text-md {
+    font-size: .8em;
+}
+
+.button {
+    @include defaultFont;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button.button--primary {
+    padding: 6px 12px; 
+    border-radius: 100px; 
+    color: $primaryColor;
+    background-color: #eee; 
+    border-style: none;
+    @include boldFont;
+}
+
+.button.button--large {
+    width: 200px;
+    padding: .5em;
+}
+.button.button--withIcon span {
+    margin-left: 20px;
+}
+
+.loginComponent, .mainContainer {
+    height: 100%;
+}
+
+.loginComponent_logoContainer__logoText {
+    font-size: 4em;
+    font-weight: 100;
+    text-align: center;
+    color: white;
+    padding-top: 50%;
+    margin-top: -.5em;
+}
+
+.loginComponent__logoContainer {
+    background-color: #10B651;
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.loginComponent__loginOptions {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.loginComponent__loginOptions__container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 300px;
+    margin-left: -100px;
+    margin-top: -150px;
+    width: 200px;
+}
+
+.loginComponent__loginOptions__container__oauthLogin {
+    text-align: center;
+}
+
+.loginComponent__loginOptions__container__oauthLogin__twitterLogin .button {
+    background-color:  #00aced;
+    color: white;
+}
+
+.loginComponent__loginOptions__container__oauthLogin__facebookLogin .button {
+    background-color: #3b5998;
+    color: white;
+}
+
+.loginComponent__loginOptions__container__oauthLogin,
+.loginComponent__loginOptions__container__oauthLogin__twitterLogin,
+.loginComponent__loginOptions__container__oauthLogin__facebookLogin, 
+.loginComponent__loginOptions__container__demoLogin {
+    margin-top: 20px;
+}
+
+.muted {
+    color: $mutedColor;
+}
