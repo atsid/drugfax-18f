@@ -9,8 +9,7 @@ gulp.task("default", (cb) => {
         "sass",
         "copy",
         "browserify",
-        "server-unit-test",
-        "client-unit-test",
+        "test",
         cb
     );
 });

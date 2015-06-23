@@ -2,7 +2,7 @@
 let debug = require("debug")("app:initialization");
 const INIT_SECTIONS = [
     require("./sections/body_parsing"),
-    require("./sections/jade_rendering"),
+    require("./sections/route_rewriting"),
     require("./sections/static_content")
 ];
 module.exports = {
