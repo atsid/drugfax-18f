@@ -1,0 +1,45 @@
+.login {
+    height: 100%;
+    width: 100%;
+
+    .login__details {
+        background-color: #10B651;
+        width: 50%;
+        height: 100%;
+        display: inline-block;
+        float: left;
+        position: relative;
+
+        > h1 {
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            text-align: center;
+            margin: 0;
+            width: 100%;
+            font-size: 80px;
+            font-weight: 100;
+        }
+    }
+
+    .login__options {
+        position: absolute;
+        left: 50%;
+        right: 0;
+        height: 100%;
+        text-align: center;
+
+        .login__options__buttons {
+            position: absolute;
+            max-width: 500px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            .button {
+                margin-top: 1em;
+            }
+        }
+    }
+}

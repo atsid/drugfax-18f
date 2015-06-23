@@ -47,26 +47,24 @@ let LoginComponent = React.createClass({
 
   render() {
     return (
-        <div className={"loginComponent"}>
-            <div className={"loginComponent__logoContainer"}>
-                <div className={"loginComponent_logoContainer__logoText"}>
-                    DrugFax
-                </div>
+        <div className={"login"}>
+            <div className={"login__details"}>
+                <h1>DrugFax</h1>
             </div>
-            <div className={"loginComponent__loginOptions"}>
-                <div className={"loginOptions__oauthLogin"}>
-                    <div>Sign In</div>
-                    <StyledButton icon="fa-twitter" className={"twitterButton"}>
+            <div className={"login__options"}>
+                <div className={"login__options__buttons"}>
+                    <h2>Sign in</h2>
+                    <StyledButton icon="fa-twitter" className={"button--twitter button--large button--rounded button--block"}>
                         <span>SIGN IN WITH TWITTER</span>
                     </StyledButton>
-                    <StyledButton icon="fa-facebook" className={"facebookButton"}>
+                    <StyledButton icon="fa-facebook" className={"button--facebook button--large button--rounded button--block"}>
                         <span>SIGN IN WITH FACEBOOK</span>
                     </StyledButton>
+                    <div className={"seperator-or"}>or</div>
+                    <StyledButton className={"button--block button--large button--rounded"}>
+                        <span>DEMO ACCOUNT</span>
+                    </StyledButton>
                 </div>
-                <div className={"muted text-md text-centered padded"}>-or-</div>
-                <StyledButton className={"demoButton"}>
-                    <span>DEMO ACCOUNT</span>
-                </StyledButton>
             </div>
         </div>
     );

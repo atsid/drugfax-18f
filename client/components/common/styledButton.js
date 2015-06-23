@@ -10,16 +10,15 @@ let StyledButton = React.createClass({
     },
     render: function() {
         var iconClassNames = "button__icon fa " + this.props.icon;
-        var buttonClassNames = "button button--primary button--large" + (this.props.icon ? "  button--withIcon" : "");
-        var buttonTextClassNames = "button__text text-md";
+        var buttonClassNames = "button";
         if (this.props.className) {
             buttonClassNames = this.props.className + " " + buttonClassNames;
         }
         return (
-            <span className={buttonClassNames}>
+            <button className={buttonClassNames}>
                 { this.props.icon ? <i className={iconClassNames}></i> : null }
-                <span className={buttonTextClassNames}>{this.props.children}</span>
-            </span>
+                {this.props.children}
+            </button>
         );
     }
 });
