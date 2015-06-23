@@ -8,7 +8,7 @@ let config = require("../config");
 let src = config.globs.src;
 let out = config.globs.out;
 
-let runTests = (testGlob, sourceGlob, reportDir, reporter) => () => {
+let runTests = (testGlob, sourceGlob, reportDir) => () => {
     return new Promise((resolve, reject) => {
         gulp.src(sourceGlob)
             .pipe(istanbul({
