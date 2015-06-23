@@ -7,6 +7,9 @@ gulp.task("nodemon", () => {
     return nodemon({
         script: "index",
         ext: "js",
+        env: {
+            'DEBUG': 'app*,jefferson*,mountie*'
+        },
         tasks: ["lint-server", "server-unit-test"]
     })
         .on("error", (err) => gutil.log("nodemon error", err))
