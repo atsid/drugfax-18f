@@ -2,12 +2,12 @@
 let mountie = require("express-mountie");
 let jefferson = require("express-jefferson");
 let path = require("path");
-let debug = require("app/middleware/debug");
+let auth = require("app/middleware/auth");
 
 let app = jefferson.app({
     routes: {
         "/": {
-            get: [ debug.send("auth root") ]
+            get: [ auth.index ]
         }
     }
 });

@@ -12,9 +12,10 @@ describe("/api/auth", () => {
             .expect("Content-Type", /json/)
             .end((err, res) => {
                 let body = res.body;
-                console.log("INSPECTING", body);
-                expect(body.status).to.equal("ok");
                 expect(err).to.be.null;
+                expect(body.methods).to.be.an.array;
+                expect(body.methods.length).to.be.greaterThan(0);
+                expect(body.links).to.be.an.object;
                 done();
             });
     });

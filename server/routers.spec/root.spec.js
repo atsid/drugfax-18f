@@ -12,7 +12,7 @@ describe("/api", () => {
             .expect("Content-Type", /json/)
             .end((err, res) => {
                 expect(err).to.be.null;
-                // TODO: Check auth type details
+                expect(res.body.status).to.equal("ok");
                 done();
             });
     });
