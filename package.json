@@ -10,7 +10,7 @@
     "posttest": "./scripts/npm/posttest.sh",
     "develop": "gulp develop",
     "mergecoverage": "lcov-result-merger 'target/test-reports/**/lcov.info' target/lcov_combined.info",
-    "reportcoverage": "codeclimate < target/lcov_combined.info"
+    "reportcoverage": "codeclimate < target/test-reports/combined/lcov.info"
   },
   "repository": {
     "type": "git",
