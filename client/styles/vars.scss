@@ -16,3 +16,14 @@ $fontFamily: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 14px;
 }
+
+@mixin centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin muted {
+    color: $mutedColor;
+}

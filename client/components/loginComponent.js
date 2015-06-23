@@ -2,6 +2,7 @@
 
 let React = require("react");
 let findDOMNode = React.findDOMNode;
+let StyledButton = require("./common/styledButton");
 
 var auth = {
     login: function() {
@@ -53,27 +54,19 @@ let LoginComponent = React.createClass({
                 </div>
             </div>
             <div className={"loginComponent__loginOptions"}>
-                <div className={"loginComponent__loginOptions__container"}>
-                    <div className={"loginComponent__loginOptions__container__oauthLogin"}>
-                        <span>Sign In</span>
-                        <div className={"loginComponent__loginOptions__container__oauthLogin__twitterLogin"}>
-                            <span className={"button button--primary button--large button--withIcon"}>
-                                <i className={"fa fa-twitter"}></i>
-                                <span className={"text-md"}>SIGN IN WITH TWITTER</span>
-                            </span>
-                        </div>
-                        <div className={"loginComponent__loginOptions__container__oauthLogin__facebookLogin"}>
-                            <span className={"button button--primary button--large button--withIcon"}>
-                                <i className={"fa fa-facebook"}></i>
-                                <span className={"text-md"}>SIGN IN WITH FACEBOOK</span>
-                            </span>
-                        </div>
-                    </div>
-                    <div className={"muted text-md centered padded"}>-or-</div>
-                    <div className={"loginComponent__loginOptions__container__demoLogin"}>
-                        <span className={"button button--primary button--large text-md"}>Demo Account</span>
-                    </div>
+                <div className={"loginOptions__oauthLogin"}>
+                    <div>Sign In</div>
+                    <StyledButton icon="fa-twitter" className={"twitterButton"}>
+                        <span>SIGN IN WITH TWITTER</span>
+                    </StyledButton>
+                    <StyledButton icon="fa-facebook" className={"facebookButton"}>
+                        <span>SIGN IN WITH FACEBOOK</span>
+                    </StyledButton>
                 </div>
+                <div className={"muted text-md text-centered padded"}>-or-</div>
+                <StyledButton className={"demoButton"}>
+                    <span>DEMO ACCOUNT</span>
+                </StyledButton>
             </div>
         </div>
     );
