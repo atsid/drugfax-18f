@@ -1,5 +1,5 @@
 "use strict";
-let main = require("app/main");
-let startup = main.start();
+let app = require("app/app");
+let hooks = require("app/startup_hooks");
 
-module.exports = () => startup.startupPromise.then(() => startup.app);
+module.exports = () => hooks.resolve().then(() => app);

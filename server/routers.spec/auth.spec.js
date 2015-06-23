@@ -2,13 +2,10 @@
 let chai = require("chai");
 let expect = chai.expect;
 let request = require("supertest");
+let app = require("app/app");
 
 describe("/api/auth", () => {
-    let app = null;
-    beforeEach(() => {
-        return require("./app")().then((result) => app = result);
-    });
-
+    beforeEach(() => require("app/startup_hooks").resolve());
     it("is emits authentication details", (done) => {
         request(app)
             .get("/api/auth/")

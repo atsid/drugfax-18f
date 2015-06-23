@@ -2,13 +2,9 @@
 let chai = require("chai");
 let expect = chai.expect;
 let request = require("supertest");
+let app = require("app/app");
 
 describe("/api", () => {
-    let app = null;
-    beforeEach(() => {
-        return require("./app")().then((result) => app = result);
-    });
-
     it("is emits a root data payload", (done) => {
         request(app)
             .get("/api")
