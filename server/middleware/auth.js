@@ -2,8 +2,10 @@
 
 let index = (req, res) => {
     res.json({
-        methods: ["facebook"],
+        methods: ["local", "facebook"],
         links: {
+            "current": "/auth/current",
+            "local": "/auth/local",
             "facebook": "/auth/facebook"
         }
     });

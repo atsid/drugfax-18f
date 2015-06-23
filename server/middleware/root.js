@@ -1,6 +1,6 @@
 "use strict";
 
-let get = (req, res, next) => {
+let get = (req, res) => {
     let payload = {
         name: "ATS 18F Pool2 Submission",
         status: "ok",
@@ -9,7 +9,7 @@ let get = (req, res, next) => {
         }
     };
     res.json(payload);
-    next();
+    res.end();
 };
 
 module.exports = { get };

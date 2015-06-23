@@ -10,12 +10,12 @@ describe("The Root Middleware", () => {
             json: (data) => {
                 sentJson = true;
                 expect(data.status).to.equal("ok");
+            },
+            end: () => {
+                expect(sentJson).to.be.true;
+                done();
             }
         };
-        let next = () => {
-            expect(sentJson).to.be.true;
-            done();
-        };
-        root.get({}, res, next);
+        root.get({}, res);
     });
 });

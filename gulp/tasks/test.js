@@ -3,6 +3,7 @@ let gulp = require("gulp");
 let mocha = require("gulp-mocha");
 let istanbul = require("gulp-istanbul");
 let isparta = require("isparta");
+let exit = require("gulp-exit");
 let config = require("../config");
 let src = config.globs.src;
 let out = config.globs.out;
@@ -21,6 +22,7 @@ let instrument = (sourceGlob, reportDir, callback) => {
                         dir: reportDir,
                         reporters: ["lcov", "text-summary"]
                     }))
+                    .pipe(exit())
                     .on("end", resolve)
                     .on("error", reject);
             });

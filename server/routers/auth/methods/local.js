@@ -3,7 +3,7 @@ let jefferson = require("express-jefferson");
 let passport = require("passport");
 let auth = require("app/middleware/auth");
 
-module.exports = jefferson.app({
+module.exports = jefferson.router({
     routes: {
         "/": {
             post: [
