@@ -6,7 +6,8 @@ let StyledButton = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
         children: React.PropTypes.node,
-        icon: React.PropTypes.string
+        icon: React.PropTypes.string,
+        onClick: React.PropTypes.func
     },
     render: function() {
         var iconClassNames = "button__icon fa " + this.props.icon;
@@ -15,7 +16,7 @@ let StyledButton = React.createClass({
             buttonClassNames = this.props.className + " " + buttonClassNames;
         }
         return (
-            <button className={buttonClassNames}>
+            <button className={buttonClassNames} onClick={this.props.onClick}>
                 { this.props.icon ? <i className={iconClassNames}></i> : null }
                 {this.props.children}
             </button>

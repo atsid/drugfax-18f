@@ -8,4 +8,6 @@ global.document = jsdom.jsdom("<!doctype html><html><body></body></html>");
 global.window = document.parentWindow;
 global.navigator = window.navigator;
 
-global.expect = require("chai").expect;
+var chai = require("chai");
+global.expect = chai.expect;
+global.assert = chai.assert;
