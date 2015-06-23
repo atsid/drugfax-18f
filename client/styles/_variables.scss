@@ -1,0 +1,25 @@
+
+/* brand colors */
+$color-primary: #108651;
+$color-muted: #707070;
+$color-secondary: #5c7add;
+
+/* color uses */
+$text-color: #444;
+$heading-color: #222;
+$link-color: $color-secondary;
+
+/* type */
+$font-family: 'Roboto', sans-serif;
+$font-size-base: 14px;
+$line-height-base: 1.4;
+
+/* buttons */
+$button-font-weight: 500;
+$button-font-size: $font-size-base;
+$button-font-size-large: $font-size-base + 2;
+$button-padding: .4em .8em;
+$button-fg: $text-color;
+$button-bg: #fafafa;
+$button-primary-fg: #fff;
+$button-primary-bg: $color-primary;

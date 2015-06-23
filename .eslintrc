@@ -35,6 +35,7 @@
         "react"
     ],
     "globals": {
-        "expect": true
+        "expect": true,
+        "assert": true
     }
 }
