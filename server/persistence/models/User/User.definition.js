@@ -4,11 +4,7 @@ module.exports = {
      * The user's email address, which is their unique login
      */
     email: {
-        type: String,
-        index: {
-            unique: true,
-            dropDups: true
-        }
+        type: String
     },
 
     /**
