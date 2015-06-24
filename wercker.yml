@@ -33,14 +33,6 @@ build:
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
-    - internal/docker-push:
-        username: $DOCKER_REGISTRY_USERNAME
-        password: $DOCKER_REGISTRY_PASSWORD
-        tag: "$WERCKER_GIT_COMMIT"
-        ports: "9000"
-        cmd: "bash -c 'cd /pipeline/source/ && node index.js'"
-        repository: atsid/18f-rfq993471-pool2
-        registry: https://registry.hub.docker.com
 
   after-steps:
     - script:
@@ -54,6 +46,15 @@ build:
 
 deploy:
     steps:
+        - internal/docker-push:
+            username: $DOCKER_REGISTRY_USERNAME
+            password: $DOCKER_REGISTRY_PASSWORD
+            tag: "$WERCKER_GIT_COMMIT"
+            ports: "9000"
+            cmd: "bash -c 'cd /pipeline/source/ && node index.js'"
+            repository: atsid/18f-rfq993471-pool2
+            registry: https://registry.hub.docker.com
+            
         - install-packages:
             packages: unzip
 
