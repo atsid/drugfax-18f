@@ -94,7 +94,7 @@ deploy:
                 {
                   "AWSEBDockerrunVersion": "1",
                   "Authentication": {
-                    "Bucket": "sensitive-keys",
+                    "Bucket": "sensitive-keys-us-east-1",
                     "Key": "docker/atsid/dockercfg"
                   },
                   "Image": {
