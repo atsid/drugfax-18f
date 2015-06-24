@@ -3,12 +3,13 @@ let gulp = require("gulp");
 let mocha = require("gulp-mocha");
 let istanbul = require("gulp-istanbul");
 let isparta = require("isparta");
+let exit = require("gulp-exit");
 let config = require("../config");
 let src = config.globs.src;
 let out = config.globs.out;
 
 let instrument = (sourceGlob, reportDir, callback) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         gulp.src(sourceGlob)
             .pipe(istanbul({
                 instrumenter: isparta.Instrumenter,
@@ -17,11 +18,13 @@ let instrument = (sourceGlob, reportDir, callback) => {
             .pipe(istanbul.hookRequire())
             .on("finish", () => {
                 callback()
-                .pipe(istanbul.writeReports({
+                    .pipe(istanbul.writeReports({
                         dir: reportDir,
                         reporters: ["lcov", "text-summary"]
-                }))
-                .on("end", resolve);
+                    }))
+                    .pipe(exit())
+                    .on("end", resolve)
+                    .on("error", reject);
             });
     });
 };

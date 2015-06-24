@@ -1,27 +1,16 @@
 "use strict";
-let http = require("http");
-let path = require("path");
 let config = require("config");
 let debug = require("debug")("app:main");
-let express = require("express");
-let mountie = require("express-mountie");
 let startupHooks = require("./startup_hooks");
-let initialization = require("./initialization");
+let server = require("./server");
 
 module.exports = {
     start () {
         debug("starting the application");
-        let app = express();
         let emitListeningMessage = () => console.log("server listening on port " + config.server.port);
-        let startListening = () => http.createServer(app).listen(config.server.port, emitListeningMessage);
+        let startListening = () => server.listen(config.server.port, emitListeningMessage);
         let catchError = err => console.error("error starting application", err);
-        initialization.configure(app);
-        mountie({
-            parent: app,
-            src: path.join(__dirname, "routers"),
-            prefix: (name) => (name === "root" ? "/api/" : `/api/${name}`)
-        });
-        startupHooks.resolve()
+        return startupHooks.resolve()
             .then(startListening)
             .catch(catchError);
     }
