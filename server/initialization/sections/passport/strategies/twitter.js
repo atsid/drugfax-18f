@@ -8,7 +8,7 @@ let hat = require("hat");
 let createUserObject = (twitterProfile) => {
     return {
         twitterId: twitterProfile.id,
-        email: twitterProfile.username + "@twitter.com",
+        name: twitterProfile.name,
         password: hat()
     };
 };
@@ -20,7 +20,7 @@ module.exports = () => {
             callbackURL: config.auth.twitter.callbackURL
         },
         function(token, tokenSecret, profile, done) {
-            debug("Authenticating Twitter Profile", profile);
+            debug("Authenticating Twitter Profile: " + profile.id, profile);
             User.findOneQ({ twitterId: "" + profile.id })
                 .then((found) => found || User.createQ(createUserObject(profile)))
                 .then((user) => done(null, user))

@@ -8,7 +8,7 @@ module.exports = jefferson.router({
             get: [passport.authenticate("facebook")]
         },
         "/callback": {
-            get: [passport.authenticate("facebook", {failureRedirect: "/"})]
+            get: [passport.authenticate("facebook", {failureRedirect: "/#/login"})]
         }
     }
 });

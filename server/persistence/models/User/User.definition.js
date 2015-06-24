@@ -5,7 +5,6 @@ module.exports = {
      */
     email: {
         type: String,
-        required: true,
         index: {
             unique: true,
             dropDups: true
@@ -16,12 +15,7 @@ module.exports = {
      * A name by which we can address the user
      */
     name: {
-        first: {
-            type: String
-        },
-        last: {
-            type: String
-        }
+        type: String
     },
 
     /**
@@ -36,13 +30,21 @@ module.exports = {
      * A user's unique Facebook profile ID
      */
     facebookId: {
-        type: String
+        type: String,
+        index: {
+            unique: true,
+            dropDups: true
+        }
     },
 
     /**
      * A user's unique Twitter profile ID
      */
     twitterId: {
-        type: String
+        type: String,
+        index: {
+            unique: true,
+            dropDups: true
+        }
     }
 };

@@ -8,7 +8,7 @@ module.exports = jefferson.router({
             get: [passport.authenticate("twitter")]
         },
         "/callback": {
-            get: [passport.authenticate("twitter", {failureRedirect: "/"})]
+            get: [passport.authenticate("twitter", {failureRedirect: "/#/login"})]
         }
     }
 });
