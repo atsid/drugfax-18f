@@ -13,7 +13,8 @@ var chai = require("chai");
 global.expect = chai.expect;
 global.assert = chai.assert;
 
-module.exports = {
+let React = require("react/addons");
+var helpers = {
     util: {
         fakePromise() {
             var me = {
@@ -29,6 +30,48 @@ module.exports = {
             };
 
             return me;
+        },
+        getStubRouter(type, stubs) {
+            function RouterStub() { }
+
+            Object.assign(type === "object" ? RouterStub.prototype : RouterStub, {
+                makePath () {},
+                makeHref () {},
+                transitionTo () {},
+                replaceWith () {},
+                goBack () {},
+                getCurrentPath () {},
+                getCurrentRoutes () {},
+                getCurrentPathname () {},
+                getCurrentParams () {},
+                getCurrentQuery () {},
+                isActive () {},
+                getRouteAtDepth() {},
+                setRouteComponentAtDepth() {}
+            }, stubs);
+
+            return type === "object" ? new RouterStub() : RouterStub;
+        },
+        stubRouterContext(Component, routerType, props, stubs) {
+            return React.createClass({
+                childContextTypes: {
+                    router: routerType === "object" ? React.PropTypes.object : React.PropTypes.func,
+                    routeDepth: React.PropTypes.number
+                },
+
+                getChildContext () {
+                    return {
+                        router: helpers.util.getStubRouter(routerType, stubs),
+                        routeDepth: 0
+                    };
+                },
+
+                render () {
+                    return (<Component {...props} />);
+                }
+            });
         }
     }
 };
+
+module.exports = helpers;

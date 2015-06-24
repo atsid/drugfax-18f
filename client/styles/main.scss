@@ -3,11 +3,23 @@
 @import "_base";
 @import "_utilities";
 @import "_type";
-@import "components/_login.scss";
+@import "components/_form";
 @import "components/_button";
+@import "components/_navigation";
+@import "components/_searchField";
+@import "components/_login";
+@import "components/_drugs";
+@import "components/_drugList";
+@import "components/_drugDetails";
 
 .app,
 .app-container {
     width: 100%;
     height: 100%;
+}
+
+.app-container__content {
+    position: relative;
+    height: 100%;
+    margin-left: 80px;
 }
