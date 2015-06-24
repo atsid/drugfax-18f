@@ -12,6 +12,7 @@ module.exports = {
         let catchError = err => console.error("error starting application", err);
         return startupHooks.resolve()
             .then(startListening)
+            .then(() => server)
             .catch(catchError);
     }
 };

@@ -24,7 +24,13 @@ let getCurrentUser = (req, res) => {
     res.end();
 };
 
+let logout = (req, res) => {
+    req.logout();
+    res.redirect("/");
+};
+
 module.exports = {
     index,
+    logout,
     getCurrentUser
 };

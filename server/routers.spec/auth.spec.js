@@ -8,13 +8,9 @@ let Session = require("supertest-session")({
 
 describe("/api/auth", () => {
     let sess = null;
-    beforeEach(() => {
-        sess = new Session();
-        return require("../startup_hooks").resolve();
-    });
-    afterEach(() => {
-        sess.destroy();
-    });
+    beforeEach(() => require("../startup_hooks").resolve());
+    beforeEach(() => sess = new Session());
+    afterEach(() => sess.destroy());
 
     it("GET emits authentication details", (done) => {
         sess.get("/api/auth/")

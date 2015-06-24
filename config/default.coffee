@@ -1,8 +1,8 @@
 module.exports =
     auth:
         facebook:
-            clientID: ""
-            clientSecret: ""
+            clientID: "1414028015593160"
+            clientSecret: "bogus_secret"
             callbackUrl: "http://localhost:9000/api/auth/facebook/callback"
 
     security:
