@@ -2,7 +2,7 @@
 
 let React = require("react");
 let { Navigation } = require("react-router");
-let request = require("request");
+let request = require("superagent");
 
 module.exports = {
     /**
@@ -47,17 +47,15 @@ module.exports = {
      */
     getJSON(url) {
         return new Promise((resolve, reject) => {
-            let baseUrl = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "");
-            request.get(baseUrl + url, (error, response, body) => {
-                if (!error) {
-                    if (response.statusCode < 400){
-                        response.body = body;
+            request
+                .get(url)
+                .end((err, res) => {
+                    if (res.ok) {
+                        resolve(res);
+                    } else {
+                        reject(err, res);
                     }
-                    resolve(response);
-                } else {
-                    reject(error);
-                }
-            });
+                });
         });
     },
 
@@ -66,22 +64,16 @@ module.exports = {
      */
     postJSON(url, data) {
         return new Promise((resolve, reject) => {
-            let baseUrl = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "");
-            var options = {
-                uri: baseUrl + url,
-                method: "POST",
-                json: data
-            };
-            request(options, function (error, response, body) {
-                if (!error) {
-                    if (response.statusCode < 400){
-                        response.body = body;
+            request
+                .post(url)
+                .send(data)
+                .end((err, res) => {
+                    if (res.ok) {
+                        resolve(res);
+                    } else {
+                        reject(err, res);
                     }
-                    resolve(response);
-                } else {
-                    reject(error);
-                }
-            });
+                });
         });
     }
 };
