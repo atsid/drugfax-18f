@@ -8,22 +8,15 @@ let browserify = require("browserify");
 let babelify = require("babelify");
 let uglifyify = require("uglifyify");
 let source = require("vinyl-source-stream");
+let envify = require("envify/custom");
 let buffer = require("vinyl-buffer");
 
 gulp.task("browserify", function() {
 
-    let transforms = [babelify];
-    let debug = true;
-
-    if (process.env.NODE_ENV === "production") {
-        transforms.push([uglifyify, { global: true }]);
-        debug = false;
-    }
-
     var b = browserify({
         entries: config.globs.src.CLIENT_ENTRIES,
-        transform: transforms,
-        debug: debug,
+        transform: [babelify, [envify({_: "purge", NODE_ENV: "production"}), { global: true }], [uglifyify, { global: true }]],
+        debug: false,
         cache: {},
         packageCache: {}
     });
