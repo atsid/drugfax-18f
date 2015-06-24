@@ -5,7 +5,7 @@ let request = require("supertest");
 let app = require("../server");
 
 describe("/users", () => {
-    beforeEach(() => require("app/startup_hooks").resolve());
+    beforeEach(() => require("../startup_hooks").resolve());
 
     it("POST will create a new user", (done) => {
         request(app)

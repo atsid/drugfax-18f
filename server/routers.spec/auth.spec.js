@@ -8,7 +8,7 @@ let Session = require("supertest-session")({
 
 describe("/api/auth", () => {
     let sess = null;
-    beforeEach(() => require("app/startup_hooks").resolve());
+    beforeEach(() => require("../startup_hooks").resolve());
     beforeEach(() => sess = new Session());
     afterEach(() => sess.destroy());
 
