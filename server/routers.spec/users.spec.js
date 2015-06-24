@@ -2,7 +2,7 @@
 let chai = require("chai");
 let expect = chai.expect;
 let request = require("supertest");
-let app = require("app/server");
+let app = require("../server");
 
 describe("/users", () => {
     it("POST will create a new user", (done) => {

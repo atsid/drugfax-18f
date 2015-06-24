@@ -1,6 +1,6 @@
 "use strict";
 let jefferson = require("express-jefferson");
-let root = require("app/middleware/root");
+let root = require("../middleware/root");
 
 let router = jefferson.router({
     routes: {
