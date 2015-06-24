@@ -30,21 +30,13 @@ module.exports = {
      * A user's unique Facebook profile ID
      */
     facebookId: {
-        type: String,
-        index: {
-            unique: true,
-            dropDups: true
-        }
+        type: String
     },
 
     /**
      * A user's unique Twitter profile ID
      */
     twitterId: {
-        type: String,
-        index: {
-            unique: true,
-            dropDups: true
-        }
+        type: String
     }
 };
