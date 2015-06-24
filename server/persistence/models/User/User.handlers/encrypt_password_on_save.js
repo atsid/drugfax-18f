@@ -6,8 +6,8 @@ module.exports = function (next) {
     let user = this,
         isPasswordModified = user.isModified("password");
 
-    if (isPasswordModified) {
-        debug("password change detected for ", user.email);
+    if (user.password && isPasswordModified) {
+        debug("password change detected for ", user.email || user.name);
         passwordChecker.encryptPassword(user.password)
             .then((hash) => {
                 user.password = hash;

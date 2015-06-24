@@ -1,17 +1,9 @@
 "use strict";
 let config = require("config");
 let TwitterStrategy = require("passport-twitter").Strategy;
-let User = require("../../../../persistence").models.User;
+let User = require("../../../../../persistence").models.User;
 let debug = require("debug")("app:auth");
-let hat = require("hat");
-
-let createUserObject = (twitterProfile) => {
-    return {
-        twitterId: twitterProfile.id,
-        name: twitterProfile.name,
-        password: hat()
-    };
-};
+let convert = require("./convert_twitter_profile");
 
 module.exports = () => {
     return new TwitterStrategy({
@@ -22,7 +14,7 @@ module.exports = () => {
         function(token, tokenSecret, profile, done) {
             debug("Authenticating Twitter Profile: " + profile.id, profile);
             User.findOneQ({ twitterId: "" + profile.id })
-                .then((found) => found || User.createQ(createUserObject(profile)))
+                .then((found) => found || User.createQ(convert(profile)))
                 .then((user) => done(null, user))
                 .catch((err) => {
                     debug("error authenticating via twitter", err);
