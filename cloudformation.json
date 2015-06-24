@@ -444,7 +444,10 @@
                 "SourceDestCheck" : "false",
                 "ImageId" : { "Fn::FindInMap" : [ "AWSNATRegionArch2AMI", { "Ref" : "AWS::Region" },
                     { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "NATInstanceType" }, "Arch" ] } ] },
-                "SecurityGroupIds" : [{ "Ref" : "NATSecurityGroup" }]
+                "SecurityGroupIds" : [{ "Ref" : "NATSecurityGroup" }],
+                "Tags": [
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "nat"]]}}
+                ]
             }
         },
 
@@ -569,7 +572,8 @@
                 "SolutionStackName" : "64bit Amazon Linux 2015.03 v1.4.3 running Docker 1.6.2",
                 "VersionLabel" : { "Ref" : "SampleApplicationVersion" },
                 "OptionSettings" : [
-                    {"Namespace" : "aws:elasticbeanstalk:environment", "OptionName": "EnvironmentType", "Value": "SingleInstance"},
+                    {"Namespace" : "aws:elb:loadbalancer", "OptionName": "LoadBalancerHTTPSPort", "Value": "443"},
+                    {"Namespace" : "aws:elb:loadbalancer", "OptionName": "SSLCertificateId", "Value": { "Ref": "SSLCertificateArn" }},
                     {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "SSHSourceRestriction", "Value" : { "Fn::Join" : [ "", ["tcp,22,22,", { "Ref" : "BastionSecurityGroup" }]]}},
                     {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "SecurityGroups", "Value" : { "Ref" : "BeanstalkSecurityGroup" }},
                     {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "EC2KeyName", "Value" : { "Ref" : "KeyName" }},
