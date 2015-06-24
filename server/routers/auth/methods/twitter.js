@@ -5,10 +5,10 @@ let passport = require("passport");
 module.exports = jefferson.router({
     routes: {
         "/": {
-            get: [passport.authenticate("facebook")]
+            get: [passport.authenticate("twitter")]
         },
         "/callback": {
-            get: [passport.authenticate("facebook", {failureRedirect: "/#/login"})]
+            get: [passport.authenticate("twitter", {failureRedirect: "/#/login"})]
         }
     }
 });

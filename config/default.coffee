@@ -4,6 +4,10 @@ module.exports =
             clientID: "1414028015593160"
             clientSecret: "bogus_secret"
             callbackUrl: "http://localhost:9000/api/auth/facebook/callback"
+        twitter:
+            consumerKey: "Ila1ubIfdLB0hAbsDQfnXXknp"
+            consumerSecret: "bogus_secret"
+            callbackURL: "http://localhost:9000/api/auth/twitter/callback"
 
     security:
         sessionStateSecret: "random_gibberish"
