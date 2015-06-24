@@ -4,7 +4,7 @@ let persistence = require("../../../../persistence");
 let User = persistence.models.User;
 let config = require("config");
 let debug = require("debug")("app:auth");
-let hat = require('hat');
+let hat = require("hat");
 
 let createUserObject = (facebookProfile) => {
     return {
