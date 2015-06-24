@@ -35,7 +35,7 @@ describe("Auth", function() {
         it("should load the current user after the service returns", function() {
             var promise = replaceGetUserCall();
 
-            promise.trigger({ statusCode: 200, body: { email: "testemail" } });
+            promise.trigger({ ok: true, body: { email: "testemail" } });
 
             expect(auth.user.email).to.equal("testemail");
         });
@@ -43,7 +43,7 @@ describe("Auth", function() {
         it("should not load the current user, if the service returns 404", function() {
             var promise = replaceGetUserCall();
 
-            promise.trigger({ statusCode: 404, body: { email: "testemail" } });
+            promise.trigger({ notFound: true, body: { email: "testemail" } });
             expect(auth.user).to.not.exist;
         });
     });
@@ -92,8 +92,8 @@ describe("Auth", function() {
                 expect(loginData.email).to.equal(userData.email);
             });
 
-            createPromise.trigger({ statusCode: 200, body: userData });
-            loginPromise.trigger({ statusCode: 200, body: userData });
+            createPromise.trigger({ ok: true, body: userData });
+            loginPromise.trigger({ ok: true, body: userData });
 
             expect(loginCalled).to.be.true;
         }
