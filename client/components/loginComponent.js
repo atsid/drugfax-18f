@@ -14,7 +14,7 @@ let LoginComponent = React.createClass({
     },
 
     contextTypes: {
-        router: React.PropTypes.object.isRequired
+        router: React.PropTypes.func.isRequired
     },
 
     mixins: [Navigation],
