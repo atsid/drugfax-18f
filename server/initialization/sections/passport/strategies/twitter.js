@@ -3,6 +3,15 @@ let config = require("config");
 let TwitterStrategy = require("passport-twitter").Strategy;
 let User = require("../../../../persistence").models.User;
 let debug = require("debug")("app:auth");
+let hat = require("hat");
+
+let createUserObject = (twitterProfile) => {
+    return {
+        twitterId: twitterProfile.id,
+        email: twitterProfile.username + "@twitter.com",
+        password: hat()
+    };
+};
 
 module.exports = () => {
     return new TwitterStrategy({
@@ -12,9 +21,13 @@ module.exports = () => {
         },
         function(token, tokenSecret, profile, done) {
             debug("Authenticating Twitter Profile", profile);
-            User.findOrCreate({ twitterId: "" + profile.id }, function (err, user) {
-                return done(err, user);
-            });
+            User.findOneQ({ twitterId: "" + profile.id })
+                .then((found) => found || User.createQ(createUserObject(profile)))
+                .then((user) => done(null, user))
+                .catch((err) => {
+                    debug("error authenticating via twitter", err);
+                    done(err);
+                });
         }
     );
 };
