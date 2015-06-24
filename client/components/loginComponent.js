@@ -9,9 +9,12 @@ var Navigation = require("react-router").Navigation;
  * The login component
  */
 let LoginComponent = React.createClass({
-
     propTypes: {
         location: React.PropTypes.object
+    },
+
+    contextTypes: {
+        router: React.PropTypes.func.isRequired
     },
 
     mixins: [Navigation],
@@ -20,6 +23,7 @@ let LoginComponent = React.createClass({
         return {
           error: false
         };
+
     },
 
     /**
@@ -27,12 +31,16 @@ let LoginComponent = React.createClass({
      * @param {String} type The type of login
      */
     handleLogin(type) {
-        authentication.login(type).then(() => {
-            var location = this.props.location;
-            if (location.state && location.state.nextPathname) {
-                this.replaceWith(location.state.nextPathname);
+        authentication.login(type).then((success) => {
+            if (success) {
+                var location = this.props.location;
+                if (location && location.state && location.state.nextPathname) {
+                    this.replaceWith(location.state.nextPathname);
+                } else {
+                    this.replaceWith("/");
+                }
             } else {
-                this.replaceWith("/");
+                this.setState({ error: true });
             }
         }, () => {
             this.setState({ error: true });
