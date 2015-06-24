@@ -110,4 +110,4 @@ deploy:
 
         - script:
             name: Deploy to elastic beanstalk
-            code: cd $WERCKER_SOURCE_DIR/.tmp && eb deploy $DEPLOY_ENVIRONMENT -l "1.0.$WERCKER_GIT_COMMIT"
+            code: cd $WERCKER_SOURCE_DIR/.tmp && eb deploy $WERCKER_DEPLOYTARGET_NAME -l "1.0.$WERCKER_GIT_COMMIT"
