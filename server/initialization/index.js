@@ -1,6 +1,7 @@
 "use strict";
 let debug = require("debug")("app:initialization");
 const INIT_SECTIONS = [
+    require("./sections/helmet"),
     require("./sections/body_parsing"),
     require("./sections/route_rewriting"),
     require("./sections/static_content"),
