@@ -27,7 +27,10 @@ build:
         name: npm shrinkwrap
         code: |
           npm shrinkwrap
-    - npm-test
+    - script:
+        name: npm test
+        code: |
+          NODE_ENV=production npm test
     - script:
         name: echo nodejs information
         code: |
