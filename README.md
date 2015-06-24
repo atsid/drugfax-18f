@@ -4,14 +4,14 @@
 
 # ATS 18F Demo (Pool 2)
 
-### Install Using Docker Compose (Recommended Linux Approach)
+### Install Using Docker Compose (Recommended for Linux)
     > docker-compose build && docker-compose up
         
-### Install Using Vagrant (Easy Non-Linux Approach, Slower Startup)
+### Install Using Vagrant (Slower Startup)
     > vagrant plugin install vagrant-docker-compose
     > vagrant up
     
 ### Viewing the Application
-    * Linux or OSX+Vagrant: http://localhost:9000/
-    * OSX (Docker Compose): `> open http://$(boot2docker ip 2>/dev/null):9000`
+* **Linux or Vagrant**: `> open http://localhost:9000/`
+* **OSX via Docker Compose**: `> open http://$(boot2docker ip 2>/dev/null):9000`
 
