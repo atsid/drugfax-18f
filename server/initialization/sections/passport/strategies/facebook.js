@@ -1,6 +1,6 @@
 "use strict";
 let FacebookStrategy = require("passport-facebook").Strategy;
-let persistence = require("app/persistence");
+let persistence = require("../../../../persistence");
 let User = persistence.models.User;
 let config = require("config");
 let debug = require("debug")("app:auth");

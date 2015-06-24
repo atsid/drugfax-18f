@@ -1,5 +1,5 @@
 "use strict";
-var passwordChecker = require("app/components/password_checker");
+var passwordChecker = require("../../../../components/password_checker");
 let debug = require("debug")("app:models:user:encrypt_on_save");
 
 module.exports = function (next) {

@@ -1,6 +1,6 @@
 "use strict";
-let User = require("app/persistence").models.User;
-let NotFoundError = require("app/errors/not_found");
+let User = require("../persistence").models.User;
+let NotFoundError = require("../errors/not_found");
 
 let create = (req, res) => {
     let email = req.body.email;

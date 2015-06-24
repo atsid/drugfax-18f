@@ -1,7 +1,7 @@
 "use strict";
-let LocalStrategy = require("passport-local").Strategy;
-let persistence = require("app/persistence");
-let debug = require("debug")("app:auth");
+var LocalStrategy = require("passport-local").Strategy;
+var persistence = require("../../../../persistence");
+var debug = require("debug")("app:auth");
 
 module.exports = () => {
     let User = persistence.models.User;

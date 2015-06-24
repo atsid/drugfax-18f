@@ -1,7 +1,7 @@
 "use strict";
 let chai = require("chai");
 let expect = chai.expect;
-let app = require("app/server");
+let app = require("../server");
 let Session = require("supertest-session")({
     app: app
 });

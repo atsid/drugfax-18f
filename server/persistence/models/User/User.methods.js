@@ -1,5 +1,5 @@
 "use strict";
-let passwordChecker = require("app/components/password_checker");
+let passwordChecker = require("../../../components/password_checker");
 
 /**
  * Determines if the given password matches the user"s password

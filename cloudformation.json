@@ -1,0 +1,650 @@
+{
+    "AWSTemplateFormatVersion" : "2010-09-09",
+    "Description" : "Docker Application CloudFormation Stack",
+    "Parameters" : {
+        "BastionKeyName": {
+            "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the bastion host",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription" : "must be the name of an existing EC2 KeyPair."
+        },
+        "KeyName": {
+            "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the Elastic Beanstalk hosts",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription" : "must be the name of an existing EC2 KeyPair."
+        },
+        "SSHLocation" : {
+            "Description" : "Lockdown SSH access to the bastion host (default can be accessed from anywhere)",
+            "Type" : "String",
+            "MinLength": "9",
+            "MaxLength": "18",
+            "Default" : "0.0.0.0/0",
+            "AllowedPattern" : "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+            "ConstraintDescription" : "must be a valid CIDR range of the form x.x.x.x/x."
+        },
+        "BastionInstanceType" : {
+            "Description" : "Bastion Host EC2 instance type",
+            "Type" : "String",
+            "Default" : "t2.micro",
+            "AllowedValues" : [ "t1.micro", "t2.micro", "t2.small", "t2.medium", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"],
+            "ConstraintDescription" : "must be a valid EC2 instance type."
+        },
+        "NATInstanceType" : {
+            "Description" : "NAT Device EC2 instance type",
+            "Type" : "String",
+            "Default" : "t2.micro",
+            "AllowedValues" : [ "t1.micro", "t2.micro", "t2.small", "t2.medium", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"],
+            "ConstraintDescription" : "must be a valid EC2 instance type."
+        },
+        "IntegInstanceType" : {
+            "Description" : "Production EC2 instance type",
+            "Type" : "String",
+            "Default" : "t2.micro",
+            "AllowedValues" : [ "t1.micro", "t2.micro", "t2.small", "t2.medium", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"],
+            "ConstraintDescription" : "must be a valid EC2 instance type."
+        },
+        "ProdInstanceType" : {
+            "Description" : "Production EC2 instance type",
+            "Type" : "String",
+            "Default" : "t2.medium",
+            "AllowedValues" : [ "t1.micro", "t2.micro", "t2.small", "t2.medium", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"],
+            "ConstraintDescription" : "must be a valid EC2 instance type."
+        },
+        "S3Bucket": {
+            "Type": "String",
+            "Default": "elasticbeanstalk-us-west-2-943291351674",
+            "Description": "Initial version S3 Bucket name"
+        },
+        "S3Key": {
+            "Type": "String",
+            "Default": "18F/us-east-1-2.zip",
+            "Description": "Initial version S3 Key name"
+        },
+        "ApplicationName": {
+            "Type": "String",
+            "Default": "DrugFax",
+            "Description": "The name of the application (for Beanstalk)"
+        },
+        "ApplicationDescription": {
+            "Type": "String",
+            "Default": "DrugFax 18F Pool 2 Demo",
+            "Description": "A description of the application"
+        },
+        "SSLCertificateArn": {
+            "Type": "String",
+            "Description": "ARN of the SSL Certificate to use in production",
+            "Default": "arn:aws:iam::943291351674:server-certificate/atsid.net.wildcard"
+        },
+        "IntegDbConnectionString": {
+            "Type": "String",
+            "Description": "Production Database Connection String"
+        },
+        "ProdDbConnectionString": {
+            "Type": "String",
+            "Description": "Production Database Connection String"
+        },
+        "IntegNodeEnv": {
+            "Type": "String",
+            "Default": "integration"
+        },
+        "ProdNodeEnv": {
+            "Type": "String",
+            "Default": "production"
+        },
+        "IntegSessionStateSecret": {
+            "Type": "String",
+            "Description": "A string used to encrypt session state in integration"
+        },
+        "ProdSessionStateSecret": {
+            "Type": "String",
+            "Description": "A string used to encrypt session state in production"
+        },
+        "IntegFacebookCallbackUrl": {
+            "Type": "String",
+            "Description": "The integration facebook callback url"
+        },
+        "ProdFacebookCallbackUrl": {
+            "Type": "String",
+            "Description": "The production facebook callback url"
+        },
+        "FacebookClientSecret": {
+            "Type": "String",
+            "Description": "The Facebook Client Secret"
+        }
+    },
+    "Mappings" : {
+        "SubnetConfig" : {
+            "VPC"     : { "CIDR" : "10.0.0.0/16" },
+            "Public"  : { "CIDR" : "10.0.0.0/24" },
+            "Private" : { "CIDR" : "10.0.1.0/24" }
+        },
+        "AWSInstanceType2Arch" : {
+            "t1.micro"    : { "Arch" : "PV64"   },
+            "t2.micro"    : { "Arch" : "HVM64"  },
+            "t2.small"    : { "Arch" : "HVM64"  },
+            "t2.medium"   : { "Arch" : "HVM64"  },
+            "m1.small"    : { "Arch" : "PV64"   },
+            "m1.medium"   : { "Arch" : "PV64"   },
+            "m1.large"    : { "Arch" : "PV64"   },
+            "m1.xlarge"   : { "Arch" : "PV64"   },
+            "m2.xlarge"   : { "Arch" : "PV64"   },
+            "m2.2xlarge"  : { "Arch" : "PV64"   },
+            "m2.4xlarge"  : { "Arch" : "PV64"   },
+            "m3.medium"   : { "Arch" : "HVM64"  },
+            "m3.large"    : { "Arch" : "HVM64"  },
+            "m3.xlarge"   : { "Arch" : "HVM64"  },
+            "m3.2xlarge"  : { "Arch" : "HVM64"  },
+            "c1.medium"   : { "Arch" : "PV64"   },
+            "c1.xlarge"   : { "Arch" : "PV64"   },
+            "c3.large"    : { "Arch" : "HVM64"  },
+            "c3.xlarge"   : { "Arch" : "HVM64"  },
+            "c3.2xlarge"  : { "Arch" : "HVM64"  },
+            "c3.4xlarge"  : { "Arch" : "HVM64"  },
+            "c3.8xlarge"  : { "Arch" : "HVM64"  },
+            "c4.large"    : { "Arch" : "HVM64"  },
+            "c4.xlarge"   : { "Arch" : "HVM64"  },
+            "c4.2xlarge"  : { "Arch" : "HVM64"  },
+            "c4.4xlarge"  : { "Arch" : "HVM64"  },
+            "c4.8xlarge"  : { "Arch" : "HVM64"  },
+            "g2.2xlarge"  : { "Arch" : "HVMG2"  },
+            "r3.large"    : { "Arch" : "HVM64"  },
+            "r3.xlarge"   : { "Arch" : "HVM64"  },
+            "r3.2xlarge"  : { "Arch" : "HVM64"  },
+            "r3.4xlarge"  : { "Arch" : "HVM64"  },
+            "r3.8xlarge"  : { "Arch" : "HVM64"  },
+            "i2.xlarge"   : { "Arch" : "HVM64"  },
+            "i2.2xlarge"  : { "Arch" : "HVM64"  },
+            "i2.4xlarge"  : { "Arch" : "HVM64"  },
+            "i2.8xlarge"  : { "Arch" : "HVM64"  },
+            "hi1.4xlarge" : { "Arch" : "HVM64"  },
+            "hs1.8xlarge" : { "Arch" : "HVM64"  },
+            "cr1.8xlarge" : { "Arch" : "HVM64"  },
+            "cc2.8xlarge" : { "Arch" : "HVM64"  }
+        },
+        "AWSRegionArch2AMI" : {
+            "us-east-1"        : {"PV64" : "ami-50311038", "HVM64" : "ami-5231103a", "HVMG2" : "ami-8c6b40e4"},
+            "us-west-2"        : {"PV64" : "ami-5d79546d", "HVM64" : "ami-43795473", "HVMG2" : "ami-abbe919b"},
+            "us-west-1"        : {"PV64" : "ami-eb4fa8af", "HVM64" : "ami-f74fa8b3", "HVMG2" : "ami-f31ffeb7"},
+            "eu-west-1"        : {"PV64" : "ami-a71588d0", "HVM64" : "ami-a51588d2", "HVMG2" : "ami-d5bc24a2"},
+            "eu-central-1"     : {"PV64" : "ami-ac5c61b1", "HVM64" : "ami-a25c61bf", "HVMG2" : "ami-7cd2ef61"},
+            "ap-northeast-1"   : {"PV64" : "ami-8d1df78d", "HVM64" : "ami-a51df7a5", "HVMG2" : "ami-6318e863"},
+            "ap-southeast-1"   : {"PV64" : "ami-887041da", "HVM64" : "ami-5e73420c", "HVMG2" : "ami-3807376a"},
+            "ap-southeast-2"   : {"PV64" : "ami-bb1e6e81", "HVM64" : "ami-ad1e6e97", "HVMG2" : "ami-89790ab3"},
+            "sa-east-1"        : {"PV64" : "ami-29aa1234", "HVM64" : "ami-27aa123a", "HVMG2" : "NOT_SUPPORTED"},
+            "cn-north-1"       : {"PV64" : "ami-503aa869", "HVM64" : "ami-543aa86d", "HVMG2" : "NOT_SUPPORTED"}
+        },
+        "AWSNATRegionArch2AMI" : {
+            "us-east-1"        : {"PV64" : "ami-224dc94a", "HVM64" : "ami-4c9e4b24"},
+            "us-west-2"        : {"PV64" : "ami-030f4133", "HVM64" : "ami-bb69128b"},
+            "us-west-1"        : {"PV64" : "ami-838396c6", "HVM64" : "ami-2b2b296e"},
+            "eu-west-1"        : {"PV64" : "ami-30913f47", "HVM64" : "ami-3760b040"},
+            "eu-central-1"     : {"PV64" : "ami-ac380eb1", "HVM64" : "ami-204c7a3d"},
+            "ap-northeast-1"   : {"PV64" : "ami-11d6e610", "HVM64" : "ami-55c29e54"},
+            "ap-southeast-1"   : {"PV64" : "ami-70a38222", "HVM64" : "ami-b082dae2"},
+            "ap-southeast-2"   : {"PV64" : "ami-39d3be03", "HVM64" : "ami-996402a3"},
+            "sa-east-1"        : {"PV64" : "ami-9122968c", "HVM64" : "ami-b972dba4"},
+            "cn-north-1"       : {"PV64" : "ami-1848da21", "HVM64" : "NOT_SUPPORTED"}
+        },
+        "Region2Principal" : {
+            "us-east-1"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+            "us-west-2"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+            "us-west-1"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+            "eu-west-1"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+            "ap-southeast-1" : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+            "ap-northeast-1" : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+            "ap-southeast-2" : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+            "sa-east-1"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+            "cn-north-1"     : { "EC2Principal" : "ec2.amazonaws.com.cn", "OpsWorksPrincipal" : "opsworks.amazonaws.com.cn" },
+            "eu-central-1"   : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" }
+        }
+    },
+
+    "Resources" : {
+        "VPC" : {
+            "Type" : "AWS::EC2::VPC",
+            "Properties" : {
+                "CidrBlock" : { "Fn::FindInMap" : [ "SubnetConfig", "VPC", "CIDR" ]},
+                "Tags" : [
+                    { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
+                    { "Key" : "Network", "Value" : "Public" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "vpc"]]}}
+                ]
+            }
+        },
+
+        "PublicSubnet" : {
+            "Type" : "AWS::EC2::Subnet",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "CidrBlock" : { "Fn::FindInMap" : [ "SubnetConfig", "Public", "CIDR" ]},
+                "Tags" : [
+                    { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
+                    { "Key" : "Network", "Value" : "Public" }
+                ]
+            }
+        },
+
+        "InternetGateway" : {
+            "Type" : "AWS::EC2::InternetGateway",
+            "Properties" : {
+                "Tags" : [
+                    { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
+                    { "Key" : "Network", "Value" : "Public" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "igw"]]}}
+                ]
+            }
+        },
+
+        "GatewayToInternet" : {
+            "Type" : "AWS::EC2::VPCGatewayAttachment",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "InternetGatewayId" : { "Ref" : "InternetGateway" }
+            }
+        },
+
+        "PublicRouteTable" : {
+            "Type" : "AWS::EC2::RouteTable",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "Tags" : [
+                    { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
+                    { "Key" : "Network", "Value" : "Public" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "public-rt"]]}}
+                ]
+            }
+        },
+
+        "PublicRoute" : {
+            "Type" : "AWS::EC2::Route",
+            "DependsOn" : "GatewayToInternet",
+            "Properties" : {
+                "RouteTableId" : { "Ref" : "PublicRouteTable" },
+                "DestinationCidrBlock" : "0.0.0.0/0",
+                "GatewayId" : { "Ref" : "InternetGateway" }
+            }
+        },
+
+        "PublicSubnetRouteTableAssociation" : {
+            "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties" : {
+                "SubnetId" : { "Ref" : "PublicSubnet" },
+                "RouteTableId" : { "Ref" : "PublicRouteTable" }
+            }
+        },
+
+        "PublicNetworkAcl" : {
+            "Type" : "AWS::EC2::NetworkAcl",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "Tags" : [
+                    { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
+                    { "Key" : "Network", "Value" : "Public" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "public-acl"]]}}
+                ]
+            }
+        },
+
+        "InboundHTTPPublicNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : { "Ref" : "PublicNetworkAcl" },
+                "RuleNumber" : "100",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "false",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : { "From" : "80", "To" : "80" }
+            }
+        },
+
+        "InboundHTTPSPublicNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : { "Ref" : "PublicNetworkAcl" },
+                "RuleNumber" : "101",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "false",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : { "From" : "443", "To" : "443" }
+            }
+        },
+
+        "InboundSSHPublicNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : { "Ref" : "PublicNetworkAcl" },
+                "RuleNumber" : "102",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "false",
+                "CidrBlock" : { "Ref" : "SSHLocation" },
+                "PortRange" : { "From" : "22", "To" : "22" }
+            }
+        },
+
+        "InboundEphemeralPublicNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : { "Ref" : "PublicNetworkAcl" },
+                "RuleNumber" : "103",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "false",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : { "From" : "1024", "To" : "65535" }
+            }
+        },
+
+        "OutboundPublicNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : { "Ref" : "PublicNetworkAcl" },
+                "RuleNumber" : "100",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "true",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : { "From" : "0", "To" : "65535" }
+            }
+        },
+
+        "PublicSubnetNetworkAclAssociation" : {
+            "Type" : "AWS::EC2::SubnetNetworkAclAssociation",
+            "Properties" : {
+                "SubnetId" : { "Ref" : "PublicSubnet" },
+                "NetworkAclId" : { "Ref" : "PublicNetworkAcl" }
+            }
+        },
+
+        "PrivateSubnet" : {
+            "Type" : "AWS::EC2::Subnet",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "CidrBlock" : { "Fn::FindInMap" : [ "SubnetConfig", "Private", "CIDR" ]},
+                "Tags" : [
+                    { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
+                    { "Key" : "Network", "Value" : "Private" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "private-sn"]]}}
+                ]
+            }
+        },
+
+        "PrivateRouteTable" : {
+            "Type" : "AWS::EC2::RouteTable",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "Tags" : [
+                    { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
+                    { "Key" : "Network", "Value" : "Private" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "private-rt"]]}}
+                ]
+            }
+        },
+
+        "PrivateSubnetRouteTableAssociation" : {
+            "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties" : {
+                "SubnetId" : { "Ref" : "PrivateSubnet" },
+                "RouteTableId" : { "Ref" : "PrivateRouteTable" }
+            }
+        },
+
+        "PrivateRoute" : {
+            "Type" : "AWS::EC2::Route",
+            "Properties" : {
+                "RouteTableId" : { "Ref" : "PrivateRouteTable" },
+                "DestinationCidrBlock" : "0.0.0.0/0",
+                "InstanceId" : { "Ref" : "NATDevice" }
+            }
+        },
+
+        "PrivateNetworkAcl" : {
+            "Type" : "AWS::EC2::NetworkAcl",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "Tags" : [
+                    { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
+                    { "Key" : "Network", "Value" : "Private" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "private-acl"]]}}
+                ]
+            }
+        },
+
+        "InboundPrivateNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : { "Ref" : "PrivateNetworkAcl" },
+                "RuleNumber" : "100",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "false",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : { "From" : "0", "To" : "65535" }
+            }
+        },
+
+        "OutBoundPrivateNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : { "Ref" : "PrivateNetworkAcl" },
+                "RuleNumber" : "100",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "true",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : { "From" : "0", "To" : "65535" }
+            }
+        },
+
+        "PrivateSubnetNetworkAclAssociation" : {
+            "Type" : "AWS::EC2::SubnetNetworkAclAssociation",
+            "Properties" : {
+                "SubnetId" : { "Ref" : "PrivateSubnet" },
+                "NetworkAclId" : { "Ref" : "PrivateNetworkAcl" }
+            }
+        },
+
+        "NATIPAddress" : {
+            "Type" : "AWS::EC2::EIP",
+            "DependsOn" : "GatewayToInternet",
+            "Properties" : {
+                "Domain" : "vpc",
+                "InstanceId" : { "Ref" : "NATDevice" }
+            }
+        },
+
+        "NATDevice" : {
+            "Type" : "AWS::EC2::Instance",
+            "Properties" : {
+                "InstanceType" : { "Ref" : "NATInstanceType" },
+                "SubnetId" : { "Ref" : "PublicSubnet" },
+                "SourceDestCheck" : "false",
+                "ImageId" : { "Fn::FindInMap" : [ "AWSNATRegionArch2AMI", { "Ref" : "AWS::Region" },
+                    { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "NATInstanceType" }, "Arch" ] } ] },
+                "SecurityGroupIds" : [{ "Ref" : "NATSecurityGroup" }],
+                "Tags": [
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "nat"]]}}
+                ]
+            }
+        },
+
+        "NATSecurityGroup" : {
+            "Type" : "AWS::EC2::SecurityGroup",
+            "Properties" : {
+                "GroupDescription" : "Enable internal access to the NAT device",
+                "VpcId" : { "Ref" : "VPC" },
+                "SecurityGroupIngress" : [
+                    { "IpProtocol" : "tcp", "FromPort" : "80",  "ToPort" : "80",  "SourceSecurityGroupId" : { "Ref" : "BeanstalkSecurityGroup" }} ,
+                    { "IpProtocol" : "tcp", "FromPort" : "443", "ToPort" : "443", "SourceSecurityGroupId" : { "Ref" : "BeanstalkSecurityGroup" } } ],
+                "SecurityGroupEgress" : [
+                    { "IpProtocol" : "tcp", "FromPort" : "80",  "ToPort" : "80",  "CidrIp" : "0.0.0.0/0" } ,
+                    { "IpProtocol" : "tcp", "FromPort" : "443", "ToPort" : "443", "CidrIp" : "0.0.0.0/0" } ]
+            }
+        },
+
+        "BastionIPAddress" : {
+            "Type" : "AWS::EC2::EIP",
+            "DependsOn" : "GatewayToInternet",
+            "Properties" : {
+                "Domain" : "vpc",
+                "InstanceId" : { "Ref" : "BastionHost" }
+            }
+        },
+
+        "BastionHost" : {
+            "Type" : "AWS::EC2::Instance",
+            "Properties" : {
+                "InstanceType" : { "Ref" : "BastionInstanceType" },
+                "KeyName"  : { "Ref" : "BastionKeyName" },
+                "SubnetId" : { "Ref" : "PublicSubnet" },
+                "ImageId"  : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" }, { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "BastionInstanceType" }, "Arch" ] } ] },
+                "SecurityGroupIds" : [{ "Ref" : "BastionSecurityGroup" }],
+                "Tags": [
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "bastion"]]}}
+                ]
+            }
+        },
+
+        "BastionSecurityGroup" : {
+            "Type" : "AWS::EC2::SecurityGroup",
+            "Properties" : {
+                "GroupDescription" : "Enable access to the Bastion host",
+                "VpcId" : { "Ref" : "VPC" },
+                "SecurityGroupIngress" : [ { "IpProtocol" : "tcp", "FromPort" : "22",  "ToPort" : "22",  "CidrIp" : { "Ref" : "SSHLocation" }} ],
+                "SecurityGroupEgress"  : [ { "IpProtocol" : "tcp", "FromPort" : "22",  "ToPort" : "22",  "CidrIp" : { "Fn::FindInMap" : [ "SubnetConfig", "Private", "CIDR" ]}}]
+            }
+        },
+
+        "BeanstalkSecurityGroup" : {
+            "Type" : "AWS::EC2::SecurityGroup",
+            "Properties" : {
+                "GroupDescription" : "Allow the Elastic Beanstalk instances to access the NAT device",
+                "VpcId" : { "Ref" : "VPC" }
+            }
+        },
+
+        "WebServerRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties" : {
+                "AssumeRolePolicyDocument" : {
+                    "Statement"  : [{
+                        "Effect"   : "Allow",
+                        "Principal": { "Service": [{ "Fn::FindInMap" : ["Region2Principal", {"Ref" : "AWS::Region"}, "EC2Principal"]}] },
+                        "Action"   : [ "sts:AssumeRole" ]
+                    } ]
+                },
+                "Path": "/"
+            }
+        },
+
+        "WebServerRolePolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName" : "WebServerRole",
+                "PolicyDocument" : {
+                    "Statement"  : [ {
+                        "Effect"    : "Allow",
+                        "NotAction" : "iam:*",
+                        "Resource"  : "*"
+                    } ]
+                },
+                "Roles": [ { "Ref": "WebServerRole" } ]
+            }
+        },
+
+        "WebServerInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [ { "Ref": "WebServerRole" } ]
+            }
+        },
+
+        "SampleApplication" : {
+            "Type" : "AWS::ElasticBeanstalk::Application",
+            "Properties" : {
+                "ApplicationName": { "Ref": "ApplicationName" },
+                "Description" : { "Ref": "ApplicationDescription" }
+            }
+        },
+
+        "SampleApplicationVersion" : {
+            "Type" : "AWS::ElasticBeanstalk::ApplicationVersion",
+            "Properties" : {
+                "Description" : "Version 1.0",
+                "ApplicationName" : { "Ref" : "SampleApplication" },
+                "SourceBundle" : {
+                    "S3Bucket" : { "Ref": "S3Bucket" },
+                    "S3Key" : { "Ref": "S3Key" }
+                }
+            }
+        },
+
+        "IntegrationEnvironment" : {
+            "Type" : "AWS::ElasticBeanstalk::Environment",
+            "Properties" : {
+                "ApplicationName" : { "Ref" : "SampleApplication" },
+                "EnvironmentName": { "Fn::Join": ["-", [{"Ref": "SampleApplication"}, "integ"]]},
+                "Description" :  "Integration Testing Environment",
+                "SolutionStackName" : "64bit Amazon Linux 2015.03 v1.4.3 running Docker 1.6.2",
+                "VersionLabel" : { "Ref" : "SampleApplicationVersion" },
+                "OptionSettings" : [
+                    {"Namespace" : "aws:elb:loadbalancer", "OptionName": "LoadBalancerHTTPSPort", "Value": "443"},
+                    {"Namespace" : "aws:elb:loadbalancer", "OptionName": "SSLCertificateId", "Value": { "Ref": "SSLCertificateArn" }},
+                    {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "SSHSourceRestriction", "Value" : { "Fn::Join" : [ "", ["tcp,22,22,", { "Ref" : "BastionSecurityGroup" }]]}},
+                    {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "SecurityGroups", "Value" : { "Ref" : "BeanstalkSecurityGroup" }},
+                    {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "EC2KeyName", "Value" : { "Ref" : "KeyName" }},
+                    {"Namespace" : "aws:ec2:vpc", "OptionName" : "VPCId", "Value" : { "Ref" : "VPC" }},
+                    {"Namespace" : "aws:ec2:vpc", "OptionName" : "Subnets", "Value" : { "Ref" : "PrivateSubnet" }},
+                    {"Namespace" : "aws:ec2:vpc", "OptionName" : "ELBSubnets", "Value" : { "Ref" : "PublicSubnet" }},
+                    {"Namespace": "aws:autoscaling:launchconfiguration", "OptionName": "IamInstanceProfile", "Value": { "Ref": "WebServerInstanceProfile" }},
+                    {"Namespace": "aws:autoscaling:launchconfiguration", "OptionName": "InstanceType", "Value": { "Ref": "IntegInstanceType"}},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "DB_CONNECTION_STRING", "Value": { "Ref": "IntegDbConnectionString" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "NODE_ENV", "Value": { "Ref": "IntegNodeEnv" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "SESSION_STATE_SECRET", "Value": { "Ref": "IntegSessionStateSecret" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CALLBACK_URL", "Value": { "Ref": "IntegFacebookCallbackUrl" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CLIENT_SECRET", "Value": { "Ref": "FacebookClientSecret" }}
+                ]
+            }
+        },
+
+        "ProductionEnvironment" : {
+            "Type" : "AWS::ElasticBeanstalk::Environment",
+            "Properties" : {
+                "ApplicationName" : { "Ref" : "SampleApplication" },
+                "EnvironmentName": { "Fn::Join": ["-", [{"Ref": "SampleApplication"}, "prod"]]},
+                "Description" :  "Production Environment",
+                "SolutionStackName" : "64bit Amazon Linux 2015.03 v1.4.3 running Docker 1.6.2",
+                "VersionLabel" : { "Ref" : "SampleApplicationVersion" },
+                "OptionSettings" : [
+                    {"Namespace" : "aws:elb:loadbalancer", "OptionName": "LoadBalancerHTTPSPort", "Value": "443"},
+                    {"Namespace" : "aws:elb:loadbalancer", "OptionName": "SSLCertificateId", "Value": { "Ref": "SSLCertificateArn" }},
+                    {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "SSHSourceRestriction", "Value" : { "Fn::Join" : [ "", ["tcp,22,22,", { "Ref" : "BastionSecurityGroup" }]]}},
+                    {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "SecurityGroups", "Value" : { "Ref" : "BeanstalkSecurityGroup" }},
+                    {"Namespace" : "aws:autoscaling:launchconfiguration", "OptionName" : "EC2KeyName", "Value" : { "Ref" : "KeyName" }},
+                    {"Namespace" : "aws:ec2:vpc", "OptionName" : "VPCId", "Value" : { "Ref" : "VPC" }},
+                    {"Namespace" : "aws:ec2:vpc", "OptionName" : "Subnets", "Value" : { "Ref" : "PrivateSubnet" }},
+                    {"Namespace" : "aws:ec2:vpc", "OptionName" : "ELBSubnets", "Value" : { "Ref" : "PublicSubnet" }},
+                    {"Namespace": "aws:autoscaling:launchconfiguration", "OptionName": "IamInstanceProfile", "Value": { "Ref": "WebServerInstanceProfile" }},
+                    {"Namespace": "aws:autoscaling:launchconfiguration", "OptionName": "InstanceType", "Value": { "Ref": "ProdInstanceType"}},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "DB_CONNECTION_STRING", "Value": { "Ref": "ProdDbConnectionString" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "NODE_ENV", "Value": { "Ref": "ProdNodeEnv" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "SESSION_STATE_SECRET", "Value": { "Ref": "ProdSessionStateSecret" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CALLBACK_URL", "Value": { "Ref": "ProdFacebookCallbackUrl" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CLIENT_SECRET", "Value": { "Ref": "FacebookClientSecret" }}
+                ]
+            }
+        }
+    },
+    "Outputs" : {
+        "Bastion" : {
+            "Description" : "IP Address of the Bastion host",
+            "Value" :  { "Ref" : "BastionIPAddress" }
+        },
+        "URL" : {
+            "Description" : "The URL of the Elastic Beanstalk environment",
+            "Value" :  { "Fn::Join" : [ "", [ "http://", { "Fn::GetAtt" : ["IntegrationEnvironment", "EndpointURL"] }]]}
+        }
+    }
+}

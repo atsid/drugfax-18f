@@ -2,7 +2,7 @@
 let passport = require("passport");
 let localStrategy = require("./strategies/local");
 let facebookStrategy = require("./strategies/facebook");
-let persistence = require("app/persistence");
+let persistence = require("../../../persistence");
 let User = persistence.models.User;
 
 module.exports = {
