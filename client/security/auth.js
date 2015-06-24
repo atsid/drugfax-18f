@@ -55,7 +55,7 @@ class Authentication {
                     }
                 }, () => resolve(false));
             } else {
-                resolve(true);
+                window.location.href = "/api/auth/" + loginType;
             }
         });
     }
