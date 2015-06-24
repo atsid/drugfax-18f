@@ -14,6 +14,11 @@ let utils = require("./common/utils");
 var isLoggedInGuard = utils.createGuardComponent.bind(this, () => auth.isLoggedIn());
 
 window.onload = function () {
+    // Facebook Authentication adds this value to the location hash
+    if (window.location.hash.indexOf("_=_") > -1) {
+        window.location.hash = "";
+    }
+
     React.render((
         <Router history={new HashHistory()}>
             <Route path="/" component={isLoggedInGuard(AppComponent, { state: "login"})}>
