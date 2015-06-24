@@ -5,7 +5,8 @@ const INIT_SECTIONS = [
     require("./sections/route_rewriting"),
     require("./sections/static_content"),
     require("./sections/sessions"),
-    require("./sections/passport")
+    require("./sections/passport"),
+    require("./sections/error_handling")
 ];
 module.exports = {
     configure (app) {
