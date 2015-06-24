@@ -16,7 +16,7 @@ class Authentication {
                 resolve(true);
             } else {
                 utils.getJSON("/api/auth/current").then((res) => {
-                    if (res.statusCode === 404) {
+                    if (res.notFound) {
                         resolve(false);
                     } else {
                         this.user = res.body;
@@ -41,9 +41,9 @@ class Authentication {
                 };
 
                 utils.postJSON("/api/users", user).then((res) => {
-                    if (res.body && res.statusCode < 400) {
+                    if (res.ok && res.body) {
                         utils.postJSON("/api/auth/local", user).then((loginRes) => {
-                            if (loginRes.body && loginRes.statusCode < 400) {
+                            if (loginRes.ok && loginRes.body) {
                                 this.user = loginRes.body;
                                 resolve(true);
                             } else {
