@@ -33,9 +33,16 @@ module.exports = {
     },
 
     /**
-     * A user's unique facebook profile ID
+     * A user's unique Facebook profile ID
      */
     facebookId: {
+        type: String
+    },
+
+    /**
+     * A user's unique Twitter profile ID
+     */
+    twitterId: {
         type: String
     }
 };
