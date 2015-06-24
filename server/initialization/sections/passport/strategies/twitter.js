@@ -5,7 +5,7 @@ let User = require("../../../../persistence").models.User;
 let debug = require("debug")("app:auth");
 
 module.exports = () => {
-    new TwitterStrategy({
+    return new TwitterStrategy({
             consumerKey: config.auth.twitter.consumerKey,
             consumerSecret: config.auth.twitter.consumerSecret,
             callbackURL: config.auth.twitter.callbackURL
@@ -16,5 +16,5 @@ module.exports = () => {
                 return done(err, user);
             });
         }
-    )
+    );
 };
