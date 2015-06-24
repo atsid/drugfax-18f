@@ -33,6 +33,14 @@ build:
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
+    - internal/docker-push:
+        username: $DOCKER_REGISTRY_USERNAME
+        password: $DOCKER_REGISTRY_PASSWORD
+        tag: "$WERCKER_GIT_COMMIT"
+        ports: "9000"
+        cmd: "bash -c 'cd /pipeline/source/ && node index.js'"
+        repository: atsid/18f-rfq993471-pool2
+        registry: https://registry.hub.docker.com
 
   after-steps:
     - script:
@@ -77,15 +85,6 @@ deploy:
         - script:
             name: Beanstalk there?
             code: eb --version
-
-        - internal/docker-push:
-            username: $DOCKER_REGISTRY_USERNAME
-            password: $DOCKER_REGISTRY_PASSWORD
-            tag: "$WERCKER_GIT_COMMIT"
-            ports: "9000"
-            cmd: "bash -c 'cd /pipeline/source/ && node index.js'"
-            repository: atsid/18f-rfq993471-pool2
-            registry: https://registry.hub.docker.com
 
         - create-file:
             name: Add generated Dockerrun.aws.json
