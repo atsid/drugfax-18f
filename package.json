@@ -51,7 +51,8 @@
     "passport-google-oauth": "^0.2.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.3",
-    "q-bluebird": "0.0.1"
+    "q-bluebird": "0.0.1",
+    "superagent": "^1.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.17",
