@@ -1,6 +1,6 @@
 "use strict";
 
-require("../common.spec/spec.helpers");
+var { util } = require("../common.spec/spec.helpers");
 
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
@@ -8,10 +8,11 @@ let rewire = require("rewire");
 let LoginComponent = rewire("../components/loginComponent");
 
 describe("Login Component", function() {
+    var Stubbed = util.stubRouterContext(LoginComponent, "function");
 
     it("should load", function() {
         var renderedComponent = ReactTestUtils.renderIntoDocument(
-          <LoginComponent />
+          <Stubbed />
         );
         expect(renderedComponent).to.exist;
     });
@@ -33,7 +34,7 @@ describe("Login Component", function() {
             });
 
             var renderedComponent = ReactTestUtils.renderIntoDocument(
-              <LoginComponent />
+              <Stubbed />
             );
 
             var button =
