@@ -5,7 +5,7 @@ let root = require("app/middleware/root");
 let router = jefferson.router({
     routes: {
         "/": {
-            get: [ root.get ]
+            get: [root.get]
         }
     }
 });

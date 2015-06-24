@@ -5,7 +5,8 @@ let get = (req, res) => {
         name: "ATS 18F Pool2 Submission",
         status: "ok",
         links: {
-            auth: "/auth"
+            auth: "/auth",
+            users: "/users"
         }
     };
     res.json(payload);
