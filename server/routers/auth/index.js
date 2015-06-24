@@ -7,10 +7,11 @@ let auth = require("app/middleware/auth");
 let router = jefferson.router({
     routes: {
         "/": {
-            get: [ auth.index ]
+            get: [auth.index]
         },
         "/current": {
-            get: [ auth.getCurrentUser ]
+            get: [auth.getCurrentUser],
+            delete: [auth.logout]
         }
     }
 });
