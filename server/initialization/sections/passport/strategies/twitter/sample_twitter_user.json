@@ -1,0 +1,101 @@
+{
+    "id": 15360731,
+    "id_str": "15360731",
+    "name": "Chris Trevino",
+    "screen_name": "darthtrevino",
+    "location": "Silverdale, WA",
+    "profile_location": null,
+    "description": "Jesus follower; husband and father; maker of software and beer",
+    "url": "http:\\/\\/t.co\\/ehUKneR28G",
+    "entities": {
+        "url": {
+            "urls": [
+                {
+                    "url": "http:\\/\\/t.co\\/ehUKneR28G",
+                    "expanded_url": "http:\\/\\/www.facebook.com\\/darthtrevino",
+                    "display_url": "facebook.com\\/darthtrevino",
+                    "indices": [
+                        0,
+                        22
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": false,
+    "followers_count": 130,
+    "friends_count": 212,
+    "listed_count": 6,
+    "created_at": "Wed Jul 09 01:38:28 +0000 2008",
+    "favourites_count": 113,
+    "utc_offset": -25200,
+    "time_zone": "Pacific Time (US & Canada)",
+    "geo_enabled": true,
+    "verified": false,
+    "statuses_count": 1682,
+    "lang": "en",
+    "status": {
+        "created_at": "Fri Jun 05 15:10:47 +0000 2015",
+        "id": 606840596603367425,
+        "id_str": "606840596603367425",
+        "text": "This is some incredible data viz and storytelling.  https:\\/\\/t.co\\/nnTlPtoXND",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [
+                {
+                    "url": "https:\\/\\/t.co\\/nnTlPtoXND",
+                    "expanded_url": "https:\\/\\/vimeo.com\\/128373915",
+                    "display_url": "vimeo.com\\/128373915",
+                    "indices": [
+                        52,
+                        75
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "9AE4E8",
+    "profile_background_image_url": "http:\\/\\/pbs.twimg.com\\/profile_background_images\\/34531633\\/100_1671.JPG",
+    "profile_background_image_url_https": "https:\\/\\/pbs.twimg.com\\/profile_background_images\\/34531633\\/100_1671.JPG",
+    "profile_background_tile": false,
+    "profile_image_url": "http:\\/\\/pbs.twimg.com\\/profile_images\\/466353706716246016\\/tHlGTZYE_normal.jpeg",
+    "profile_image_url_https": "https:\\/\\/pbs.twimg.com\\/profile_images\\/466353706716246016\\/tHlGTZYE_normal.jpeg",
+    "profile_banner_url": "https:\\/\\/pbs.twimg.com\\/profile_banners\\/15360731\\/1400028197",
+    "profile_link_color": "0084B4",
+    "profile_sidebar_border_color": "BDDCAD",
+    "profile_sidebar_fill_color": "DDFFCC",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": false,
+    "follow_request_sent": false,
+    "notifications": false,
+    "suspended": false,
+    "needs_phone_verification": false
+}

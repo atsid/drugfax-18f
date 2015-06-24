@@ -1,18 +1,10 @@
 "use strict";
 let FacebookStrategy = require("passport-facebook").Strategy;
-let persistence = require("../../../../persistence");
+let persistence = require("../../../../../persistence");
 let User = persistence.models.User;
 let config = require("config");
 let debug = require("debug")("app:auth");
-let hat = require("hat");
-
-let createUserObject = (facebookProfile) => {
-    return {
-        name: facebookProfile.displayName,
-        facebookId: facebookProfile.id,
-        password: hat()
-    };
-};
+let convert = require("./convert_facebook_profile");
 
 module.exports = () => {
     return new FacebookStrategy({
@@ -23,7 +15,7 @@ module.exports = () => {
         (accessToken, refreshToken, profile, done) => {
             debug("Authenticating Facebook User: " + profile.id, profile);
             User.findOneQ({facebookId: profile.id})
-                .then((found) => found || User.createQ(createUserObject(profile)))
+                .then((found) => found || User.createQ(convert(profile)))
                 .then((user) => done(null, user))
                 .catch((err) => {
                     debug("error authenticating with facebook");
