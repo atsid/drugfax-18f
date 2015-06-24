@@ -3,12 +3,22 @@ let chai = require("chai");
 let expect = chai.expect;
 let request = require("supertest");
 let app = require("app/server");
+let Session = require("supertest-session")({
+    app: app
+});
 
 describe("/api/auth", () => {
-    beforeEach(() => require("app/startup_hooks").resolve());
+    let sess = null;
+    beforeEach(() => {
+        sess = new Session();
+        return require("app/startup_hooks").resolve();
+    });
+    afterEach(() => {
+        sess.destroy();
+    });
+
     it("is emits authentication details", (done) => {
-        request(app)
-            .get("/api/auth/")
+        sess.get("/api/auth/")
             .expect(200)
             .expect("Content-Type", /json/)
             .end((err, res) => {
@@ -23,7 +33,7 @@ describe("/api/auth", () => {
 
     describe("/current", () => {
         it("will emit a 404 if the client is not authenticated", (done) => {
-            request(app)
+            sess
                 .get("/api/auth/current")
                 .expect(404)
                 .expect("Content-Type", /json/)
@@ -36,24 +46,32 @@ describe("/api/auth", () => {
 
     describe("/local", () => {
         it("can authenticate a user", (done) => {
-            request(app)
-                .post("/api/auth/local")
+            sess.post("/api/auth/local")
                 .set("Content-Type", "application/json")
                 .set("Accept", "application/json")
                 .send({email: "chris.trevino@atsid.com", password: "abc123"})
-                .expect(200, done);
+                .expect(200, (err, res) => {
+                    expect(err).to.be.null;
+
+                    sess.get("/api/auth/current")
+                        .set("Accept", "application/json")
+                        .expect(200, (err, res) => {
+                            expect(err).to.be.null;
+                            expect(res.body.email).to.equal("chris.trevino@atsid.com");
+                            expect(res.body.password).to.be.undefined;
+                            done();
+                        })
+                });
         });
         it("will reject a user with an unknown email address", (done) => {
-            request(app)
-                .post("/api/auth/local")
+            sess.post("/api/auth/local")
                 .set("Content-Type", "application/json")
                 .set("Accept", "application/json")
                 .send({email: "chris.trevino@malicious_users.com", password: "abc123"})
                 .expect(401, done);
         });
         it("will reject a user with a bad password", (done) => {
-            request(app)
-                .post("/api/auth/local")
+            sess.post("/api/auth/local")
                 .set("Content-Type", "application/json")
                 .set("Accept", "application/json")
                 .send({email: "chris.trevino@atsid.com", password: "BOGUS_PASSWORD"})
