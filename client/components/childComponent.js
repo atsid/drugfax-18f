@@ -1,6 +1,6 @@
 "use strict";
 
-let React = require("react");
+let React = require("react/addons");
 
 let ChildComponent = React.createClass({
     render: function() {

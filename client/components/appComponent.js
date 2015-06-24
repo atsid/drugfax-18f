@@ -34,7 +34,9 @@ let AppComponent = React.createClass({
         return (
             <div className={"app-container"}>
                 <NavigationComponent items={navItems} />
-                {this.props.children}
+                <div className={"app-container__content"}>
+                    {this.props.children}
+                </div>
             </div>
         );
     }
