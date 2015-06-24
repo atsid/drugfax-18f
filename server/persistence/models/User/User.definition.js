@@ -13,10 +13,29 @@ module.exports = {
     },
 
     /**
+     * A name by which we can address the user
+     */
+    name: {
+        first: {
+            type: String
+        },
+        last: {
+            type: String
+        }
+    },
+
+    /**
      * The user password, encrypted
      */
     password: {
         type: String,
         required: true
+    },
+
+    /**
+     * A user's unique facebook profile ID
+     */
+    facebookId: {
+        type: String
     }
 };
