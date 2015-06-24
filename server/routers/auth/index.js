@@ -2,7 +2,7 @@
 let mountie = require("express-mountie");
 let jefferson = require("express-jefferson");
 let path = require("path");
-let auth = require("app/middleware/auth");
+let auth = require("../../middleware/auth");
 
 let router = jefferson.router({
     routes: {

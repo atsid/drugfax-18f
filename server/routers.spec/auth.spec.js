@@ -1,7 +1,7 @@
 "use strict";
 let chai = require("chai");
 let expect = chai.expect;
-let app = require("app/server");
+let app = require("../server");
 let Session = require("supertest-session")({
     app: app
 });
@@ -10,7 +10,7 @@ describe("/api/auth", () => {
     let sess = null;
     beforeEach(() => {
         sess = new Session();
-        return require("app/startup_hooks").resolve();
+        return require("../startup_hooks").resolve();
     });
     afterEach(() => {
         sess.destroy();

@@ -3,7 +3,7 @@ var config = require("config"),
     fs = require("fs"),
     path = require("path"),
     seeder = require("./seed"),
-    startupHooks = require("app/startup_hooks");
+    startupHooks = require("../startup_hooks");
 
 let mongoose = require("mongoose-q")(require("mongoose"), {
     spread: true,

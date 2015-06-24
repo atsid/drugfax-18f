@@ -54,7 +54,7 @@ deploy:
             cmd: "bash -c 'cd /pipeline/source/ && node index.js'"
             repository: atsid/18f-rfq993471-pool2
             registry: https://registry.hub.docker.com
-            
+
         - install-packages:
             packages: unzip
 

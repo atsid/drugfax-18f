@@ -1,7 +1,7 @@
 "use strict";
 let passport = require("passport");
 let localStrategy = require("./strategies/local");
-let persistence = require("app/persistence");
+let persistence = require("../../../persistence");
 let User = persistence.models.User;
 
 module.exports = {
