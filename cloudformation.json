@@ -187,7 +187,8 @@
                 "CidrBlock" : { "Fn::FindInMap" : [ "SubnetConfig", "VPC", "CIDR" ]},
                 "Tags" : [
                     { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
-                    { "Key" : "Network", "Value" : "Public" }
+                    { "Key" : "Network", "Value" : "Public" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "vpc"]]}}
                 ]
             }
         },
@@ -209,7 +210,8 @@
             "Properties" : {
                 "Tags" : [
                     { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
-                    { "Key" : "Network", "Value" : "Public" }
+                    { "Key" : "Network", "Value" : "Public" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "igw"]]}}
                 ]
             }
         },
@@ -228,7 +230,8 @@
                 "VpcId" : { "Ref" : "VPC" },
                 "Tags" : [
                     { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
-                    { "Key" : "Network", "Value" : "Public" }
+                    { "Key" : "Network", "Value" : "Public" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "public-rt"]]}}
                 ]
             }
         },
@@ -257,7 +260,8 @@
                 "VpcId" : { "Ref" : "VPC" },
                 "Tags" : [
                     { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
-                    { "Key" : "Network", "Value" : "Public" }
+                    { "Key" : "Network", "Value" : "Public" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "public-acl"]]}}
                 ]
             }
         },
@@ -342,7 +346,8 @@
                 "CidrBlock" : { "Fn::FindInMap" : [ "SubnetConfig", "Private", "CIDR" ]},
                 "Tags" : [
                     { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
-                    { "Key" : "Network", "Value" : "Private" }
+                    { "Key" : "Network", "Value" : "Private" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "private-sn"]]}}
                 ]
             }
         },
@@ -353,7 +358,8 @@
                 "VpcId" : { "Ref" : "VPC" },
                 "Tags" : [
                     { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
-                    { "Key" : "Network", "Value" : "Private" }
+                    { "Key" : "Network", "Value" : "Private" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "private-rt"]]}}
                 ]
             }
         },
@@ -381,7 +387,8 @@
                 "VpcId" : { "Ref" : "VPC" },
                 "Tags" : [
                     { "Key" : "Application", "Value" : { "Ref" : "AWS::StackId" } },
-                    { "Key" : "Network", "Value" : "Private" }
+                    { "Key" : "Network", "Value" : "Private" },
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "private-acl"]]}}
                 ]
             }
         },
@@ -471,7 +478,10 @@
                 "KeyName"  : { "Ref" : "BastionKeyName" },
                 "SubnetId" : { "Ref" : "PublicSubnet" },
                 "ImageId"  : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" }, { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "BastionInstanceType" }, "Arch" ] } ] },
-                "SecurityGroupIds" : [{ "Ref" : "BastionSecurityGroup" }]
+                "SecurityGroupIds" : [{ "Ref" : "BastionSecurityGroup" }],
+                "Tags": [
+                    { "Key": "Name", "Value": { "Fn::Join" : [ "-", [{"Ref": "ApplicationName"}, "bastion"]]}}
+                ]
             }
         },
 
