@@ -12,3 +12,23 @@ global.navigator = window.navigator;
 var chai = require("chai");
 global.expect = chai.expect;
 global.assert = chai.assert;
+
+module.exports = {
+    util: {
+        fakePromise() {
+            var me = {
+                then: function(callback) {
+                    me.thenHandler = callback;
+                }
+            };
+
+            me.trigger = function(...args) {
+                if (me.thenHandler) {
+                    me.thenHandler.apply(this, args);
+                }
+            };
+
+            return me;
+        }
+    }
+};

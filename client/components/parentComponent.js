@@ -11,6 +11,7 @@ let ParentComponent = React.createClass({
     render: function() {
         return (
             <div className={"app-container"}>
+                The App
                 {this.props.children}
             </div>
         );
