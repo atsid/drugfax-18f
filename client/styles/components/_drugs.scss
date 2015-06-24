@@ -1,0 +1,47 @@
+.drugs {
+    position: relative;
+    height: 100%;
+}
+
+.drugs--populated {
+    .drugs__master {
+        transform: translate(0, 0);
+        left: 0;
+        width: 400px;
+        border-right: 1px solid $component-border;
+    }
+}
+
+.drugs__master {
+    width: 600px;
+    height: 100%;
+    transition: all 250ms ease-in;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-right: 1px solid transparent;
+    transition: all 250ms ease-in, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62);
+
+    .drug-list {
+        margin-top: 12px;
+    }
+}
+
+.drugs--populated {
+    .drugs__details {
+        padding-left: 40px;
+        position: absolute;
+        left: 400px;
+        top: 0;
+        height: 100%;
+
+        .drug-details--fade-appear {
+            opacity: 0.01;
+            transition: opacity 500ms cubic-bezier(.79,-0.1,.39,.62);
+        }
+
+        .drug-details--fade-appear.drug-details--fade-appear-active {
+            opacity: 1;
+        }
+    }
+}

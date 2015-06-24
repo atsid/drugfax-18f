@@ -1,6 +1,6 @@
 "use strict";
 
-let React = require("react");
+let React = require("react/addons");
 let StyledButton = require("./common/styledButton");
 let authentication = require("../security/auth");
 var Navigation = require("react-router").Navigation;
@@ -14,7 +14,7 @@ let LoginComponent = React.createClass({
     },
 
     contextTypes: {
-        router: React.PropTypes.func.isRequired
+        router: React.PropTypes.object.isRequired
     },
 
     mixins: [Navigation],
@@ -51,21 +51,28 @@ let LoginComponent = React.createClass({
     return (
         <div className={"login"}>
             <div className={"login__details"}>
-                <h1>DrugFax</h1>
+                <div className={"center-vh"}>
+                    <h1>DrugFax</h1>
+                    <h2>Don't run the risk of buying pills with costly hidden problems. Shop with confidence for medicine with the DrugFAX drug history that's right for you.</h2>
+                </div>
             </div>
             <div className={"login__options"}>
-                <div className={"login__options__buttons"}>
+                <div className={"center-vh login__options__buttons"}>
                     <h2>Sign in</h2>
                     <StyledButton icon="fa-twitter" className={"button--twitter button--large button--rounded button--block"} onClick={ () => this.handleLogin("twitter") }>
-                        <span>SIGN IN WITH TWITTER</span>
+                        WITH TWITTER
                     </StyledButton>
                     <StyledButton icon="fa-facebook" className={"button--facebook button--large button--rounded button--block"} onClick={ () => this.handleLogin("facebook") }>
-                        <span>SIGN IN WITH FACEBOOK</span>
+                        WITH FACEBOOK
                     </StyledButton>
-                    <div className={"seperator-or"}>or</div>
+                    <div className={"seperator--or"}>or</div>
                     <StyledButton className={"button--demo button--block button--large button--rounded"} onClick={ () => this.handleLogin("demo") }>
-                        <span>DEMO ACCOUNT</span>
+                        WITH DEMO ACCOUNT
                     </StyledButton>
+                </div>
+                <div className={"login__options__footer"}>
+                    <div className={"pull-left"}>View project on Github</div>
+                    <div className={"pull-right"}>Made with ❤ by atsid</div>
                 </div>
             </div>
         </div>

@@ -10,6 +10,8 @@ button,
     vertical-align: middle;
     text-align: center;
     color: $button-fg;
+    background-color: $button-bg;
+    font-family: $font-family;
     font-weight: $button-font-weight;
     font-size: $font-size-base;
     border-radius: 2px;
@@ -25,7 +27,7 @@ button,
 
 .button--primary {
     color: $button-primary-fg;
-    background: $button-primary-bg;
+    background-color: $button-primary-bg;
 }
 
 .button--block {
@@ -45,11 +47,11 @@ button,
 }
 
 .button--facebook {
-    background: #00aced;
+    background-color: #00aced;
     color: #fff;
 }
 
 .button--twitter {
-    background: #3b5998;
+    background-color: #3b5998;
     color: #fff;
 }
