@@ -3,7 +3,8 @@ $icon-color: #aaa;
 .navigationComponent {
     position: fixed;
     height: 100%;
-    background-color: #eee;
+    background-color: #f9f9f9;
+    border-right: 1px solid $component-border;
     width: 80px;
     text-align: center;
 }
