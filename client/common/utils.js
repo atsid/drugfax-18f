@@ -22,15 +22,26 @@ module.exports = {
                 children: React.PropTypes.node.isRequired
             },
             mixins: [Navigation],
+            getInitialState() {
+                return {
+                    loaded: false
+                };
+            },
             componentWillMount() {
                 fn().then((value) => {
                     if (!value) {
                         this.transitionTo(state);
+                    } else {
+                        this.setState({ loaded: true });
                     }
                 });
             },
             render() {
-                return (<Component {...this.props} >{ this.props.children } </Component>);
+                return (
+                    <div>
+                        { this.state.loaded ? <Component {...this.props} >{ this.props.children } </Component> : null }
+                    </div>
+                );
             }
         });
     },

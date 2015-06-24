@@ -9,9 +9,12 @@ var Navigation = require("react-router").Navigation;
  * The login component
  */
 let LoginComponent = React.createClass({
-
     propTypes: {
         location: React.PropTypes.object
+    },
+
+    contextTypes: {
+        router: React.PropTypes.func.isRequired
     },
 
     mixins: [Navigation],

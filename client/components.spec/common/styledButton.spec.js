@@ -2,8 +2,7 @@
 
 require("../../common.spec/spec.helpers");
 
-let React = require("react");
-require("react/addons");
+let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
 let StyledButton = require("../../components/common/styledButton");
 
