@@ -1,0 +1,80 @@
+$icon-color: #aaa;
+
+.navigationComponent {
+    position: fixed;
+    height: 100%;
+    background-color: #eee;
+    width: 80px;
+    text-align: center;
+}
+
+.navigationComponent__hamburger {
+    padding: 20px;
+    color: $icon-color;
+    cursor: pointer;
+    display: none;
+}
+
+.navItems__navItem {
+    display: block;
+}
+
+.navItems__navItem:last-child {
+    position: absolute;
+    bottom: 20px;
+}
+
+.navItem__label {
+   display: none;
+}
+
+.navItem__icon {
+    font-size: 2em;
+    margin: 20px;
+    color: $icon-color;
+}
+
+.navItem__icon:hover {
+    color: $link-color;
+}
+
+.active .navItem__icon {
+    color: $color-primary;
+}
+
+
+/** Screen too small */
+@media (max-width: 600px) {
+  .navigationComponent {
+      text-align: left;
+      position: inherit;
+      height: inherit;
+      text-align: inherit;
+      width: inherit;
+  }
+
+  .navigationComponent__hamburger {
+      display: block;
+      border-bottom: 1px solid #ccc;
+  }
+
+  .navigationComponent__hamburger:hover {
+      color: $link-color;
+  }
+
+  .navigationComponent__navItems {
+      display: none;
+  }
+
+  .navigationComponent__navItems--expanded {
+      display: block;
+  }
+
+  .navItem__label {
+      display: block;
+  }
+
+  .navItem__icon {
+      display: none;
+  }
+}

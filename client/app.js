@@ -4,7 +4,7 @@ let React = require("react");
 let { Router, Route } = require("react-router");
 let BrowserHistory = require("react-router/lib/BrowserHistory");
 
-let ParentComponent = require("./components/parentComponent");
+let AppComponent = require("./components/appComponent");
 let LoginComponent = require("./components/loginComponent");
 let ChildComponent = require("./components/childComponent");
 let auth = require("./security/auth");
@@ -15,7 +15,7 @@ var isLoggedInGuard = utils.createGuardComponent.bind(this, () => auth.isLoggedI
 window.onload = function () {
     React.render((
         <Router history={new BrowserHistory()}>
-            <Route path="/" component={isLoggedInGuard(ParentComponent, { state: "login"}) }>
+            <Route path="/" component={isLoggedInGuard(AppComponent, { state: "login"}) }>
                 <Route path="child" component={ChildComponent}/>
             </Route>
             <Route path="/login" component={LoginComponent} />

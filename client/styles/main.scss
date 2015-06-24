@@ -3,8 +3,9 @@
 @import "_base";
 @import "_utilities";
 @import "_type";
-@import "components/_login.scss";
+@import "components/_login";
 @import "components/_button";
+@import "components/_navigation";
 
 .app,
 .app-container {
