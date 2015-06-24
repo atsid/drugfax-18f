@@ -6,18 +6,26 @@ let config = require("../config");
 
 let browserify = require("browserify");
 let babelify = require("babelify");
+let uglifyify = require("uglifyify");
 let source = require("vinyl-source-stream");
 let buffer = require("vinyl-buffer");
 
 gulp.task("browserify", function() {
 
+    let transforms = [babelify];
+    let debug = true;
+
+    if (process.env.NODE_ENV === "production") {
+        transforms.push([uglifyify, { global: true }]);
+        debug = false;
+    }
+
     var b = browserify({
         entries: config.globs.src.CLIENT_ENTRIES,
-        transform: [babelify],
-        debug: true,
+        transform: transforms,
+        debug: debug,
         cache: {},
-        packageCache: {},
-        fullPaths: true
+        packageCache: {}
     });
 
     b.on("log", gutil.log);
