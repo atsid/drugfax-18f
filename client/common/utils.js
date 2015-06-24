@@ -37,11 +37,7 @@ module.exports = {
                 });
             },
             render() {
-                return (
-                    <div>
-                        { this.state.loaded ? <Component {...this.props} >{ this.props.children } </Component> : null }
-                    </div>
-                );
+                return ( this.state.loaded ? (<Component {...this.props} >{ this.props.children } </Component>) : null );
             }
         });
     },
