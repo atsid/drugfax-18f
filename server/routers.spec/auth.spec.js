@@ -1,7 +1,6 @@
 "use strict";
 let chai = require("chai");
 let expect = chai.expect;
-let request = require("supertest");
 let app = require("app/server");
 let Session = require("supertest-session")({
     app: app
@@ -46,21 +45,25 @@ describe("/api/auth", () => {
 
     describe("/local", () => {
         it("can authenticate a user", (done) => {
+            let checkAuthResponse = (err, res) => {
+                expect(err).to.be.null;
+                expect(res.body.email).to.equal("chris.trevino@atsid.com");
+                expect(res.body.password).to.be.undefined;
+            };
+
             sess.post("/api/auth/local")
                 .set("Content-Type", "application/json")
                 .set("Accept", "application/json")
                 .send({email: "chris.trevino@atsid.com", password: "abc123"})
                 .expect(200, (err, res) => {
-                    expect(err).to.be.null;
+                    checkAuthResponse(err, res);
 
                     sess.get("/api/auth/current")
                         .set("Accept", "application/json")
-                        .expect(200, (err, res) => {
-                            expect(err).to.be.null;
-                            expect(res.body.email).to.equal("chris.trevino@atsid.com");
-                            expect(res.body.password).to.be.undefined;
+                        .expect(200, (err2, res2) => {
+                            checkAuthResponse(err2, res2);
                             done();
-                        })
+                        });
                 });
         });
         it("will reject a user with an unknown email address", (done) => {
