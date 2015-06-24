@@ -66,10 +66,10 @@ deploy:
             filename: $WERCKER_SOURCE_DIR/.tmp/.elasticbeanstalk/config.yml
             content: |-
                 global:
-                  application_name: 18F
-                  default_ec2_keyname: 18f
+                  application_name: $DEPLOY_APPLICATION
+                  default_ec2_keyname: $DEPLOY_KEY_NAME
                   default_platform: 64bit Amazon Linux 2015.03 v1.4.3 running Docker 1.6.2
-                  default_region: us-east-1
+                  default_region: $DEPLOY_REGION
                   profile: null
                   sc: null
 
@@ -94,7 +94,7 @@ deploy:
                 {
                   "AWSEBDockerrunVersion": "1",
                   "Authentication": {
-                    "Bucket": "sensitive-keys-us-east-1",
+                    "Bucket": "sensitive-keys-$DEPLOY_REGION",
                     "Key": "docker/atsid/dockercfg"
                   },
                   "Image": {
@@ -110,4 +110,4 @@ deploy:
 
         - script:
             name: Deploy to elastic beanstalk
-            code: cd $WERCKER_SOURCE_DIR/.tmp && eb deploy $WERCKER_DEPLOYTARGET_NAME -l "1.0.$WERCKER_GIT_COMMIT"
+            code: cd $WERCKER_SOURCE_DIR/.tmp && eb deploy $DEPLOY_ENVIRONMENT -l "1.0.$WERCKER_GIT_COMMIT"
