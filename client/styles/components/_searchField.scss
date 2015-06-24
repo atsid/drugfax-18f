@@ -1,0 +1,46 @@
+.search-field {
+    position: relative;
+
+    > input {
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        padding: 0 14px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 3.5em;
+        border-bottom: 1px solid $component-border;
+        width: 100%;
+        display: block;
+        transition: all 0.5s ease;
+
+        &:focus {
+            outline: none;
+        }
+
+        &::-webkit-input-placeholder {
+           color: #ccc;
+        }
+
+        &:-moz-placeholder { /* Firefox 18- */
+           color: #ccc;
+        }
+
+        &::-moz-placeholder {  /* Firefox 19+ */
+           color: #ccc;
+        }
+
+        &:-ms-input-placeholder {
+           color: #ccc;
+        }
+    }
+
+    > .fa {
+        position: absolute;
+        right: .4em;
+        line-height: 3.5em;
+        font-size: 18px;
+        top: 0;
+        color: #ccc;
+    }
+}

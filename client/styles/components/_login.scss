@@ -3,23 +3,28 @@
     width: 100%;
 
     .login__details {
-        background-color: #10B651;
+        background-color: $color-primary;
         width: 50%;
         height: 100%;
         display: inline-block;
         float: left;
         position: relative;
 
-        > h1 {
+        h1 {
             color: #fff;
-            position: absolute;
-            top: 50%;
-            transform: translate(0, -50%);
             text-align: center;
             margin: 0;
             width: 100%;
             font-size: 80px;
             font-weight: 100;
+        }
+
+        h2 {
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            font-weight: 400;
+            font-size: 14px;
         }
     }
 
@@ -31,15 +36,49 @@
         text-align: center;
 
         .login__options__buttons {
-            position: absolute;
-            max-width: 500px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 300px;
 
             .button {
                 margin-top: 1em;
+                position: relative;
+                .button__icon {
+                    position: absolute;
+                    left: 1em;
+                }
             }
         }
+
+        .login__options__footer {
+            color: #aaa;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+        }
+    }
+}
+
+.seperator--or {
+    margin-top: 1em;
+    color: $color-muted;
+    text-align: center;
+    position: relative;
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        width: calc(45% - 10px);
+        top: 50%;
+        border-bottom: 1px solid $component-border;
+    }
+
+    &:after {
+        right: 0;
+    }
+
+    &:before {
+        left: 0;
     }
 }

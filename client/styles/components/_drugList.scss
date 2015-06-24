@@ -1,0 +1,29 @@
+.drug-list {
+    .drug-list__item {
+        padding: 7px 14px;;
+        cursor: pointer;
+
+        .drug-list__item__brand_name {
+            font-size: 16px;
+            color: $link-color;
+        }
+        .drug-list__item__manufacturer_name {
+            color: $color-muted;
+        }
+
+        &:hover {
+            background-color: #f4f4f4;
+        }
+
+    }
+
+    &.drug-list--fade-appear {
+        opacity: 0.01;
+        transition: opacity 250ms ease-in;
+    }
+
+    &.drug-list--fade-appear.drug-list--fade-appear-active {
+        opacity: 1;
+    }
+}
+
