@@ -1,20 +1,20 @@
 "use strict";
 
 let React = require("react/addons");
+let { Link } = require("react-router");
 
 let DrugListItem = React.createClass({
 
     propTypes: {
-        data: React.PropTypes.object.isRequired,
-        onClick: React.PropTypes.func
+        data: React.PropTypes.object.isRequired
     },
 
     render: function() {
         return (
-            <div onClick={this.props.onClick} className={"drug-list__item"}>
-                <div className={"drug-list__item__brand_name"}>{this.props.data.brandName}</div>
-                <div className={"drug-list__item__manufacturer_name"}>{this.props.data.manufacturerName}</div>
-            </div>
+            <Link to={`/drugs/${this.props.data.set_id}`} className={"drug-list__item"}>
+                <div className={"drug-list__item__brand_name"}>{this.props.data.openfda.brand_name[0]}</div>
+                <div className={"drug-list__item__manufacturer_name"}>{this.props.data.openfda.manufacturer_name[0]}</div>
+            </Link>
         );
     }
 });

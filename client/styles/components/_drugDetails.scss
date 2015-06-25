@@ -7,6 +7,48 @@
     .drug-details__sub-title {
         color: $color-muted;
         font-weight: 400;
-        margin-bottom: 0;
+        margin-bottom: 30px;
     }
+
+    h5 {
+        margin-top: 1.25em;
+        margin-bottom: .5em;
+    }
+
+    .row {
+        &:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    }
+
+    .col-3 {
+        width: 33.3%;
+        float: left;
+    }
+}
+
+
+.drug-details--fade-appear {
+    opacity: 0.01;
+    transition: opacity 1000ms ease-in;
+}
+
+.drug-details--fade-appear.drug-details--fade-appear-active {
+    opacity: 1;
+}
+.drug-details--fade-leave {
+    opacity: 1;
+}
+.drug-details--fade-leave.drug-details--fade-leave-active {
+    opacity: 0.01;
+    transition: opacity 1000ms ease-in;
+}
+.drug-details--fade-appear {
+    opacity: 0.01;
+    transition: opacity 1 ease-in;
+}
+.drug-details--fade-appear.drug-details--fade-appear-active {
+    opacity: 1;
 }
