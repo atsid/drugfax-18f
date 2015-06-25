@@ -1,119 +1,109 @@
 "use strict";
 
 var { util } = require("../common.spec/spec.helpers.js");
+let nock = require("nock");
+let auth = require("../security/auth");
 
-let rewire = require("rewire");
 describe("Auth", function() {
 
-    var auth;
+    let scope = nock("http://localhost");
+
     beforeEach(function() {
-        auth = rewire("../security/auth");
+        auth.logout();
     });
 
     describe("isLoggedIn", function() {
-        function replaceGetUserCall() {
-            var promise = util.fakePromise();
-            var userGetCalled = false;
-            auth.__set__("utils", {
-                getJSON: function(url) {
-                    userGetCalled = true;
-                    expect(url).to.contain("current");
-                    return promise;
-                }
+
+        it("should attempt to load from the services", function(done) {
+
+            scope.get("/api/auth/current").reply(404);
+
+            auth.isLoggedIn().then((res) => {
+                expect(res).to.equal(false);
+                done();
+            }).then(null, (err) => {
+                done(err);
             });
-
-            auth.isLoggedIn();
-
-            expect(userGetCalled).to.be.true;
-            return promise;
-        }
-
-        it("should attempt to load from the services", function() {
-            replaceGetUserCall();
         });
 
-        it("should load the current user after the service returns", function() {
-            var promise = replaceGetUserCall();
+        it("should load the current user after the service returns", function(done) {
 
-            promise.trigger({ ok: true, body: { email: "testemail" } });
+            scope.post("/api/users").reply(201, { email: "testemail" });
+            scope.post("/api/auth/local").reply(201, { email: "testemail" });
 
-            expect(auth.user.email).to.equal("testemail");
+            auth.login("demo").then(() => {
+                expect(auth.user.email).to.equal("testemail");
+                done();
+            }).then(null, (err) => {
+                done(err);
+            });
         });
 
-        it("should not load the current user, if the service returns 404", function() {
-            var promise = replaceGetUserCall();
+        it("should not load the current user, if the service returns 404", function(done) {
 
-            promise.trigger({ notFound: true, body: { email: "testemail" } });
-            expect(auth.user).to.not.exist;
+            scope.post("/api/auth/current").reply(404);
+
+            auth.isLoggedIn("demo").then(() => {
+                expect(auth.user).to.not.exist;
+                done();
+            }).then(null, (err) => {
+                done(err);
+            });
         });
     });
 
     describe("login", function() {
-        function replaceUtilsPost(postCalledFn) {
-            var postPromise = util.fakePromise();
-            auth.__set__("utils", {
-                postJSON: function(url, data) {
-                    if (postCalledFn) {
-                        postCalledFn(url, data);
-                    }
-                    return postPromise;
-                }
+
+
+        it("should attempt to create an new demo user", function(done) {
+            scope
+                .post("/api/users", function(body) {
+                    expect(body.email).to.contain("demo");
+                    done();
+                    return true;
+                })
+                .reply(201, { email: "demo" });
+
+            scope.post("/api/auth/local").reply(201, { email: "testemail" });
+
+            auth.login("demo").then(() => {
+                expect(auth.user.email).to.equal("testemail");
+            }).then(null, (err) => {
+                done(err);
             });
-            return postPromise;
-        }
-
-        function doLoginWithDemoPost(postCalledFn) {
-            var postAttempted = false;
-            var promise = replaceUtilsPost(function(url, data) {
-                expect(data.email).to.exist;
-                postAttempted = true;
-
-                if (postCalledFn) {
-                    postCalledFn(url, data);
-                }
-            });
-
-            auth.login("demo");
-
-            expect(postAttempted).to.be.true;
-
-            return promise;
-        }
-
-        function doLoginWithDemoPostAndLoginPost() {
-            var userData;
-            var createPromise = doLoginWithDemoPost(function (url, data) {
-                userData = data;
-            });
-            var loginCalled = false;
-            var loginPromise = replaceUtilsPost(function (loginUrl, loginData) {
-                loginCalled = true;
-                expect(loginUrl).to.contain("auth/local");
-                expect(loginData.email).to.equal(userData.email);
-            });
-
-            createPromise.trigger({ ok: true, body: userData });
-            loginPromise.trigger({ ok: true, body: userData });
-
-            expect(loginCalled).to.be.true;
-        }
-
-
-        it("should attempt to create an new demo user", function() {
-            doLoginWithDemoPost();
         });
 
-        it("should set a demo user if the login method is 'demo'", function() {
-            doLoginWithDemoPostAndLoginPost();
+        it("should set a demo user if the login method is 'demo'", function(done) {
+            let ctjson = {"Content-Type": "application/json"};
+            let passThrough = (uri, requestBody) => {
+                return requestBody;
+            };
 
-            expect(auth.user.email).to.contain("demo");
+            scope.post("/api/users").reply(201, passThrough, ctjson);
+            scope.post("/api/auth/local").reply(201, passThrough, ctjson);
+
+            auth.login("demo").then(() => {
+                expect(auth.user.email).to.contain("demo");
+                done();
+            }).then(null, (err) => {
+                done(err);
+            });
         });
 
-        it("should remove the user if the logout function is called", function() {
-            doLoginWithDemoPostAndLoginPost();
+        it("should remove the user if the logout function is called", function(done) {
+            scope.post("/api/users").reply(201, { email: "testemail" });
+            scope.post("/api/auth/local").reply(201, { email: "testemail" });
 
-            auth.logout();
-            expect(auth.user).to.not.exist;
+            auth.login("demo").then(() => {
+                expect(auth.user).to.exist;
+                auth.logout();
+                expect(auth.user).to.not.exist;
+                done();
+            }).then(null, (err) => {
+                done(err);
+            });
+
+
         });
     });
 });

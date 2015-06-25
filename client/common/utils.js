@@ -2,7 +2,6 @@
 
 let React = require("react");
 let { Navigation } = require("react-router");
-let request = require("superagent");
 
 module.exports = {
     /**
@@ -39,41 +38,6 @@ module.exports = {
             render() {
                 return ( this.state.loaded ? (<Component {...this.props} >{ this.props.children } </Component>) : null );
             }
-        });
-    },
-
-    /**
-     * Simple utility method to call a JSON service with a GET
-     */
-    getJSON(url) {
-        return new Promise((resolve, reject) => {
-            request
-                .get(url)
-                .end((err, res) => {
-                    if (res.ok) {
-                        resolve(res);
-                    } else {
-                        reject(err, res);
-                    }
-                });
-        });
-    },
-
-    /**
-     * Simple utility method to call a JSON service with a POST
-     */
-    postJSON(url, data) {
-        return new Promise((resolve, reject) => {
-            request
-                .post(url)
-                .send(data)
-                .end((err, res) => {
-                    if (res.ok) {
-                        resolve(res);
-                    } else {
-                        reject(err, res);
-                    }
-                });
         });
     }
 };

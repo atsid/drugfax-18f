@@ -1,6 +1,6 @@
 "use strict";
 
-let utils = require("../common/utils");
+let request = require("superagent-bluebird-promise");
 
 /**
  * Provides basic authentication methods
@@ -15,14 +15,12 @@ class Authentication {
             if (this.user) {
                 resolve(true);
             } else {
-                utils.getJSON("/api/auth/current").then((res) => {
-                    if (res.notFound) {
-                        resolve(false);
-                    } else {
-                        this.user = res.body;
-                        resolve(true);
-                    }
-                }, () => { resolve(false); });
+                request.get("/api/auth/current").then((res) => {
+                    this.user = res.body;
+                    resolve(true);
+                }, () => {
+                    resolve(false);
+                });
             }
         });
     }
@@ -40,9 +38,9 @@ class Authentication {
                     password: Math.random() + ""
                 };
 
-                utils.postJSON("/api/users", user).then((res) => {
+                request.post("/api/users").send(user).then((res) => {
                     if (res.ok && res.body) {
-                        utils.postJSON("/api/auth/local", user).then((loginRes) => {
+                        request.post("/api/auth/local").send(user).then((loginRes) => {
                             if (loginRes.ok && loginRes.body) {
                                 this.user = loginRes.body;
                                 resolve(true);
@@ -53,7 +51,9 @@ class Authentication {
                     } else {
                         resolve(false);
                     }
-                }, () => resolve(false));
+                }, () => {
+                    resolve(false);
+                });
             } else {
                 window.location.href = "/api/auth/" + loginType;
             }
