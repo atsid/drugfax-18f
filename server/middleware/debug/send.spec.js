@@ -1,21 +1,22 @@
 "use strict";
-let root = require("./root");
+let send = require("./send");
 let chai = require("chai");
 let expect = chai.expect;
 
-describe("The Root Middleware", () => {
-    it("can emit the service status", (done) => {
+describe("debug.send middleware", () => {
+    it("can send debug messages", (done) => {
+        let callback = send("derp");
         let sentJson = false;
         let res = {
             json: (data) => {
                 sentJson = true;
-                expect(data.status).to.equal("ok");
+                expect(data.message).to.equal("derp");
             },
             end: () => {
                 expect(sentJson).to.be.true;
                 done();
             }
         };
-        root.get({}, res);
+        callback({}, res);
     });
 });
