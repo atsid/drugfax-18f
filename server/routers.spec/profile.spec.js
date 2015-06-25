@@ -6,6 +6,11 @@ let Session = require("supertest-session")({
     app: app
 });
 let promisify = require("./promisify");
+let mongoose = require("mongoose");
+
+/*eslint-disable */
+let newObjectId = () => mongoose.Types.ObjectId();
+/*eslint-enable */
 
 describe("/api/profile", () => {
     let sess = null;
@@ -62,6 +67,54 @@ describe("/api/profile", () => {
                         .send({})
                         .expect(400));
                 });
+        });
+
+        describe("/subscriptions/:id", () => {
+            let makeSubscription = () => {
+                return promisify(sess.post("/api/profile/subscriptions")
+                    .set("Content-Type", "application/json")
+                    .set("Accept", "application/json")
+                    .send({splSetId: "arq-123"})
+                    .expect(201));
+            };
+
+            it("GET will retrieve a subscription by ID", () => {
+                return login()
+                    .then(makeSubscription)
+                    .then((res) => {
+                        let id = res.body.id;
+                        return promisify(sess.get(`/api/profile/subscriptions/${id}`)
+                            .set("Accept", "application/json")
+                            .expect(200));
+                    })
+                    .then((res) => expect(res.body.splSetId).to.equal("arq-123"));
+            });
+
+            it("GET will emit a 404 Not Found error if the ID is invalid", () => {
+                return login().then(() => {
+                    let id = newObjectId();
+                    return promisify(sess.get(`/api/profile/subscriptions/${id}`)
+                        .set("Accept", "application/json")
+                        .expect(404));
+                });
+            });
+
+            it("DELETE will delete a subscription", () => {
+                let id = null;
+                return login()
+                    .then(makeSubscription)
+                    .then((res) => id = res.body.id)
+                    .then(() => promisify(sess.delete(`/api/profile/subscriptions/${id}`).expect(204)))
+                    .then(() => promisify(sess.get(`/api/profile/subscriptions/${id}`).expect(404)));
+            });
+
+            it("DELETE will emit a 404 Not Found error if the ID is invalid", () => {
+                return login().then(() => {
+                    let id = newObjectId();
+                    return promisify(sess.delete(`/api/profile/subscriptions/${id}`)
+                        .expect(404));
+                });
+            });
         });
     });
 });
