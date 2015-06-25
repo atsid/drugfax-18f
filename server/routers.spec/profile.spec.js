@@ -45,7 +45,13 @@ describe("/api/profile", () => {
                         .send({splSetId: "arq-123"})
                         .expect(201));
                 })
-                .then((res) => expect(res.body.splSetId).to.equal("arq-123"));
+                .then((res) => expect(res.body.splSetId).to.equal("arq-123"))
+                .then(() => {
+                    return promisify(sess.get("/api/profile/subscriptions")
+                        .set("Accept", "application/json")
+                        .expect(200));
+                })
+                .then((res) => expect(res.body.items.length > 0).to.be.true);
         });
         it("POST will emit a 400 Bad Request error if the splSetId is not present", () => {
             return login()
