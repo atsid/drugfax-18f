@@ -1,17 +1,25 @@
 .drug-list {
     .drug-list__item {
-        padding: 7px 28px;;
+        text-decoration: none;
+        color: $text-color;
+        padding: 8px 28px;
         cursor: pointer;
+        display: block;
 
         .drug-list__item__brand_name {
             font-size: 16px;
-            color: $link-color;
+            margin-bottom: 4px;
         }
         .drug-list__item__manufacturer_name {
-            color: $color-muted;
+            color: #999;
+            font-size: 13px;
         }
 
         &:hover {
+            background-color: #f4f4f4;
+        }
+
+        &.active {
             background-color: #f4f4f4;
         }
 

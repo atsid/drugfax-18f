@@ -4,6 +4,9 @@ let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let SearchField = require("./common/searchField");
 let DrugList = require("./drugList");
+let DrugStore = require("../stores/drugStore");
+
+let store = new DrugStore();
 
 let Drugs = React.createClass({
 
@@ -19,23 +22,24 @@ let Drugs = React.createClass({
         };
     },
 
-    handleSearchChange: function (query) {
+    _performQuery: function (query) {
+        let qs = `openfda.brand_name:${query}+OR+openfda.substance_name:${query}+OR+openfda.manufacturer_name:${query}`;
+        store.list({search: qs, limit: 10}).then((res) => {
+            this.setState({data: res.body.data, loading: false});
+        }, () => {
+            this.setState({data: [], loading: false});
+        });
+    },
+
+    _handleSearch: function (query) {
+        this.setState({
+            value: query
+        });
         if (query.length) {
-            this.setState({
-                value: query,
-                data: [{
-                    brandName: "Advil",
-                    manufacturerName: "Pfizer"
-                }, {
-                    brandName: "Advil PM",
-                    manufacturerName: "Pfizer"
-                }]
-            });
+            this.setState({loading: true});
+            this._performQuery(query);
         } else {
-            this.setState({
-                value: query,
-                data: []
-            });
+            this.setState({data: [], loading: false});
         }
     },
 
@@ -57,7 +61,7 @@ let Drugs = React.createClass({
         return (
             <div className={classNames.join(" ")}>
                 <div className={"drugs__master"}>
-                    <SearchField onChange={this.handleSearchChange} placeholder={"Search for drugs and medication"}/>
+                    <SearchField onSearch={this._handleSearch} loading={this.state.loading} placeholder={"Search for drugs and medication"}/>
                     {list}
                 </div>
                 <div className={"drugs__details"}>

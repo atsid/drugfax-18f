@@ -19,8 +19,8 @@ let DrugList = React.createClass({
     render: function() {
         return (
             <div className={"drug-list"}>
-                {this.props.data.map((result) => {
-                    return <DrugListItem onClick={this.handleItemClick} data={result} key={result.brandName}/>;
+                {this.props.data.map((item) => {
+                    return <DrugListItem onClick={this.handleItemClick} data={item} key={item.set_id}/>;
                 })}
             </div>
         );
