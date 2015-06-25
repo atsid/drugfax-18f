@@ -6,6 +6,7 @@ const INIT_SECTIONS = [
     require("./sections/static_content"),
     require("./sections/sessions"),
     require("./sections/passport"),
+    require("./sections/routing"),
     require("./sections/error_handling")
 ];
 module.exports = {
