@@ -49,7 +49,7 @@ let LoginComponent = React.createClass({
 
   render() {
     return (
-        <div className={"login"}>
+        <div className={"login" + (this.state.error ? " login--error" : "")}>
             <div className={"login__details"}>
                 <div className={"center-vh"}>
                     <h1>DrugFax</h1>

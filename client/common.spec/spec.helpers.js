@@ -18,14 +18,21 @@ var helpers = {
     util: {
         fakePromise() {
             var me = {
-                then: function(callback) {
+                then: function(callback, failureCallback) {
                     me.thenHandler = callback;
+                    me.failureHandler = failureCallback;
                 }
             };
 
             me.trigger = function(...args) {
                 if (me.thenHandler) {
                     me.thenHandler.apply(this, args);
+                }
+            };
+
+            me.triggerFailure = function(...args) {
+                if (me.failureHandler) {
+                    me.failureHandler.apply(this, args);
                 }
             };
 
@@ -52,8 +59,11 @@ var helpers = {
 
             return type === "object" ? new RouterStub() : RouterStub;
         },
-        stubRouterContext(Component, routerType, props, stubs) {
+        stubRouterContext(Component, routerType, stubs) {
             return React.createClass({
+                propTypes: {
+                    children: React.PropTypes.node
+                },
                 childContextTypes: {
                     router: routerType === "object" ? React.PropTypes.object : React.PropTypes.func,
                     routeDepth: React.PropTypes.number
@@ -67,7 +77,7 @@ var helpers = {
                 },
 
                 render () {
-                    return (<Component {...props} />);
+                    return (<Component {...this.props}>{ this.props.children }</Component>);
                 }
             });
         }
