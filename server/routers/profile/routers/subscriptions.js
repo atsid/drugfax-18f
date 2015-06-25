@@ -1,23 +1,37 @@
 "use strict";
 let jefferson = require("express-jefferson");
-let debug = require("../../../middleware/debug");
+let profile = require("../../../middleware/profile");
+let auth = require("../../../middleware/auth");
 
 module.exports = jefferson.router({
+    proxies: [require("express-jefferson/proxies/promise-handler")],
     routes: {
         /**
          * Subscription List Resource
          */
         "/": {
-            get: [debug.send("NotImplemented - Get Subscription List")],
-            post: [debug.send("NotImplemented - Create Subscription")]
+            get: [
+                auth.assertLoggedIn,
+                profile.getSubscriptions
+            ],
+            post: [
+                auth.assertLoggedIn,
+                profile.createSubscription
+            ]
         },
 
         /**
          * DrugID - spl_set_id
          */
-        "/:drugId": {
-            get: [debug.send("NotImplemented - Get Subscription")],
-            delete: [debug.send("NotImplemented - Delete Subscription")]
+        "/:subscriptionId": {
+            get: [
+                auth.assertLoggedIn,
+                profile.getSubscriptionById
+            ],
+            delete: [
+                auth.assertLoggedIn,
+                profile.deleteSubscriptionById
+            ]
         }
     }
 });
