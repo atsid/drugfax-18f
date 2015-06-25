@@ -102,12 +102,9 @@ describe("OpenFDABaseService", function() {
                 }
             });
 
-            let called = false;
-            createService().run(function(data) {
-                called = true;
+            return createService().run((data) => {
                 expect(data).to.deep.equal({ testData: true });
             });
-            expect(called).to.be.true;
         });
 
         it("failure should be called when the service returned successfully", function() {
@@ -122,12 +119,9 @@ describe("OpenFDABaseService", function() {
                 }
             });
 
-            let called = false;
-            createService().run(function() {}, function(data) {
-                called = true;
-                expect(data).to.deep.equal({ error: "AHH" });
+            return createService().run().then(function() {}, (err) => {
+                expect(err).to.deep.equal({ error: "AHH" });
             });
-            expect(called).to.be.true;
         });
     });
 });

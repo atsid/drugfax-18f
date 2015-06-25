@@ -78,19 +78,13 @@ class OpenFDABaseService {
      * Runs the service call
      * @returns A promise for the service call
      */
-    run(success, failure) {
+    run() {
         var url = this.buildUrl();
         return new Promise((resolve, reject) => {
             request.get(url).end((err, res) => {
                 if (res.ok) {
-                    if (success) {
-                        success(res.body);
-                    }
                     resolve(res.body);
                 } else {
-                    if (failure) {
-                        failure(err);
-                    }
                     reject(err);
                 }
             });
