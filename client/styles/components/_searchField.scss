@@ -57,19 +57,4 @@
         right: 12px;
         top: 4px;
     }
-
-    .loader--fade-enter {
-        opacity: 0.01;
-        transition: opacity 250ms ease-in;
-    }
-    .loader--fade-enter.loader--fade-enter-active {
-        opacity: 1;
-    }
-    .loader--fade-leave {
-        opacity: 1;
-        transition: opacity 250ms ease-in;
-    }
-    .loader--fade-leave.loader--fade-leave-active {
-        opacity: 0.01;
-    }
 }

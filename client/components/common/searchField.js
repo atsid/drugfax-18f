@@ -2,6 +2,7 @@
 
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+let Loader = require("./loader");
 
 let ENTER_KEY_CODE = 13;
 
@@ -47,13 +48,9 @@ let SearchField = React.createClass({
                     type="text"
                     maxLength="150"/>
                 <i className={"fa fa-search"}></i>
-                { this.props.loading ? <ReactCSSTransitionGroup transitionName="loader--fade">
-                    <div className="loader">
-                        <svg className="circular">
-                            <circle className="path" cx="25" cy="25" r="10" fill="none" strokeWidth="2" stroke-miterlimit="10"/>
-                        </svg>
-                    </div>
-                </ReactCSSTransitionGroup> : null }
+                <ReactCSSTransitionGroup transitionName="transition" transitionAppear={true}>
+                    { this.props.loading ? <Loader/> : null }
+                </ReactCSSTransitionGroup>
             </div>
         );
     }

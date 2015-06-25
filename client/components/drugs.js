@@ -53,8 +53,8 @@ let Drugs = React.createClass({
 
         if (this.state.data.length) {
             list = (
-                <ReactCSSTransitionGroup transitionName="drug-list--fade" transitionAppear={true}>
-                    <DrugList data={this.state.data}/>
+                <ReactCSSTransitionGroup transitionName="transition" transitionAppear={true}>
+                    <DrugList key="drugList" data={this.state.data}/>
                 </ReactCSSTransitionGroup>
             );
         }
