@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/atsid/18f-RFQ993471-POOL2",
   "dependencies": {
-    "babel": "^5.5.8",
+    "babel": "5.6.7",
     "bcrypt": "^0.8.3",
     "bluebird": "^2.9.30",
     "body-parser": "^1.13.1",
