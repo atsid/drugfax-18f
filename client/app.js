@@ -1,7 +1,7 @@
 "use strict";
 
 let React = require("react/addons");
-let { Router, Route } = require("react-router");
+let { Router, Route, Redirect } = require("react-router");
 let HashHistory = require("react-router/lib/HashHistory");
 
 let AppComponent = require("./components/appComponent");
@@ -21,12 +21,13 @@ window.onload = function () {
 
     React.render((
         <Router history={new HashHistory()}>
-            <Route path="/" component={isLoggedInGuard(AppComponent, { state: "login"})}>
+            <Route component={isLoggedInGuard(AppComponent, { state: "login"})}>
                 <Route path="drugs" component={Drugs}>
                     <Route path=":drugId" component={DrugDetails}/>
                 </Route>
             </Route>
             <Route path="login" component={LoginComponent} />
+            <Redirect from="/" to="/drugs" />
         </Router>
     ), document.getElementById("app"));
 };
