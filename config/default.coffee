@@ -1,4 +1,7 @@
 module.exports =
+    container:
+        composed: 0
+
     auth:
         facebook:
             clientID: "1414028015593160"
@@ -23,3 +26,6 @@ module.exports =
     database:
         connectionString: 'mongodb://localhost/18f'
         populateSeedData: true
+        composeConnection:
+            dbName: "18f"
+

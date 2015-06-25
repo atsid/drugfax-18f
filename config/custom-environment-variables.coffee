@@ -1,4 +1,7 @@
 module.exports =
+    container:
+        composed: "DOCKER_COMPOSED"
+
     auth:
         facebook:
             clientID: "FACEBOOK_CLIENT_ID"
@@ -14,6 +17,9 @@ module.exports =
 
     database:
         connectionString: "DB_CONNECTION_STRING"
+        composeConnection:
+            host: "MONGO_1_PORT_27017_TCP_ADDR"
+            port: "MONGO_1_PORT_27017_TCP_PORT"
 
     security:
         sessionStateSecret: "SESSION_STATE_SECRET"
