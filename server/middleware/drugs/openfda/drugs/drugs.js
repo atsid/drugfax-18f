@@ -1,14 +1,24 @@
-let OpenFDASearch = require("../search");
+"use strict";
+
 let OpenFDADrugEvents = require("./events");
-let BaseService = require("../baseService");
+let OpenFDABaseService = require("../common/baseService");
 
-class OpenFDADrugs extends BaseService {
+/**
+ * The drugs/labels service
+ */
+class OpenFDADrugs extends OpenFDABaseService {
 
+    /**
+     * The constructor for the Drugs Service
+     * @param {OpenFDAApi} The API parent
+     */
     constructor(api) {
-        super(api, "/drug/label.json")
-        this.api = api;
+        super(api, "/drug/label.json");
     }
 
+    /**
+     * Gets a reference to the events service
+     */
     events() {
         return new OpenFDADrugEvents(this.api);
     }

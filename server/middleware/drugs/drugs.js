@@ -1,6 +1,7 @@
 "use strict";
 
-let api = new (require("./openfda/api"));
+let apiFactory = require("./openfda/api");
+let config = require("config");
 
 /**
  * Finds all props in the given map that start with the given string
@@ -10,7 +11,7 @@ let api = new (require("./openfda/api"));
 let getPropsThatStartWith = (map, startString) => {
     let finalMap = {};
     let count = 0;
-    for (var key in map) {
+    for (let key in map) {
         if (key.startsWith(startString)) {
             finalMap[key.replace(startString, "")] = true;
             count++;
@@ -27,13 +28,13 @@ let getPropsThatStartWith = (map, startString) => {
  */
 let applyFields = (map, result) => {
     let final = {};
-    for (var key in result) {
+    for (let key in result) {
         if (result.hasOwnProperty(key)) {
-            var type = typeof result[key];
+            let type = typeof result[key];
             if (map[key]) {
                 final[key] = result[key];
             } else if (type === "object") {
-                var props = getPropsThatStartWith(map, key + ".");
+                let props = getPropsThatStartWith(map, key + ".");
                 if (props.count) {
                     final[key] = applyFields(props.map, result[key]);
                 }
@@ -51,38 +52,49 @@ let applyFields = (map, result) => {
  */
 let doApiCall = (api, req, res) => {
     api
+        .search(req.query.search).parent()
         .limit(req.query.limit)
         .skip(req.query.skip)
         .run()
         .then((resp) => {
-            var result;
+            var data = resp.results;
             if (req.query.fields) {
                 let fieldsMap = {};
                 req.query.fields.split(",").forEach((field) => {
-                    fieldsMap[field] = true;
+                    fieldsMap[field.trim()] = true;
                 });
-                var resultMeta = (resp.meta && resp.meta.results) || {};
-                result = {
-                    meta: {
-                        limit: resultMeta.limit,
-                        skip: resultMeta.skip,
-                        total: resultMeta.total
-                    },
-                    data: resp.results.map((result) => applyFields(fieldsMap, result))
-                };
-            } else {
-                result = resp;
+                data = data.map((result) => applyFields(fieldsMap, result));
             }
-            res.json(result);
+
+            let resultMeta = (resp.meta && resp.meta.results) || {};
+            res.json({
+                meta: {
+                    limit: resultMeta.limit,
+                    skip: resultMeta.skip,
+                    total: resultMeta.total
+                },
+                data: data
+            });
             res.end();
         }, (err) => {
-            res.json({ error: "Unknown service error" });
-            res.end();
+            if (err.status === 404) {
+                res.json({
+                    meta: {
+                        total: 0
+                    },
+                    data: []
+                });
+            } else {
+                console.error(err);
+                res.json({ error: "Unknown service error" });
+                res.end();
+            }
         });
 };
 
-let index = doApiCall.bind(this, api.drugs());
-let events = doApiCall.bind(this, api.drugs().events());
+let apiKey = config.openfda && config.openfda.apiKey;
+let index = (req, res) => doApiCall(apiFactory(apiKey).drugs(), req, res);
+let events = (req, res) => doApiCall(apiFactory(apiKey).drugs().events(), req, res);
 
 module.exports = {
     index,
