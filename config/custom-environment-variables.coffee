@@ -9,6 +9,9 @@ module.exports =
             consumerSecret: "TWITTER_CONSUMER_SECRET"
             callbackURL: "TWITTER_CALLBACK_URL"
 
+    openfda:
+        apiKey: "OPENFDA_APIKEY"
+
     database:
         connectionString: "DB_CONNECTION_STRING"
 
