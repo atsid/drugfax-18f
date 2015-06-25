@@ -15,11 +15,9 @@ describe("Navigation Component", function() {
             icon: "MyTestIcon",
             route: "myRoute"
         }];
-        let Stubbed = util.stubRouterContext(NavigationComponent, "object", {
-            items: items
-        });
+        let Stubbed = util.stubRouterContext(NavigationComponent, "object");
         let renderedComponent = ReactTestUtils.renderIntoDocument(
-          <Stubbed />
+          <Stubbed items={items} />
         );
         expect(renderedComponent).to.exist;
         return renderedComponent;

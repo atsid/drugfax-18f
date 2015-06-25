@@ -38,19 +38,11 @@ class Authentication {
                     password: Math.random() + ""
                 };
 
-                request.post("/api/users").send(user).then((res) => {
-                    if (res.ok && res.body) {
-                        request.post("/api/auth/local").send(user).then((loginRes) => {
-                            if (loginRes.ok && loginRes.body) {
-                                this.user = loginRes.body;
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                            }
-                        }, () => resolve(false));
-                    } else {
-                        resolve(false);
-                    }
+                request.post("/api/users").send(user).then(() => {
+                    request.post("/api/auth/local").send(user).then((loginRes) => {
+                        this.user = loginRes.body;
+                        resolve(true);
+                    }, () => resolve(false));
                 }, () => {
                     resolve(false);
                 });
