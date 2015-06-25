@@ -1,15 +1,16 @@
 "use strict";
 let persistence = require("../../persistence");
+let BadRequestError = require("../../errors/bad_request");
 
 module.exports = (req, res) => {
-    let splSetId = req.body.splSetId;
-    let userId = req.user.id;
+    if (!(req.body && req.body.splSetId)) {
+        throw new BadRequestError("'splSetId' must be present on the request body");
+    }
 
     let data = {
-        user: userId,
-        splSetId: splSetId
+        user: req.user.id,
+        splSetId: req.body.splSetId
     };
-    console.log("SUBSCRIPTION DATA: ", data);
     return persistence.models.Subscription.createQ(data)
         .then((created) => res.status(201).json(created.process()));
 };

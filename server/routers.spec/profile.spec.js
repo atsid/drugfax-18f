@@ -47,6 +47,16 @@ describe("/api/profile", () => {
                 })
                 .then((res) => expect(res.body.splSetId).to.equal("arq-123"));
         });
+        it("POST will emit a 400 Bad Request error if the splSetId is not present", () => {
+            return login()
+                .then(() => {
+                    return promisify(sess.post("/api/profile/subscriptions")
+                        .set("Content-Type", "application/json")
+                        .set("Accept", "application/json")
+                        .send({})
+                        .expect(400));
+                });
+        });
     });
 });
 
