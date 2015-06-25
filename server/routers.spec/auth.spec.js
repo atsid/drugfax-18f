@@ -37,6 +37,46 @@ describe("/api/auth", () => {
                     done();
                 });
         });
+
+        it("GET will emit the current user", (done) => {
+            sess.post("/api/auth/local")
+                .set("Content-Type", "application/json")
+                .set("Accept", "application/json")
+                .send({email: "chris.trevino@atsid.com", password: "abc123"})
+                .expect(200, () => {
+                    sess.get("/api/auth/current")
+                        .set("Content-Type", "application/json")
+                        .set("Accept", "application/json")
+                        .expect(200, (err2, res2) => {
+                            expect(res2.body.email).to.equal("chris.trevino@atsid.com");
+                            done();
+                        });
+                });
+        });
+
+        it("DELETE will log out current user", () => {
+            return new Promise((resolve) => {
+                sess.post("/api/auth/local")
+                    .set("Content-Type", "application/json")
+                    .set("Accept", "application/json")
+                    .send({email: "chris.trevino@atsid.com", password: "abc123"})
+                    .expect(200, resolve);
+            }).then(() => {
+                    return new Promise((resolve) => {
+                        sess.delete("/api/auth/current")
+                            .set("Content-Type", "application/json")
+                            .set("Accept", "application/json")
+                            .expect(204, resolve);
+                    });
+                }).then(() => {
+                    return new Promise((resolve) => {
+                        sess.get("/api/auth/current")
+                            .set("Content-Type", "application/json")
+                            .set("Accept", "application/json")
+                            .expect(404, resolve);
+                    });
+                });
+        });
     });
 
     describe("/local", () => {
