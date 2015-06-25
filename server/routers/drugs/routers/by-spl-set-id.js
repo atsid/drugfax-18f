@@ -1,6 +1,7 @@
 "use strict";
 let jefferson = require("express-jefferson");
 let debug = require("../../../middleware/debug");
+let drugs = require("../../../middleware/drugs");
 
 module.exports = jefferson.router({
     routes: {
@@ -8,7 +9,7 @@ module.exports = jefferson.router({
             get: [debug.send("NotImplemented - send an index (no data)")]
         },
         "/:splSetId": {
-            get: [debug.send("NotImplemented - Get Get Drug By SPL Set Id")]
+            get: [drugs.getDrugBySplSetId]
         }
     }
 });
