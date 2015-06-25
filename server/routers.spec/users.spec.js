@@ -7,6 +7,19 @@ let app = require("../server");
 describe("/users", () => {
     beforeEach(() => require("../startup_hooks").resolve());
 
+    it("GET will emit the user index", (done) => {
+        request(app)
+            .get("/api/users")
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end((err, res) => {
+                expect(err).to.be.null;
+                expect(res.body.options).to.be.ok;
+                expect(res.body.links).to.be.ok;
+                done();
+            });
+    });
+
     it("POST will create a new user", (done) => {
         request(app)
             .post("/api/users")
