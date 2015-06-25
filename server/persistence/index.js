@@ -5,29 +5,9 @@ var config = require("config"),
     seeder = require("./seed"),
     startupHooks = require("../startup_hooks");
 
-let mongoose = require("mongoose-q")(require("mongoose"), {
-    spread: true,
-    q: require("q-bluebird")
-});
+let mongoose = require("./mongoose");
 let debug = require("debug")("app:persistence");
 let models = {};
-
-/**
- * Initializes the MongoDB Connection
- */
-function connect() {
-    let db = config.database;
-
-    let isComposed = () => parseInt(config.container.composed);
-    let composeConnectionString = () => {
-        let host = db.composeConnection.host;
-        let port = db.composeConnection.port;
-        let dbName = db.composeConnection.dbName;
-        return `mongodb://${host}:${port}/${dbName}`;
-    };
-    let connectionString = isComposed() ? composeConnectionString() : db.connectionString;
-    mongoose.connect(connectionString);
-}
 
 /**
  * Dynamically load model types
@@ -57,7 +37,6 @@ function populateSeed() {
 }
 
 debug("Initializing Persistence");
-connect();
 getModels();
 populateSeed();
 

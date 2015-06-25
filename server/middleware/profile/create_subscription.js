@@ -2,11 +2,14 @@
 let persistence = require("../../persistence");
 
 module.exports = (req, res) => {
-    let splSetId = req.body.spl_set_id;
+    let splSetId = req.body.splSetId;
     let userId = req.user.id;
 
-    return persistence.models.Subscription.createQ({
+    let data = {
         user: userId,
         splSetId: splSetId
-    }).then((created) => res.status(201).json(created));
+    };
+    console.log("SUBSCRIPTION DATA: ", data);
+    return persistence.models.Subscription.createQ(data)
+        .then((created) => res.status(201).json(created.process()));
 };

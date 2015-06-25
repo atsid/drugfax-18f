@@ -9,6 +9,13 @@ let promisify = require("./promisify");
 
 describe("/api/profile", () => {
     let sess = null;
+    let login = () => promisify(
+        sess.post("/api/auth/local")
+            .set("Content-Type", "application/json")
+            .set("Accept", "application/json")
+            .send({email: "chris.trevino@atsid.com", password: "abc123"})
+            .expect(200));
+
     beforeEach(() => require("../startup_hooks").resolve());
     beforeEach(() => sess = new Session());
     afterEach(() => sess.destroy());
@@ -18,22 +25,28 @@ describe("/api/profile", () => {
     });
 
     it("GET emits the current user if the user is logged in", () => {
-        return promisify(
-            sess.post("/api/auth/local")
-                .set("Content-Type", "application/json")
-                .set("Accept", "application/json")
-                .send({email: "chris.trevino@atsid.com", password: "abc123"})
-                .expect(200))
+        return login()
             .then(() => {
                 return promisify(
                     sess.get("/api/profile")
                         .set("Accept", "application/json")
                         .expect(200));
             })
-            .then((res) => {
-                expect(res.body.email).to.equal("chris.trevino@atsid.com");
-            });
+            .then((res) => expect(res.body.email).to.equal("chris.trevino@atsid.com"));
+    });
 
+    describe("/subscriptions", () => {
+        it("POST will create a subscription", () => {
+            return login()
+                .then(() => {
+                    return promisify(sess.post("/api/profile/subscriptions")
+                        .set("Content-Type", "application/json")
+                        .set("Accept", "application/json")
+                        .send({splSetId: "arq-123"})
+                        .expect(201));
+                })
+                .then((res) => expect(res.body.splSetId).to.equal("arq-123"));
+        });
     });
 });
 

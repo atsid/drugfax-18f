@@ -1,12 +1,12 @@
 "use strict";
-let Schema = require("mongoose").Schema;
+let Schema = require("../../mongoose").Schema;
 
 module.exports = {
     /**
      * The user's email address, which is their unique login
      */
     user: {
-        type: Schema.types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User"
     },
 
