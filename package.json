@@ -63,6 +63,7 @@
     "eslint": "^0.23.0",
     "eslint-plugin-react": "^2.5.2",
     "gulp": "^3.9.0",
+    "gulp-empty": "^0.1.1",
     "gulp-eslint": "^0.14.0",
     "gulp-exit": "0.0.2",
     "gulp-istanbul": "^0.10.0",
