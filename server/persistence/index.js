@@ -29,10 +29,6 @@ function connect() {
     mongoose.connect(connectionString);
 }
 
-function disconnect() {
-    mongoose.disconnect();
-}
-
 /**
  * Dynamically load model types
  */
@@ -65,4 +61,4 @@ connect();
 getModels();
 populateSeed();
 
-module.exports = {models, disconnect};
+module.exports = {models};
