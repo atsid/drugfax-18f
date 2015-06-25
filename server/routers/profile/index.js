@@ -1,13 +1,16 @@
 "use strict";
 let jefferson = require("express-jefferson");
 let mountie = require("express-mountie");
-let debug = require("../../middleware/debug");
+let auth = require("../../middleware/auth");
 let path = require("path");
 
 let router = jefferson.router({
     routes: {
         "/": {
-            "get": [debug.send("NotImplemented - Get Current Profile")]
+            "get": [
+                auth.assertLoggedIn,
+                auth.getCurrentUser
+            ]
         }
     }
 });

@@ -12,6 +12,8 @@ function isValidPassword (password) {
 function process() {
     let result = this.toObject();
     delete result.password;
+    delete result.facebookId;
+    delete result.twitterId;
     delete result._id;
     delete result.__v;
     return result;

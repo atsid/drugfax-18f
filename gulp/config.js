@@ -4,14 +4,14 @@ module.exports = {
     globs: {
         src: {
             LINT_JS: ["client/**/*.js", "server/**/*.js", "*.js", "gulp/**/*.js"],
-            COVERAGE_JS: ["client/**/*.js", "server/**/*.js", "!**/*.spec.js"],
+            COVERAGE_JS: ["client/**/*.js", "server/**/*.js", "!**/*.spec*", "!**/*.spec*/**"],
 
             CLIENT_ALL_JS: ["client/**/*.js"],
-            CLIENT_JS: ["client/**/*.js", "!client/**/*.spec.js"],
+            CLIENT_JS: ["client/**/*.js", "!client/**/*.spec*", "!**/*.spec*/**"],
             CLIENT_ENTRIES: ["client/app.js"],
 
             SERVER_ALL_JS: ["server/**/*.js"],
-            SERVER_JS: ["server/**/*.js", "!server/**/*.spec.js"],
+            SERVER_JS: ["server/**/*.js", "!server/**/*.spec*", "!**/*.spec*/**"],
 
             CLIENT_STYLES: ["client/styles/**/*.scss"],
             CLIENT_ASSETS: ["client/assets/**/*.*"],

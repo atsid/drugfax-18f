@@ -8,9 +8,6 @@ module.exports = jefferson.router({
         "/": {
             get: [users.index],
             post: [users.create]
-        },
-        "/:id": {
-            get: [users.getById]
         }
     }
 });

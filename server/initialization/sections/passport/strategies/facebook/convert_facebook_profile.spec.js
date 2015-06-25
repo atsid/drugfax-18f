@@ -5,8 +5,8 @@ let convert = require("./convert_facebook_profile");
 let profileData = require("./sample_facebook_user.json");
 let User = require("../../../../../persistence").models.User;
 
-describe("The profile converter function", () => {
-    it("can convert a facebook profile", () => {
+describe("The Facebook profile converter function", () => {
+    it("can convert a Facebook profile", () => {
         let userData = convert(profileData);
         return User.createQ(userData).then((created) => {
             expect(created).to.be.ok;
