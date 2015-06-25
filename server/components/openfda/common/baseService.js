@@ -82,7 +82,6 @@ class OpenFDABaseService {
         var url = this.buildUrl();
         return new Promise((resolve, reject) => {
             request.get(url).end((err, res) => {
-                console.log(res);
                 if (res.ok) {
                     if (success) {
                         success(res.body);
