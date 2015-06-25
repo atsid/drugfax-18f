@@ -16,7 +16,17 @@ let models = {};
  * Initializes the MongoDB Connection
  */
 function connect() {
-    mongoose.connect(config.database.connectionString);
+    let db = config.database;
+
+    let isComposed = () => parseInt(config.container.composed);
+    let composeConnectionString = () => {
+        let host = db.composeConnection.host;
+        let port = db.composeConnection.port;
+        let dbName = db.composeConnection.dbName;
+        return `mongodb://${host}:${port}/${dbName}`;
+    };
+    let connectionString = isComposed() ? composeConnectionString() : db.connectionString;
+    mongoose.connect(connectionString);
 }
 
 function disconnect() {

@@ -1,3 +1,6 @@
 #!/bin/bash
 
-cp scripts/git/hooks/* .git/hooks
+if  [ -e ./.git ];
+then
+    cp scripts/git/hooks/* .git/hooks
+fi
