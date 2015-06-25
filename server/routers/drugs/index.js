@@ -1,13 +1,13 @@
 "use strict";
 let jefferson = require("express-jefferson");
 let mountie = require("express-mountie");
-let debug = require("../../middleware/debug");
 let path = require("path");
+let drugs = require("../../middleware/drugs");
 
 let router = jefferson.router({
     routes: {
         "/": {
-            "get": [debug.send("NotImplemented - Get Drug Index")]
+            "get": [drugs.index]
         }
     }
 });

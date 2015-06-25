@@ -1,11 +1,11 @@
 "use strict";
 let jefferson = require("express-jefferson");
-let debug = require("../../../middleware/debug");
+let drugs = require("../../../middleware/drugs");
 
 module.exports = jefferson.router({
    routes: {
        "/": {
-           get: [debug.send("NotImplemented - Get Drug Adverse Events")]
+           get: [drugs.events]
        }
    }
 });
