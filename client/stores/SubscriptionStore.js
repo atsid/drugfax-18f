@@ -25,7 +25,7 @@ class SubscriptionStore {
     }
 
     isSubscribed(splSetId) {
-        return list({search: {splSetId: splSetId}}).promise()
+        return this.list({search: {splSetId: splSetId}}).promise()
         .then((res) => res.body.items.length > 0);
     }
 }
