@@ -15,7 +15,7 @@ let lrload = require("livereactload");
 gulp.task("watch", () => {
 
     // watch js and lint
-    gulp.watch(config.globs.src.CLIENT_ALL_JS, ["lint-client", "client-unit-test-tdd"]);
+    gulp.watch(config.globs.src.CLIENT_ALL_JS, ["client-unit-test-tdd"]);
 
     // watch html
     gulp.watch(config.globs.src.CLIENT_HTML, ["copy"]);
@@ -39,6 +39,7 @@ gulp.task("watch", () => {
         return watcher
             .on("error", gutil.log.bind(gutil, "Browserify Error"))
             .bundle()
+            .on("error", gutil.log.bind(gutil, "Bundling Error"))
             .pipe(source(config.globs.out.CLIENT_DIST_BUNDLE))
             .pipe(buffer())
             .pipe(gulp.dest(config.globs.out.CLIENT_DIST));
@@ -46,6 +47,6 @@ gulp.task("watch", () => {
 
     watcher.on("update", bundle);
     watcher.on("log", gutil.log);
-    watcher.on("error", gutil.log);
+    watcher.on("error", gutil.log.bind(gutil, "Watcher Error"));
     return bundle();
 });
