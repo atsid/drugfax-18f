@@ -15,7 +15,7 @@ let lrload = require("livereactload");
 gulp.task("watch", () => {
 
     // watch js and lint
-    gulp.watch(config.globs.src.CLIENT_ALL_JS, ["lint-client", "client-unit-test"]);
+    gulp.watch(config.globs.src.CLIENT_ALL_JS, ["lint-client", "client-unit-test-tdd"]);
 
     // watch html
     gulp.watch(config.globs.src.CLIENT_HTML, ["copy"]);
