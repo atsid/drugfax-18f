@@ -37,8 +37,8 @@ gulp.task("watch", () => {
 
     function bundle() {
         return watcher
-            .bundle()
             .on("error", gutil.log.bind(gutil, "Browserify Error"))
+            .bundle()
             .pipe(source(config.globs.out.CLIENT_DIST_BUNDLE))
             .pipe(buffer())
             .pipe(gulp.dest(config.globs.out.CLIENT_DIST));
@@ -46,6 +46,6 @@ gulp.task("watch", () => {
 
     watcher.on("update", bundle);
     watcher.on("log", gutil.log);
-
+    watcher.on("error", gutil.log);
     return bundle();
 });

@@ -78,7 +78,13 @@ describe("/api/profile", () => {
                 .then((res) => {
                     expect(res.body.items.length).to.equal(1);
                     expect(res.body.items[0].splSetId).to.equal("arq-123");
-                });
+                })
+                .then(() => {
+                    return promisify(sess.get("/api/profile/subscriptions?splSetId=derp")
+                        .set("Accept", "application/json")
+                        .expect(200));
+                })
+                .then((res) => expect(res.body.items.length).to.equal(0));
         });
 
         describe("/subscriptions/:id", () => {
