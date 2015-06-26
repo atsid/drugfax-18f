@@ -1,5 +1,5 @@
 "use strict";
-
+let Bluebird = require("bluebird");
 let request = require("superagent-bluebird-promise");
 
 /**
@@ -11,18 +11,16 @@ class Authentication {
      * Returns true if the current user is logged in
      */
     isLoggedIn() {
-        return new Promise((resolve) => {
-            if (this.user) {
-                resolve(true);
-            } else {
-                request.get("/api/auth/current").then((res) => {
+        if (this.user) {
+            return Bluebird.cast(true);
+        } else {
+            return request.get("/api/auth/current")
+            .then((res) => {
                     this.user = res.body;
-                    resolve(true);
-                }, () => {
-                    resolve(false);
-                });
-            }
-        });
+                    return true;
+                })
+            .catch(() => false);
+        }
     }
 
     /**
@@ -31,25 +29,19 @@ class Authentication {
      * @returns A promise for the login service call
      */
     login (loginType) {
-        return new Promise((resolve) => {
-            if (loginType === "demo") {
-                var user = {
-                    email: "demo.account" + Math.random() + "@gmail.com",
-                    password: Math.random() + ""
-                };
-
-                request.post("/api/users").send(user).then(() => {
-                    request.post("/api/auth/local").send(user).then((loginRes) => {
-                        this.user = loginRes.body;
-                        resolve(true);
-                    }, () => resolve(false));
-                }, () => {
-                    resolve(false);
-                });
-            } else {
-                window.location.href = "/api/auth/" + loginType;
-            }
-        });
+        if (loginType === "demo") {
+            var user = {
+                email: "demo.account" + Math.random() + "@gmail.com",
+                password: Math.random() + ""
+            };
+            return request.post("/api/users").send(user)
+                .then(() => request.post("/api/auth/local").send(user))
+                .then((loginRes) => this.user = loginRes.body)
+                .then(() => true)
+                .catch(() => false);
+        } else {
+            window.location.href = "/api/auth/" + loginType;
+        }
     }
 
     /**
@@ -57,6 +49,9 @@ class Authentication {
      */
     logout() {
         this.user = undefined;
+        return request.del("/api/auth/current")
+            .then(() => window.location.href = "/#/login")
+            .catch(() => window.location.href = "/#/login");
     }
 }
 
