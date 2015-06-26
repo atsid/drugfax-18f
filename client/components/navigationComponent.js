@@ -20,13 +20,24 @@ let NavigationComponent = React.createClass({
         for (let i = 0; i < navItems.length; i++) {
             let item = navItems[i];
             let classes = "navItem__icon fa fa-" + item.icon;
-            elements.push(
-                <Link to={item.route} key={item.name}>
-                    <div classNames={"navItems__navItem"}>
+
+            if (item.route) {
+                elements.push(
+                    <Link to={item.route} key={item.name}>
+                        <div classNames={"navItems__navItem"}>
+                            <i className={classes} title={item.description}/>
+                            <span className={"navItem__label"}>{item.name}</span>
+                        </div>
+                    </Link>
+                );
+            } else {
+                elements.push(
+                    <div classNames={"navItems__navItem"} onClick={item.action}>
                         <i className={classes} title={item.description}/>
                         <span className={"navItem__label"}>{item.name}</span>
                     </div>
-                </Link>);
+                );
+            }
         }
         return elements;
     },

@@ -2,6 +2,7 @@
 
 let React = require("react");
 let NavigationComponent = require("./navigationComponent");
+let auth = require("../security/auth");
 
 let AppComponent = React.createClass({
 
@@ -34,7 +35,7 @@ let AppComponent = React.createClass({
             description: "Logout",
             name: "Logout",
             icon: "sign-out",
-            route: "logout"
+            action: () => auth.logout()
         }];
         return (
             <div className={"app-container"}>
