@@ -28,11 +28,11 @@ describe("Navigation Component", function() {
 
         let items;
         expect(() =>
-            items = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "navigationComponent__navItems")).to.not.throw();
+            items = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "nav__items")).to.not.throw();
 
         let hamburger;
         expect(() =>
-            hamburger = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "navigationComponent__hamburger")).to.not.throw();
+            hamburger = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "nav__hamburger")).to.not.throw();
 
         // It should not start expanded
         expect(items.getDOMNode().className).to.not.contain("--expanded");
@@ -52,7 +52,7 @@ describe("Navigation Component", function() {
 
         let icon;
         expect(() =>
-            icon = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "navItem__icon")).to.not.throw();
+            icon = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "nav__items__item__icon")).to.not.throw();
 
         expect(icon.getDOMNode().className).to.contain("MyTestIcon");
     });
@@ -62,7 +62,7 @@ describe("Navigation Component", function() {
 
         let label;
         expect(() =>
-            label = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "navItem__label")).to.not.throw();
+            label = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "nav__items__item__label")).to.not.throw();
 
         expect(label.getDOMNode().innerHTML).to.contain("My Test Item");
     });

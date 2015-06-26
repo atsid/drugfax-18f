@@ -5,6 +5,8 @@
         padding: 8px 28px;
         cursor: pointer;
         display: block;
+        border-right: 4px solid transparent;;
+        transition: all 125ms ease-in;
 
         .drug-list__item__brand_name {
             font-size: 16px;
@@ -20,7 +22,9 @@
         }
 
         &.active {
-            background-color: #f4f4f4;
+            box-shadow: inset 0 0 1px 0 #ccc;
+            background-color: #eef0f5;
+            border-right: 4px solid $color-secondary;
         }
 
     }

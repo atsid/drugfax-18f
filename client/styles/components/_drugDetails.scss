@@ -2,6 +2,11 @@
     padding-left: 60px;
     padding-right: 60px;
 
+    .subscribe,
+    .unsubscribe {
+        margin-top: 18px;
+    }
+
     h1 {
         font-weight: 300;
         margin-bottom: 0;
@@ -14,11 +19,12 @@
     }
 
     .subscribe {
-        background-color: $color-primary
+        background-color: $color-primary;
     }
 
     .unsubscribe {
-        background-color: $red
+        background-color: $button-bg;
+        color: $button-fg;
     }
 
     h5 {

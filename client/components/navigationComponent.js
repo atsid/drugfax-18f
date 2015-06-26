@@ -19,22 +19,20 @@ let NavigationComponent = React.createClass({
         let navItems = this.props.items || [];
         for (let i = 0; i < navItems.length; i++) {
             let item = navItems[i];
-            let classes = "navItem__icon fa fa-" + item.icon;
+            let classes = "nav__items__item__icon fa fa-" + item.icon;
 
             if (item.route) {
                 elements.push(
-                    <Link to={item.route} key={item.name}>
-                        <div classNames={"navItems__navItem"}>
-                            <i className={classes} title={item.description}/>
-                            <span className={"navItem__label"}>{item.name}</span>
-                        </div>
+                    <Link className={"nav__items__item"} to={item.route} key={item.name}>
+                        <i className={classes} title={item.description}/>
+                        <span className={"nav__items__item__label"}>{item.name}</span>
                     </Link>
                 );
             } else {
                 elements.push(
-                    <div classNames={"navItems__navItem"} onClick={item.action}>
+                    <div className={"nav__items__item"} onClick={item.action} key={item.name}>
                         <i className={classes} title={item.description}/>
-                        <span className={"navItem__label"}>{item.name}</span>
+                        <span className={"nav__items__item__label"}>{item.name}</span>
                     </div>
                 );
             }
@@ -47,13 +45,13 @@ let NavigationComponent = React.createClass({
     },
 
     render() {
-        var navItemsClasses = "navigationComponent__navItems";
+        var navItemsClasses = "nav__items";
         if (this.state.expanded) {
-            navItemsClasses += " navigationComponent__navItems--expanded";
+            navItemsClasses += " nav__items--expanded";
         }
         return (
-            <div className={"navigationComponent"}>
-                <div className={"navigationComponent__hamburger"} onClick={this.onHambugerClick}>
+            <div className={"nav"}>
+                <div className={"nav__hamburger"} onClick={this.onHambugerClick}>
                     <i className={"fa fa-bars"}></i>
                 </div>
                 <div className={navItemsClasses}>
