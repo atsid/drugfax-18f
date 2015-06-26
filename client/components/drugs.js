@@ -18,24 +18,35 @@ let Drugs = React.createClass({
     getInitialState: function() {
         return {
             value: "",
-            data: []
+            data: [],
+            currentRequest: null
         };
     },
 
     _performQuery: function (query) {
+
+        // cancel exesting request
+        if (this.state.currentRequest) {
+            this.state.currentRequest.cancel();
+        }
+
+        // perform query
         let qs = `openfda.brand_name:${query}+OR+openfda.substance_name:${query}+OR+openfda.manufacturer_name:${query}`;
-        store.list({search: qs, limit: 10}).then((res) => {
-            this.setState({data: res.body.data, loading: false});
-        }, () => {
-            this.setState({data: [], loading: false});
+        let req = store.list({search: qs, limit: 10}).then((res) => {
+            this.setState({data: res.body.data, loading: false, currentRequest: null});
+        }, (err) => {
+            if (err && err.name !== "CancellationError") {
+                this.setState({data: [], loading: false, currentRequest: null});
+            }
         });
+
+        // track this request
+        this.setState({currentRequest: req});
     },
 
     _handleSearch: function (query) {
-        this.setState({
-            value: query
-        });
-        if (query.length) {
+        this.setState({ value: query });
+        if (query) {
             this.setState({loading: true});
             this._performQuery(query);
         } else {
@@ -43,21 +54,18 @@ let Drugs = React.createClass({
         }
     },
 
-    render: function() {
-        let list = null,
-            classNames = ["drugs"];
+    _getClassNames: function () {
+        return this.props.params.drugId ? "drugs drugs--populated" : "drugs";
+    },
 
-        if (this.props.params && this.props.params.drugId) {
-            classNames.push("drugs--populated");
-        }
+    render: function() {
+        let list = null;
 
         if (this.state.data.length && !this.state.loading) {
-            list = (
-                <DrugList key={this.state.value} data={this.state.data}/>
-            );
+            list = <DrugList key={this.state.value} data={this.state.data}/>;
         }
         return (
-            <div className={classNames.join(" ")}>
+            <div className={this._getClassNames()}>
                 <div className={"drugs__master"}>
                     <SearchField onSearch={this._handleSearch} loading={this.state.loading} placeholder={"Search for drugs and medication"}/>
                     <ReactCSSTransitionGroup transitionName="transition" transitionAppear={true}>
