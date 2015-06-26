@@ -30,9 +30,8 @@ let MyDrugs = React.createClass({
         })
             .then((result) => result.items)
             .then((subscriptions) => Bluebird.all(subscriptions.map((sub) => drugStore.get(sub.splSetId))))
-            .then((subscribedDrugs) => {
-                this.setState({subscriptions: subscribedDrugs, loading: false});
-            });
+            .then((subscribedDrugs) => this.setState({subscriptions: subscribedDrugs, loading: false}))
+            .catch(() => this.setState({loading: false}));
     },
 
     render: function () {
@@ -47,7 +46,7 @@ let MyDrugs = React.createClass({
                     { !this.state.loading ?
                         <div>
                             <h1>Saved Drugs</h1>
-                            <DrugList key={this.state.value} data={this.state.subscriptions} />
+                            <DrugList key={this.state.value} data={this.state.subscriptions}/>
                         </div>
                         : null
                     }
