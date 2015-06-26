@@ -7,7 +7,7 @@
         display: block;
         border-top: 1px solid transparent;
         border-bottom: 1px solid transparent;
-        transition: all 125ms ease-in;
+
 
         .drug-list__item__brand_name {
             font-size: 16px;
@@ -19,10 +19,11 @@
         }
 
         &:hover {
-            background-color: #f4f4f4;
+            background-color: #fafafa;
         }
 
         &.active {
+            transition: all 200ms ease-out;
             border-top-color: $component-border;
             border-bottom-color: $component-border;
             background-color: #fff;

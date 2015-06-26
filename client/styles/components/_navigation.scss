@@ -4,7 +4,6 @@ $icon-color: mix($color-secondary, #fff, 50%);
     position: fixed;
     height: 100%;
     background-color: $color-secondary;
-    border-right: 1px solid darken($color-secondary, 5%);
     width: 80px;
     text-align: center;
 }

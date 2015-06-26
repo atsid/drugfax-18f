@@ -23,6 +23,10 @@ button,
         margin-right: .7em;
         vertical-align: middle;
     }
+
+    > span {
+        vertical-align: middle;
+    }
 }
 
 .button--primary {

@@ -76,7 +76,7 @@ let DrugDetails = React.createClass({
                 <ReactCSSTransitionGroup component="div" transitionName="transition" transitionAppear={true}>
                     { !this.state.loading && this.state.data ?
                         <div key="drug-details" className={"drug-details"}>
-                            <StyledButton icon={this.subscribeButtonIcon()} className={"pull-right button--large button--primary button--rounded " + this.subscribeButtonClass()} disabled={this.state.loading} onClick={this.toggleSubscription}>{this.subscribeText()}</StyledButton>
+                            <StyledButton icon={this.subscribeButtonIcon()} className={"pull-right button--large button--primary " + this.subscribeButtonClass()} disabled={this.state.loading} onClick={this.toggleSubscription}>{this.subscribeText()}</StyledButton>
                             <h1>{this.state.data.openfda.brand_name[0]}</h1>
                             <h4 className={"drug-details__sub-title"}>{this.state.data.openfda.substance_name[0]}</h4>
                             <h5>Indications and Usage</h5>
