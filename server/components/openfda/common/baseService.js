@@ -88,8 +88,8 @@ class OpenFDABaseService {
     }
 
     /**
-     * Runs the service call
-     * @returns A promise for the service call
+     * Executes the service call
+     * @returns A promise returning the service call result.
      */
     run() {
         return new Promise((resolve, reject) => {
@@ -103,6 +103,10 @@ class OpenFDABaseService {
         });
     }
 
+    /**
+     * Executes the service call returning a streamable result
+     * @returns A promise for the service call
+     */
     runRaw() {
         var url = this.buildUrl();
         return request.get(url);

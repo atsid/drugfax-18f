@@ -150,4 +150,28 @@ describe("OpenFDABaseService", function() {
             });
         });
     });
+    describe("runRaw", function() {
+        it("should call get on request", function() {
+            let called = false;
+            BaseService.__set__("request", {
+                get: function() {
+                    called = true;
+                }
+            });
+            createService().runRaw();
+            expect(called).to.be.true;
+        });
+
+        it("should call get with the correct url", function() {
+            let called = false;
+            BaseService.__set__("request", {
+                get: function(url) {
+                    expect(url).to.equal("Path1Path2?api_key=FakeApiKey");
+                    called = true;
+                }
+            });
+            createService().runRaw();
+            expect(called).to.be.true;
+        });
+    });
 });
