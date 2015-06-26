@@ -6,7 +6,7 @@ module.exports = (req, res) => {
     return persistence.models.Subscription.findQ({user: userId})
         .then((subscriptions) => {
             res.json({
-                items: subscriptions.map((s) => s.process)
+                items: subscriptions.map((s) => s.process())
             });
         });
 };

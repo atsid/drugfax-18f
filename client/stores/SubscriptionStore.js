@@ -23,6 +23,11 @@ class SubscriptionStore {
             .send({splSetId: splSetId})
             .promise();
     }
+
+    isSubscribed(splSetId) {
+        return list({search: {splSetId: splSetId}}).promise()
+        .then((res) => res.body.items.length > 0);
+    }
 }
 
 module.exports = SubscriptionStore;

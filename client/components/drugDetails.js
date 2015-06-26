@@ -45,6 +45,7 @@ let DrugDetails = React.createClass({
         let splSetId = this.state.data.openfda.spl_set_id[0];
         console.log("Subscribing to ", splSetId);
         subscriptionStore.subscribe(splSetId);
+
     },
 
     render: function() {
