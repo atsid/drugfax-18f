@@ -25,7 +25,7 @@ describe("OpenFDABaseService", function() {
                     .buildUrl();
             expect(result).to.equal("Path1Path2?api_key=FakeApiKey&skip=3");
         });
-        it("should work when skip is set", function() {
+        it("should work when count is set", function() {
             let result =
                 createService()
                     .count("test")
