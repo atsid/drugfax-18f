@@ -51,18 +51,18 @@ let Drugs = React.createClass({
             classNames.push("drugs--populated");
         }
 
-        if (this.state.data.length) {
+        if (this.state.data.length && !this.state.loading) {
             list = (
-                <ReactCSSTransitionGroup transitionName="drug-list--fade" transitionAppear={true}>
-                    <DrugList data={this.state.data}/>
-                </ReactCSSTransitionGroup>
+                <DrugList key={this.state.value} data={this.state.data}/>
             );
         }
         return (
             <div className={classNames.join(" ")}>
                 <div className={"drugs__master"}>
                     <SearchField onSearch={this._handleSearch} loading={this.state.loading} placeholder={"Search for drugs and medication"}/>
-                    {list}
+                    <ReactCSSTransitionGroup transitionName="transition" transitionAppear={true}>
+                        {list}
+                    </ReactCSSTransitionGroup>
                 </div>
                 <div className={"drugs__details"}>
                     {this.props.children}

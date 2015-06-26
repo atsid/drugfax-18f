@@ -3,6 +3,7 @@
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let DrugStore = require("../stores/drugStore");
+let Loader = require("./common/loader");
 
 let store = new DrugStore();
 
@@ -41,41 +42,37 @@ let DrugDetails = React.createClass({
     render: function() {
         return (
             <div>
-                { !this.state.loading && this.state.data ? <ReactCSSTransitionGroup transitionName="drug-details--fade">
-                    <div className={"drug-details"}>
-                        <h1>{this.state.data.openfda.brand_name[0]}</h1>
-                        <h4 className={"drug-details__sub-title"}>{this.state.data.openfda.substance_name[0]}</h4>
-                        <h5>Indications and Usage</h5>
-                        <p>{this.state.data.indications_and_usage}</p>
-                        <div className="row">
-                            <div className="col-3">
-                                <h5>Manufacturer</h5>
-                                <p>
-                                    <a>{this.state.data.openfda.manufacturer_name[0]}</a>
-                                </p>
+                <ReactCSSTransitionGroup component="div" transitionName="transition" transitionAppear={true}>
+                    { !this.state.loading && this.state.data ?
+                        <div key="drug-details" className={"drug-details"}>
+                            <h1>{this.state.data.openfda.brand_name[0]}</h1>
+                            <h4 className={"drug-details__sub-title"}>{this.state.data.openfda.substance_name[0]}</h4>
+                            <h5>Indications and Usage</h5>
+                            <p>{this.state.data.indications_and_usage}</p>
+                            <div className="row">
+                                <div className="col-3">
+                                    <h5>Manufacturer</h5>
+                                    <p>
+                                        <a>{this.state.data.openfda.manufacturer_name[0]}</a>
+                                    </p>
+                                </div>
+                                <div className="col-3">
+                                    <h5>Type</h5>
+                                    <p>{this.state.data.openfda.product_type[0]}</p>
+                                </div>
+                                <div className="col-3">
+                                    <h5>Route</h5>
+                                    <p>{this.state.data.openfda.route[0]}</p>
+                                </div>
                             </div>
-                            <div className="col-3">
-                                <h5>Type</h5>
-                                <p>{this.state.data.openfda.product_type[0]}</p>
-                            </div>
-                            <div className="col-3">
-                                <h5>Route</h5>
-                                <p>{this.state.data.openfda.route[0]}</p>
-                            </div>
-                        </div>
-                        <h5>Dosage and Administration</h5>
-                        <p>{this.state.data.dosage_and_administration}</p>
-                        <h5>Warnings</h5>
-                        <p>{this.state.data.warnings}</p>
-                    </div>
-                </ReactCSSTransitionGroup> : null }
-                { this.state.loading ? <ReactCSSTransitionGroup transitionName="loader--fade">
-                    <div className="loader">
-                        <svg className="circular">
-                            <circle className="path" cx="25" cy="25" r="10" fill="none" strokeWidth="2" stroke-miterlimit="10"/>
-                        </svg>
-                    </div>
-                </ReactCSSTransitionGroup> : null }
+                            <h5>Dosage and Administration</h5>
+                            <p>{this.state.data.dosage_and_administration}</p>
+                            <h5>Warnings</h5>
+                            <p>{this.state.data.warnings}</p>
+                        </div> : null
+                    }
+                    { this.state.loading ? <Loader/> : null }
+                </ReactCSSTransitionGroup>
             </div>
         );
     }
