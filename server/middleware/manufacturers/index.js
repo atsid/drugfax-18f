@@ -21,8 +21,7 @@ let index = (req, res) => {
                 data: resp.results.map((item) => {
                     return {
                         id: item.term,
-                        name: item.term,
-                        drugCount: item.count
+                        name: item.term
                     };
                 })
             });
@@ -32,6 +31,8 @@ let index = (req, res) => {
         });
 };
 
+
 module.exports = {
-    index
+    index,
+    getManufacturerByName: require("./get_manufacturer_by_name")
 };

@@ -17,4 +17,5 @@ mountie({
     src: path.join(__dirname, "routers"),
     prefix: (name) => `/${name}`
 });
+
 module.exports = router;

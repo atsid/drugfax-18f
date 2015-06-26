@@ -13,6 +13,15 @@ describe("OpenFDADrugs", function() {
         });
     });
 
+    describe("enforcements", function() {
+
+        it("should return an enforcements object", function() {
+            var service = new Drugs({});
+            expect(service.enforcements().run).to.exist;
+        });
+    });
+
+
     describe("buildUrl", function() {
         it("should return the correct path", function() {
             var service = new Drugs({
