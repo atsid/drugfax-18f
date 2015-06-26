@@ -46,6 +46,10 @@ class OpenFDABaseService {
             queryArgs.push("skip=" + this.skipArg);
         }
 
+        if (this.countArg) {
+            queryArgs.push("count=" + this.countArg);
+        }
+
         return baseUrl + (queryArgs.length ? "?" + queryArgs.join("&") : "");
     }
 
@@ -64,6 +68,15 @@ class OpenFDABaseService {
      */
     skip(num) {
         this.skipArg = num;
+        return this;
+    }
+
+    /**
+     * Returns the number of unique results for the field
+     * @param {field} field The field to count
+     */
+    count(field) {
+        this.countArg = field;
         return this;
     }
 
