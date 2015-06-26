@@ -4,7 +4,7 @@ let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let DrugStore = require("../stores/drugStore");
 let Loader = require("./common/loader");
 let SubscriptionStore = require("../stores/subscriptionStore");
-let Bluebird = require("bluebird");
+let Bluebird = require("Bluebird");
 
 let drugStore = new DrugStore();
 let subscriptionStore = new SubscriptionStore();
@@ -38,7 +38,7 @@ let DrugDetails = React.createClass({
             drugStore.get(props.drugId),
             subscriptionStore.getSubscription(props.drugId)
         ]).spread((drug, subscription) => {
-            this.setState({data: drug.body.data[0], loading: false, subscription: subscription});
+            this.setState({data: drug, loading: false, subscription: subscription});
         }).catch((err) => {
             console.log("error loading store data", err);
             this.setState({loading: false});
