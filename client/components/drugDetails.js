@@ -4,7 +4,7 @@ let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let DrugStore = require("../stores/drugStore");
 let Loader = require("./common/loader");
 let SubscriptionStore = require("../stores/subscriptionStore");
-let Bluebird = require("Bluebird");
+let Bluebird = require("bluebird");
 
 let drugStore = new DrugStore();
 let subscriptionStore = new SubscriptionStore();
