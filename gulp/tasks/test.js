@@ -19,7 +19,7 @@ let instrumentSource = (glob) => {
             }))
             .pipe(istanbul.hookRequire())
             .on("finish", resolve)
-            .on("error", reject)
+            .on("error", reject);
     });
 };
 
@@ -27,7 +27,7 @@ let writeReports = (reportDir) => {
     return istanbul.writeReports({
         dir: reportDir,
         reporters: ["lcov", "text-summary"]
-    })
+    });
 };
 
 let instrument = (sourceGlob, reportDir, doExit, callback, tdd=false) => {
