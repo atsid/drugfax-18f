@@ -3,14 +3,14 @@
 let request = require("superagent-bluebird-promise");
 
 class SubscriptionStore {
-    list(opts) {
+    list(opts={}) {
         let req = request.get("/api/profile/subscriptions");
         req.query({limit: opts.limit || 100});
         req.query({skip: opts.skip || 0});
         if (opts.search) {
             req.query({search: opts.search});
         }
-        return req.promise();
+        return req.promise().then((res) => res.body);
     }
 
     /**

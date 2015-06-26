@@ -11,6 +11,9 @@ class DrugStore {
         if (opts.search) {
             req.query({search: opts.search});
         }
+        if (opts.fields) {
+            req.query({fields: opts.fields});
+        }
         return req.promise();
     }
 
