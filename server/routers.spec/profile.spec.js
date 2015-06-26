@@ -20,6 +20,13 @@ describe("/api/profile", () => {
             .set("Accept", "application/json")
             .send({email: "chris.trevino@atsid.com", password: "abc123"})
             .expect(200));
+    let makeSubscription = () => {
+        return promisify(sess.post("/api/profile/subscriptions")
+            .set("Content-Type", "application/json")
+            .set("Accept", "application/json")
+            .send({splSetId: "arq-123"})
+            .expect(201));
+    };
 
     beforeEach(() => require("../startup_hooks").resolve());
     beforeEach(() => sess = new Session());
@@ -42,14 +49,7 @@ describe("/api/profile", () => {
 
     describe("/subscriptions", () => {
         it("POST will create a subscription", () => {
-            return login()
-                .then(() => {
-                    return promisify(sess.post("/api/profile/subscriptions")
-                        .set("Content-Type", "application/json")
-                        .set("Accept", "application/json")
-                        .send({splSetId: "arq-123"})
-                        .expect(201));
-                })
+            return login().then(makeSubscription)
                 .then((res) => expect(res.body.splSetId).to.equal("arq-123"))
                 .then(() => {
                     return promisify(sess.get("/api/profile/subscriptions")
@@ -68,16 +68,26 @@ describe("/api/profile", () => {
                         .expect(400));
                 });
         });
+        it("GET can accept a query argument to determine if a user has a subscription to a drug", () => {
+            return login().then(makeSubscription)
+                .then(() => {
+                    return promisify(sess.get("/api/profile/subscriptions?splSetId=arq-123")
+                        .set("Accept", "application/json")
+                        .expect(200));
+                })
+                .then((res) => {
+                    expect(res.body.items.length).to.equal(1);
+                    expect(res.body.items[0].splSetId).to.equal("arq-123");
+                })
+                .then(() => {
+                    return promisify(sess.get("/api/profile/subscriptions?splSetId=derp")
+                        .set("Accept", "application/json")
+                        .expect(200));
+                })
+                .then((res) => expect(res.body.items.length).to.equal(0));
+        });
 
         describe("/subscriptions/:id", () => {
-            let makeSubscription = () => {
-                return promisify(sess.post("/api/profile/subscriptions")
-                    .set("Content-Type", "application/json")
-                    .set("Accept", "application/json")
-                    .send({splSetId: "arq-123"})
-                    .expect(201));
-            };
-
             it("GET will retrieve a subscription by ID", () => {
                 return login()
                     .then(makeSubscription)

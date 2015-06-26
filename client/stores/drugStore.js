@@ -15,7 +15,7 @@ class DrugStore {
     }
 
     get(id) {
-        return request.get(`/api/drugs/by-spl-set-id/${id}`).promise();
+        return request.get(`/api/drugs/by-spl-set-id/${id}`).promise().then((res) => res.body);
     }
 }
 
