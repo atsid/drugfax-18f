@@ -70,6 +70,11 @@ let LoginComponent = React.createClass({
                         WITH DEMO ACCOUNT
                     </StyledButton>
                 </div>
+                <div className={"login__options__disclaimer"}>
+                    <span>
+                        THIS IS NOT AN OFFICIAL U.S. GOVERNMENT WEBSITE. This website is a prototype solely intended for use by Applied Technical Systems Inc. for the purpose of responding to a solicitation by the U.S. Government. The health and medical information on this prototype website is not intended to provide advice or treatment from healthcare professionals, and should not be relied upon for same.
+                    </span>
+                </div>
                 <div className={"login__options__footer"}>
                     <div className={"pull-left"}>View project on Github</div>
                     <div className={"pull-right"}>Made with ❤ by atsid</div>
