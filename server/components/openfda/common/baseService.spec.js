@@ -25,6 +25,13 @@ describe("OpenFDABaseService", function() {
                     .buildUrl();
             expect(result).to.equal("Path1Path2?api_key=FakeApiKey&skip=3");
         });
+        it("should work when count is set", function() {
+            let result =
+                createService()
+                    .count("test")
+                    .buildUrl();
+            expect(result).to.equal("Path1Path2?api_key=FakeApiKey&count=test");
+        });
         it("should work when skip and limit are set", function() {
             let result =
                 createService()
@@ -32,6 +39,15 @@ describe("OpenFDABaseService", function() {
                     .limit(2)
                     .buildUrl();
             expect(result).to.equal("Path1Path2?api_key=FakeApiKey&limit=2&skip=3");
+        });
+        it("should work when skip, limit, and count are set", function() {
+            let result =
+                createService()
+                    .skip(3)
+                    .limit(2)
+                    .count("test")
+                    .buildUrl();
+            expect(result).to.equal("Path1Path2?api_key=FakeApiKey&limit=2&skip=3&count=test");
         });
         it("should work when skip, limit, and search are set", function() {
             let result =
@@ -41,6 +57,16 @@ describe("OpenFDABaseService", function() {
                     .search("test:yo").parent()
                     .buildUrl();
             expect(result).to.equal("Path1Path2?api_key=FakeApiKey&search=(test:yo)&limit=2&skip=3");
+        });
+        it("should work when skip, limit, count, and search are set", function() {
+            let result =
+                createService()
+                    .skip(3)
+                    .limit(2)
+                    .count("test")
+                    .search("test:yo").parent()
+                    .buildUrl();
+            expect(result).to.equal("Path1Path2?api_key=FakeApiKey&search=(test:yo)&limit=2&skip=3&count=test");
         });
         it("should return a search reference when search is called", function() {
             let result = createService().search();
