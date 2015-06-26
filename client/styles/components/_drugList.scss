@@ -5,6 +5,9 @@
         padding: 8px 28px;
         cursor: pointer;
         display: block;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+
 
         .drug-list__item__brand_name {
             font-size: 16px;
@@ -16,11 +19,15 @@
         }
 
         &:hover {
-            background-color: #f4f4f4;
+            background-color: #fafafa;
         }
 
         &.active {
-            background-color: #f4f4f4;
+            transition: all 200ms ease-out;
+            border-top-color: $component-border;
+            border-bottom-color: $component-border;
+            background-color: #fff;
+            box-shadow: 1px 0 0 0 #fff;
         }
 
     }

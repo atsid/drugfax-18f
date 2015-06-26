@@ -1,52 +1,53 @@
-$icon-color: #aaa;
+$icon-color: mix($color-secondary, #fff, 50%);
 
-.navigationComponent {
+.nav {
     position: fixed;
     height: 100%;
-    background-color: #f9f9f9;
-    border-right: 1px solid $component-border;
+    background-color: $color-secondary;
     width: 80px;
     text-align: center;
 }
 
-.navigationComponent__hamburger {
+.nav__hamburger {
     padding: 20px;
     color: $icon-color;
     cursor: pointer;
     display: none;
 }
 
-.navItems__navItem {
+.nav__items__item {
     display: block;
 }
 
-.navItems__navItem:last-child {
-    position: absolute;
-    bottom: 20px;
-}
-
-.navItem__label {
+.nav__items__item__label {
    display: none;
 }
 
-.navItem__icon {
+.nav__items__item__icon {
     font-size: 2em;
     margin: 20px;
+}
+
+.nav__items__item {
+    transition: all 125ms ease-in;
+
+    display: block;
     color: $icon-color;
-}
+    cursor: pointer;
 
-.navItem__icon:hover {
-    color: $link-color;
-}
+    &.active {
+        color: #fff;
+    }
 
-.active .navItem__icon {
-    color: $color-primary;
+    &:hover {
+        color: #fff;
+    }
 }
 
 
 /** Screen too small */
 @media (max-width: 600px) {
-  .navigationComponent {
+  .nav {
       text-align: left;
       position: inherit;
       height: inherit;
@@ -54,28 +55,28 @@ $icon-color: #aaa;
       width: inherit;
   }
 
-  .navigationComponent__hamburger {
+  .nav__hamburger {
       display: block;
       border-bottom: 1px solid #ccc;
   }
 
-  .navigationComponent__hamburger:hover {
+  .nav__hamburger:hover {
       color: $link-color;
   }
 
-  .navigationComponent__navItems {
+  .nav__items {
       display: none;
   }
 
-  .navigationComponent__navItems--expanded {
+  .nav__items--expanded {
       display: block;
   }
 
-  .navItem__label {
+  .nav__items__item__label {
       display: block;
   }
 
-  .navItem__icon {
+  .nav__items__item__icon {
       display: none;
   }
 }
