@@ -20,10 +20,10 @@
     min-height: 100%;
     position: fixed;
     left: 50%;
-    top: 40px;
+    top: 0;
     transform: translate(-50%, 0);
     border-right: 1px solid transparent;
-    transition: all 250ms ease-in-out, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62);
+    transition: all 350ms ease-out, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62);
 
     .drug-list {
         margin-top: 12px;
