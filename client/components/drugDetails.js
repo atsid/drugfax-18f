@@ -34,7 +34,6 @@ let DrugDetails = React.createClass({
 
     getStateFromStore: function (props) {
         this.setState({loading: true});
-
         Bluebird.all([
             drugStore.get(props.drugId),
             subscriptionStore.getSubscription(props.drugId)

@@ -15,9 +15,7 @@ class DrugStore {
     }
 
     get(id) {
-        let req = request.get("/api/drugs");
-        req.query({search: `openfda.spl_set_id:"${id}"`});
-        return req.promise();
+        return request.get(`/api/drugs/by-spl-set-id/${id}`).promise();
     }
 }
 
