@@ -16,12 +16,11 @@
 .drugs__master {
     width: 600px;
     height: 100%;
-    transition: all 250ms ease-in;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
     border-right: 1px solid transparent;
-    transition: all 250ms ease-in, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62);
+    transition: all 250ms ease-out, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62);
 
     .drug-list {
         margin-top: 12px;

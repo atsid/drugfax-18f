@@ -5,7 +5,8 @@
         padding: 8px 28px;
         cursor: pointer;
         display: block;
-        border-right: 4px solid transparent;;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
         transition: all 125ms ease-in;
 
         .drug-list__item__brand_name {
@@ -22,9 +23,10 @@
         }
 
         &.active {
-            box-shadow: inset 0 0 1px 0 #ccc;
-            background-color: #eef0f5;
-            border-right: 4px solid $color-secondary;
+            border-top-color: $component-border;
+            border-bottom-color: $component-border;
+            background-color: #fff;
+            box-shadow: 1px 0 0 0 #fff;
         }
 
     }

@@ -30,7 +30,6 @@ $icon-color: mix($color-secondary, #fff, 50%);
 }
 
 .nav__items__item {
-    box-shadow: inset 4px 0 0 transparent;
     transition: all 125ms ease-in;
 
     display: block;
@@ -38,7 +37,6 @@ $icon-color: mix($color-secondary, #fff, 50%);
     cursor: pointer;
 
     &.active {
-        box-shadow: inset 4px 0 0 #fff;
         color: #fff;
     }
 
