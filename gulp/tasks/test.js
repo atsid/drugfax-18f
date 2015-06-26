@@ -10,16 +10,26 @@ let config = require("../config");
 let src = config.globs.src;
 let out = config.globs.out;
 
-let instrumentSource = (glob) => {
+let handleErr = (tdd, resolve, reject) => (err) => {
+    if (tdd) {
+        gutil.log("TDD Error: ", err);
+        resolve();
+    } else {
+        reject(err);
+    }
+};
+
+let instrumentSource = (glob, tdd=false) => {
     return new Promise((resolve, reject) => {
         return gulp.src(glob)
             .pipe(istanbul({
                 instrumenter: isparta.Instrumenter,
                 includeUntested: true
             }))
+            .on("error", handleErr(tdd, resolve, reject))
             .pipe(istanbul.hookRequire())
-            .on("finish", resolve)
-            .on("error", reject);
+            .on("error", handleErr(tdd, resolve, reject))
+            .on("finish", resolve);
     });
 };
 
@@ -31,23 +41,15 @@ let writeReports = (reportDir) => {
 };
 
 let instrument = (sourceGlob, reportDir, doExit, callback, tdd=false) => {
-    let handleErr = (resolve, reject) => (err) => {
-        if (tdd) {
-            gutil.log("TDD Error: ", err);
-            resolve();
-        } else {
-            reject(err);
-        }
-    };
-    return instrumentSource(sourceGlob)
+    return instrumentSource(sourceGlob, tdd)
         .then(() => {
             return new Promise((resolve, reject) => {
                 callback()
-                    .on("error", handleErr(resolve, reject))
+                    .on("error", handleErr(tdd, resolve, reject))
                     .pipe(writeReports(reportDir))
                     .pipe(doExit ? exit() : empty())
                     .on("end", resolve)
-                    .on("error", handleErr(resolve, reject));
+                    .on("error", handleErr(tdd, resolve, reject));
             });
         });
 };
