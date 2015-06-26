@@ -7,6 +7,7 @@ let HashHistory = require("react-router/lib/HashHistory");
 let AppComponent = require("./components/appComponent");
 let Drugs = require("./components/drugs");
 let DrugDetails = require("./components/drugDetails");
+let MyDrugs = require("./components/myDrugs");
 let LoginComponent = require("./components/loginComponent");
 let auth = require("./security/auth");
 let utils = require("./common/utils");
@@ -23,6 +24,10 @@ window.onload = function () {
         <Router history={new HashHistory()}>
             <Route component={isLoggedInGuard(AppComponent, { state: "login"})}>
                 <Route path="drugs" component={Drugs}>
+                    <Route path=":drugId" component={DrugDetails}/>
+                </Route>
+
+                <Route path="myDrugs" component={MyDrugs}>
                     <Route path=":drugId" component={DrugDetails}/>
                 </Route>
             </Route>
