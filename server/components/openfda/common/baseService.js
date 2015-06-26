@@ -14,7 +14,7 @@ class OpenFDABaseService {
      * @param {OpenFDAApi} api The parent api
      * @param {String} path The path relative to the parent api
      */
-    constructor (api, path) {
+    constructor(api, path) {
         this.api = api;
         this.path = path;
         this.childSearch = new OpenFDASearch(this);
@@ -92,9 +92,8 @@ class OpenFDABaseService {
      * @returns A promise for the service call
      */
     run() {
-        var url = this.buildUrl();
         return new Promise((resolve, reject) => {
-            request.get(url).end((err, res) => {
+            this.runRaw().end((err, res) => {
                 if (res.ok) {
                     resolve(res.body);
                 } else {
@@ -102,6 +101,11 @@ class OpenFDABaseService {
                 }
             });
         });
+    }
+
+    runRaw() {
+        var url = this.buildUrl();
+        return request.get(url);
     }
 }
 

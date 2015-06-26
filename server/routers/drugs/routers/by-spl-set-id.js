@@ -10,6 +10,12 @@ module.exports = jefferson.router({
         },
         "/:splSetId": {
             get: [drugs.getDrugBySplSetId]
+        },
+        "/:splSetId/events": {
+            get: [drugs.getEventsBySplSetId]
+        },
+        "/:splSetId/enforcements": {
+            get: [drugs.getEnforcementsBySplSetId]
         }
     }
 });
