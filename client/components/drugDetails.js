@@ -3,8 +3,10 @@
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let DrugStore = require("../stores/drugStore");
+let SubscriptionStore = require("../stores/subscriptionStore");
 
-let store = new DrugStore();
+let drugStore = new DrugStore();
+let subscriptionStore = new SubscriptionStore();
 
 let DrugDetails = React.createClass({
 
@@ -31,11 +33,17 @@ let DrugDetails = React.createClass({
 
     getStateFromStore: function (props) {
         this.setState({loading: true});
-        store.get(props.drugId).then((res) => {
+        drugStore.get(props.drugId).then((res) => {
             this.setState({data: res.body.data[0], loading: false});
         }, () => {
             this.setState({loading: false});
         });
+    },
+
+    toggleSubscription: function() {
+        let splSetId = this.state.data.openfda.spl_set_id[0];
+        console.log("Subscribing to ", splSetId);
+        subscriptionStore.subscribe(splSetId);
     },
 
     render: function() {
@@ -47,6 +55,7 @@ let DrugDetails = React.createClass({
                         <h4 className={"drug-details__sub-title"}>{this.state.data.openfda.substance_name[0]}</h4>
                         <h5>Indications and Usage</h5>
                         <p>{this.state.data.indications_and_usage}</p>
+                        <button onClick={this.toggleSubscription}>Save to My Profile</button>
                         <div className="row">
                             <div className="col-3">
                                 <h5>Manufacturer</h5>
@@ -80,5 +89,4 @@ let DrugDetails = React.createClass({
         );
     }
 });
-
 module.exports = DrugDetails;
