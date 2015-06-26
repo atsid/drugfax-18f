@@ -9,32 +9,35 @@ const EMPTY_RESULT = {
     data: []
 };
 
-let invoke = (api, req) => {
+let buildRequest = (api, req) => {
     return api
         .search(req.query.search).parent()
         .limit(req.query.limit)
-        .skip(req.query.skip)
-        .run()
-        .then((resp) => {
-            var data = resp.results;
-            if (req.query.fields) {
-                let fieldsMap = {};
-                req.query.fields.split(",").forEach((field) => {
-                    fieldsMap[field.trim()] = true;
-                });
-                data = data.map((result) => applyFields(fieldsMap, result));
-            }
+        .skip(req.query.skip);
+};
 
-            let resultMeta = (resp.meta && resp.meta.results) || {};
-            return {
-                meta: {
-                    limit: resultMeta.limit,
-                    skip: resultMeta.skip,
-                    total: resultMeta.total
-                },
-                data: data
-            };
-        });
+
+let invoke = (api, req) => {
+    return buildRequest(api, req).run().then((resp) => {
+        var data = resp.results;
+        if (req.query.fields) {
+            let fieldsMap = {};
+            req.query.fields.split(",").forEach((field) => {
+                fieldsMap[field.trim()] = true;
+            });
+            data = data.map((result) => applyFields(fieldsMap, result));
+        }
+
+        let resultMeta = (resp.meta && resp.meta.results) || {};
+        return {
+            meta: {
+                limit: resultMeta.limit,
+                skip: resultMeta.skip,
+                total: resultMeta.total
+            },
+            data: data
+        };
+    });
 };
 
 /**
@@ -57,7 +60,4 @@ let middleware = (api, req, res) => {
         });
 };
 
-module.exports = {
-    invoke: invoke,
-    middleware: middleware
-};
+module.exports = {buildRequest, invoke, middleware};
