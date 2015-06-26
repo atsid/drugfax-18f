@@ -1,6 +1,7 @@
 "use strict";
 
 let OpenFDADrugEvents = require("./events");
+let OpenFDADrugEnforcements = require("./enforcements");
 let OpenFDABaseService = require("../common/baseService");
 
 /**
@@ -21,6 +22,13 @@ class OpenFDADrugs extends OpenFDABaseService {
      */
     events() {
         return new OpenFDADrugEvents(this.api);
+    }
+
+    /**
+     * Gets a reference to the enforcements service
+     */
+    enforcements() {
+        return new OpenFDADrugEnforcements(this.api);
     }
 }
 
