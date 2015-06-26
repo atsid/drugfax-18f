@@ -35,7 +35,7 @@ let DrugDetails = React.createClass({
     getStateFromStore: function (props) {
         this.setState({loading: true});
         drugStore.get(props.drugId).then((res) => {
-            this.setState({data: res.body.data[0], loading: false});
+            this.setState({data: res.body, loading: false});
         }, () => {
             this.setState({loading: false});
         });
