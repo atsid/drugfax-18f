@@ -30,6 +30,11 @@ let AppComponent = React.createClass({
             name: "My Profile",
             icon: "user",
             route: "myProfile"
+        }, {
+            description: "Logout",
+            name: "Logout",
+            icon: "sign-out",
+            route: "logout"
         }];
         return (
             <div className={"app-container"}>

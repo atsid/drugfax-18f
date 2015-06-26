@@ -9,6 +9,7 @@ let Drugs = require("./components/drugs");
 let DrugDetails = require("./components/drugDetails");
 let MyDrugs = require("./components/myDrugs");
 let LoginComponent = require("./components/loginComponent");
+let LogoutComponent = require("./components/logoutComponent");
 let auth = require("./security/auth");
 let utils = require("./common/utils");
 
@@ -32,6 +33,7 @@ window.onload = function () {
                 </Route>
             </Route>
             <Route path="login" component={LoginComponent} />
+            <Route path="logout" component={LogoutComponent} />
             <Redirect from="/" to="/drugs" />
         </Router>
     ), document.getElementById("app"));
