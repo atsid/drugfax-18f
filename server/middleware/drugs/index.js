@@ -1,6 +1,6 @@
 "use strict";
-let drugs = require("./drugs_api");
-let invoker = require("./api_invoker");
+let drugs = require("../../components/drugs_api");
+let invoker = require("../../components/api_invoker");
 
 let index = (req, res) => invoker.middleware(drugs(), req, res);
 let events = (req, res) => invoker.middleware(drugs().events(), req, res);

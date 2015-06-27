@@ -2,50 +2,7 @@
 let chai = require("chai");
 let expect = chai.expect;
 let invoker = require("./api_invoker");
-let Bluebird = require("bluebird");
-
-class FakeApi {
-    constructor() {
-        this.responseVal = {results: []};
-    }
-
-    search(val) {
-        this.searchVal = val;
-        return this;
-    }
-
-    parent() {
-        return this;
-    }
-
-    limit(val) {
-        this.limitVal = val;
-        return this;
-    }
-
-    skip(val) {
-        this.skipVal = val;
-        return this;
-    }
-
-    respondWith(val) {
-        this.responseVal = val;
-        return this;
-    }
-
-    respondWithError(val) {
-        this.errorVal = val;
-        return this;
-    }
-
-    run() {
-        if (this.errorVal) {
-            return Bluebird.reject(this.errorVal);
-        } else {
-            return Bluebird.cast(this.responseVal);
-        }
-    }
-}
+let FakeApi = require("../components.spec/openfda_api_mock");
 
 describe("The API Invoker", () => {
     describe("invoke", () => {

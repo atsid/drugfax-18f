@@ -1,6 +1,6 @@
 "use strict";
 
-let drugs = require("../drugs/drugs_api");
+let drugs = require("../../components/drugs_api");
 
 /**
  * Returns the total number of drugs for the given manufacturer
