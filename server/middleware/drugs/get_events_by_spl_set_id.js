@@ -1,6 +1,6 @@
 "use strict";
-let drugs = require("./drugs_api");
-let apiInvoker = require("./api_invoker");
+let drugs = require("../../components/drugs_api");
+let apiInvoker = require("../../components/api_invoker");
 
 module.exports = (req, res) => {
     let splSetId = req.params.splSetId;

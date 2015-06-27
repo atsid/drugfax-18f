@@ -1,23 +1,18 @@
 "use strict";
 
-let drugs = require("../drugs/drugs_api");
+let drugs = require("../../components/drugs_api");
+let apiInvoker = require("../../components/api_invoker");
 
 let index = (req, res) => {
     let search = req.query.search;
-    drugs()
-        .limit(req.query.limit)
-        .skip(req.query.skip)
-        .search(search ? search.replace("name", "openfda.manufacturer_name") : "").parent()
+    req.query.search = search ? search.replace("name", "openfda.manufacturer_name") : "";
+
+    return apiInvoker.buildRequest(drugs(), req)
         .count("openfda.manufacturer_name.exact")
         .run()
         .then((resp) => {
-            let resultMeta = (resp.meta && resp.meta.results) || {};
             res.json({
-                meta: {
-                    limit: resultMeta.limit,
-                    skip: resultMeta.skip,
-                    total: resultMeta.total
-                },
+                meta: apiInvoker.getMeta(resp),
                 data: resp.results.map((item) => {
                     return {
                         id: item.term,
@@ -25,9 +20,6 @@ let index = (req, res) => {
                     };
                 })
             });
-        }, (err) => {
-            console.log(err);
-            res.json({ error: "Unknown service error" });
         });
 };
 

@@ -16,6 +16,14 @@ let buildRequest = (api, req) => {
         .skip(req.query.skip);
 };
 
+let getMeta = (resp) => {
+    let resultMeta = (resp.meta && resp.meta.results) || {};
+    return {
+        limit: resultMeta.limit,
+        skip: resultMeta.skip,
+        total: resultMeta.total
+    };
+};
 
 let invoke = (api, req) => {
     return buildRequest(api, req).run().then((resp) => {
@@ -27,14 +35,8 @@ let invoke = (api, req) => {
             });
             data = data.map((result) => applyFields(fieldsMap, result));
         }
-
-        let resultMeta = (resp.meta && resp.meta.results) || {};
         return {
-            meta: {
-                limit: resultMeta.limit,
-                skip: resultMeta.skip,
-                total: resultMeta.total
-            },
+            meta: getMeta(resp),
             data: data
         };
     });
@@ -60,4 +62,4 @@ let middleware = (api, req, res) => {
         });
 };
 
-module.exports = {buildRequest, invoke, middleware};
+module.exports = {buildRequest, invoke, middleware, getMeta};
