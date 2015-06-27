@@ -1,5 +1,4 @@
 "use strict";
-
 let gulp = require("gulp");
 let gutil = require("gulp-util");
 let config = require("../config");
@@ -13,7 +12,6 @@ let source = require("vinyl-source-stream");
 let lrload = require("livereactload");
 
 gulp.task("watch", () => {
-
     // watch js and lint
     gulp.watch(config.globs.src.CLIENT_ALL_JS, ["lint-client", "client-unit-test-tdd"]);
 
