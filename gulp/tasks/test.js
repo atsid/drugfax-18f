@@ -61,7 +61,14 @@ let runTestBatch = (testGlob) => {
 let runTests = (testGlob, sourceGlob, reportDir, doExit = true, tdd=false) => () => instrument(sourceGlob, reportDir, doExit, () => runTestBatch(testGlob), tdd);
 
 gulp.task("server-unit-test", runTests(src.SERVER_TESTS, src.SERVER_JS, out.SERVER_COVERAGE_OUTPUT));
-gulp.task("server-unit-test-tdd", runTests(src.SERVER_TESTS, src.SERVER_JS, out.SERVER_COVERAGE_OUTPUT, true, true));
+gulp.task("server-unit-test-tdd", runTests(src.SERVER_TESTS, src.SERVER_JS, out.SERVER_COVERAGE_OUTPUT, false, true));
 gulp.task("client-unit-test", runTests(src.CLIENT_TESTS, src.CLIENT_JS, out.CLIENT_COVERAGE_OUTPUT, false));
 gulp.task("client-unit-test-tdd", runTests(src.CLIENT_TESTS, src.CLIENT_JS, out.CLIENT_COVERAGE_OUTPUT, false, true));
 gulp.task("test", runTests(src.ALL_TESTS, src.COVERAGE_JS, out.COMBINED_COVERAGE_OUTPUT));
+
+gulp.task("server-tdd", () => {
+    gulp.watch(config.globs.src.SERVER_ALL_JS, ["lint-server", "server-unit-test-tdd"]);
+});
+gulp.task("client-tdd", () => {
+    gulp.watch(config.globs.src.SERVER_ALL_JS, ["lint-server", "server-unit-test-tdd"]);
+});
