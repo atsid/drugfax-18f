@@ -1,3 +1,9 @@
-/**
- * Created by darthtrevino on 6/29/15.
- */
+"use strict";
+let compression = require("compression");
+
+module.exports = {
+    name: "compression",
+    configure(app) {
+        app.use(compression());
+    }
+};
