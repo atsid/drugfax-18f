@@ -5,6 +5,9 @@ let StyledButton = require("./common/styledButton");
 let authentication = require("../security/auth");
 var Navigation = require("react-router").Navigation;
 
+const GITHUB_URL = "https://github.com/atsid/18f-RFQ993471-POOL2";
+const ATSID_URL = "https://atsid.github.io";
+
 /**
  * The login component
  */
@@ -76,8 +79,12 @@ let LoginComponent = React.createClass({
                     </span>
                 </div>
                 <div className={"login__options__footer"}>
-                    <div className={"pull-left"}>View project on Github</div>
-                    <div className={"pull-right"}>Made with ❤ by atsid</div>
+                    <div className={"pull-left"}>
+                        <a target="_blank" href={GITHUB_URL}>View project on Github</a>
+                    </div>
+                    <div className={"pull-right"} >
+                        <a target="_blank" href={ATSID_URL}>Made with ❤ by atsid</a>
+                    </div>
                 </div>
             </div>
         </div>
