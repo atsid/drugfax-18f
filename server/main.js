@@ -4,6 +4,11 @@ let debug = require("debug")("app:main");
 let startupHooks = require("./startup_hooks");
 let server = require("./server");
 
+if (config.monitoring.newrelicKey) {
+    debug("enabling newrelic monitoring");
+    require("newrelic");
+}
+
 module.exports = {
     start () {
         debug("starting the application");
