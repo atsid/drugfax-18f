@@ -1,0 +1,43 @@
+.manufacturer-list {
+    .manufacturer-list__item {
+        text-decoration: none;
+        color: $text-color;
+        padding: 8px 28px;
+        cursor: pointer;
+        display: block;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+
+
+        .manufacturer-list__item__brand_name {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .manufacturer-list__item__manufacturer_name {
+            color: #999;
+            font-size: 13px;
+        }
+
+        &:hover {
+            background-color: #fafafa;
+        }
+
+        &.active {
+            transition: all 200ms ease-out;
+            border-top-color: $component-border;
+            border-bottom-color: $component-border;
+            background-color: #fff;
+            box-shadow: 1px 0 0 0 #fff;
+        }
+
+    }
+
+    &.manufacturer-list--fade-appear {
+        opacity: 0.01;
+        transition: opacity 250ms ease-in;
+    }
+
+    &.manufacturer-list--fade-appear.manufacturer-list--fade-appear-active {
+        opacity: 1;
+    }
+}

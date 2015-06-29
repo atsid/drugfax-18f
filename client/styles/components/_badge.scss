@@ -1,0 +1,25 @@
+.badge {
+    border: 1px solid $color-muted;
+    text-align: center;
+    height: 1em !important;
+    border-radius: 50%;
+    color: $color-muted;
+    font-size: 250px;
+    width: 1em !important;
+    font-weight: 300;
+}
+
+.badge__number {
+    font-size: .5em;
+}
+
+.badge__label {
+    border: 1px solid $color-muted;
+    font-size: .2em;
+    margin-top: -.5em;
+    width: 6em;
+    margin-left: -10%;
+    background-color: white;
+    border-radius: .25em;
+    width: 120%;
+}

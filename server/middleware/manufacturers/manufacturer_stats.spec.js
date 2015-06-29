@@ -9,6 +9,7 @@ describe("Manufacturer stats", function() {
     let scope;
     beforeEach(function() {
         scope = nock("https://api.fda.gov");
+        nock.cleanAll();
     });
 
     function mockDrugCountApiCall(name, data) {
@@ -19,12 +20,24 @@ describe("Manufacturer stats", function() {
             });
     }
 
+    function mockDrugCountApi404Call(name) {
+        scope
+            .get(`/drug/label.json?search=(openfda.manufacturer_name%3A%22${name}%22)&limit=1000&count=openfda.spl_set_id.exact`)
+            .reply(404);
+    }
+
     function mockDrugStatApiCall(name, data) {
         scope
             .get(`/drug/enforcement.json?search=(openfda.manufacturer_name%3A%22${name}%22)&count=classification.exact`)
             .reply(200, {
                 results: data
             });
+    }
+
+    function mockDrugStatApi404Call(name) {
+        scope
+            .get(`/drug/enforcement.json?search=(openfda.manufacturer_name%3A%22${name}%22)&count=classification.exact`)
+            .reply(404);
     }
 
     it("should return a 50% grade if the manufacturer has 10 drugs and 5 recalls", function() {
@@ -44,6 +57,47 @@ describe("Manufacturer stats", function() {
         return manufacturerStats(testName).then((data) => {
             expect(data.totalDrugs).to.equal(1);
             expect(data.grade).to.equal(0);
+        });
+    });
+
+    it("should return a 100% grade if the manufacturer has drugs but no recalls", function() {
+        let testName = "TESTER";
+        mockDrugCountApiCall(testName, [1]);
+        mockDrugStatApi404Call(testName);
+        return manufacturerStats(testName).then((data) => {
+            expect(data.totalDrugs).to.equal(1);
+            expect(data.grade).to.equal(100);
+        });
+    });
+
+    it("should return a 100% grade if the manufacturer has drugs but no recalls", function() {
+        let testName = "TESTER";
+        mockDrugCountApiCall(testName, [1]);
+        mockDrugStatApi404Call(testName);
+        return manufacturerStats(testName).then((data) => {
+            expect(data.totalDrugs).to.equal(1);
+            expect(data.grade).to.equal(100);
+        });
+    });
+
+    it("should return a 100% grade if the manufacturer has no drugs and no recalls", function() {
+        let testName = "TESTER";
+        mockDrugCountApi404Call(testName);
+        mockDrugStatApi404Call(testName);
+        return manufacturerStats(testName).then((data) => {
+            expect(data.totalDrugs).to.equal(0);
+            expect(data.grade).to.equal(100);
+        });
+    });
+
+    it("should scrub commas from manufacturer name when getting manufacturer info", function() {
+        let testNameWithCommas = "T,E,S,T,E,R";
+        let testName = "TESTER";
+        mockDrugCountApi404Call(testName);
+        mockDrugStatApi404Call(testName);
+        return manufacturerStats(testNameWithCommas).then((data) => {
+            expect(data.totalDrugs).to.equal(0);
+            expect(data.grade).to.equal(100);
         });
     });
 

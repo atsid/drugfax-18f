@@ -5,6 +5,7 @@
 @import "_type";
 @import "components/_form";
 @import "components/_button";
+@import "components/_badge";
 @import "components/_loader";
 @import "components/_navigation";
 @import "components/_searchField";
@@ -12,6 +13,9 @@
 @import "components/_drugs";
 @import "components/_drugList";
 @import "components/_drugDetails";
+@import "components/_manufacturers";
+@import "components/_manufacturerList";
+@import "components/_manufacturerDetails";
 
 .app,
 .app-container {
