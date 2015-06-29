@@ -2,6 +2,8 @@
 let rewire = require("rewire");
 let DrugStore = rewire("./drugStore");
 let MockSuperagent = require("../common.spec/mock-superagent");
+let chai = require("chai");
+let { expect, assert } = chai;
 
 describe("The Drug Store", () => {
     let store = null;
