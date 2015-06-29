@@ -2,6 +2,7 @@
 let debug = require("debug")("app:initialization");
 const INIT_SECTIONS = [
     require("./sections/helmet"),
+    require("./sections/force_ssl"),
     require("./sections/body_parsing"),
     require("./sections/static_content"),
     require("./sections/sessions"),
