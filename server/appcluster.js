@@ -1,7 +1,7 @@
 "use strict";
 let cluster = require("cluster");
 let config = require("config");
-let debug = require("debug")("application:clustering");
+let debug = require("debug")("app:clustering");
 
 let startMaster = () => {
     let cpuCount = require("os").cpus().length;
