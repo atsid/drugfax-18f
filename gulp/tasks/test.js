@@ -70,5 +70,5 @@ gulp.task("server-tdd", () => {
     gulp.watch(config.globs.src.SERVER_ALL_JS, ["lint-server", "server-unit-test-tdd"]);
 });
 gulp.task("client-tdd", () => {
-    gulp.watch(config.globs.src.SERVER_ALL_JS, ["lint-server", "server-unit-test-tdd"]);
+    gulp.watch(config.globs.src.CLIENT_ALL_JS, ["lint-client", "client-unit-test-tdd"]);
 });

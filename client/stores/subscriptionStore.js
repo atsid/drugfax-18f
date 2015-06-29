@@ -5,7 +5,7 @@ let request = require("superagent-bluebird-promise");
 class SubscriptionStore {
     list(opts={}) {
         let req = request.get("/api/profile/subscriptions");
-        req.query({limit: opts.limit || 100});
+        req.query({limit: opts.limit || 25});
         req.query({skip: opts.skip || 0});
         if (opts.search) {
             req.query({search: opts.search});
@@ -19,7 +19,7 @@ class SubscriptionStore {
      * @returns {*|Bluebird.Promise}
      */
     get(id) {
-        return request.get(`/api/profile/subscriptions/${id}`).promise();
+        return request.get(`/api/profile/subscriptions/${id}`).promise().then((resp) => resp.body);
     }
 
     /**
