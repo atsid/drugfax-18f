@@ -1,6 +1,7 @@
 module.exports =
     monitoring:
         newRelicKey: null
+        newRelicAppName: "DrugFax-18F"
 
     container:
         composed: 0

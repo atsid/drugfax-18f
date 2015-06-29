@@ -12,11 +12,11 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['DrugFax-18F'],
+  app_name: [config.monitoring.newRelicAppName],
   /**
    * Your New Relic license key.
    */
-  license_key: config.monitoring.newrelicKey,
+  license_key: config.monitoring.newRelicKey,
   logging: {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
