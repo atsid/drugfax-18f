@@ -9,6 +9,7 @@ let Drugs = require("./components/drugs");
 let DrugDetails = require("./components/drugDetails");
 let MyDrugs = require("./components/myDrugs");
 let LoginComponent = require("./components/loginComponent");
+let MyProfile = require("./components/myProfile");
 let auth = require("./security/auth");
 let utils = require("./common/utils");
 
@@ -30,6 +31,8 @@ window.onload = function () {
                 <Route path="myDrugs" component={MyDrugs}>
                     <Route path=":drugId" component={DrugDetails}/>
                 </Route>
+
+                <Route path="myProfile" component={MyProfile} />
             </Route>
             <Route path="login" component={LoginComponent} />
             <Redirect from="/" to="/drugs" />

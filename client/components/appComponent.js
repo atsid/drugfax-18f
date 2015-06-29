@@ -2,7 +2,8 @@
 
 let React = require("react");
 let NavigationComponent = require("./navigationComponent");
-let auth = require("../security/auth");
+let NavigationItemStore = require("../stores/navigationItemStore");
+let store = new NavigationItemStore();
 
 let AppComponent = React.createClass({
 
@@ -11,32 +12,7 @@ let AppComponent = React.createClass({
     },
 
     render: function() {
-        var navItems = [{
-            description: "Search for information about a specific drug",
-            name: "Drugs",
-            icon: "medkit",
-            route: "drugs"
-        }, {
-            description: "Search for information about a specific manufacturer",
-            name: "Manufacturers",
-            icon: "hospital-o",
-            route: "manufacturers"
-        }, {
-            description: "Your saved drugs",
-            name: "My Drugs",
-            icon: "star",
-            route: "myDrugs"
-        }, {
-            description: "Your profile",
-            name: "My Profile",
-            icon: "user",
-            route: "myProfile"
-        }, {
-            description: "Logout",
-            name: "Logout",
-            icon: "sign-out",
-            action: () => auth.logout()
-        }];
+        var navItems = store.list();
         return (
             <div className={"app-container"}>
                 <NavigationComponent items={navItems} />
