@@ -26,3 +26,4 @@ module.exports =
 
     monitoring:
         newRelicKey: "NEWRELIC_LICENSE_KEY"
+        newRelicAppName: "NEWRELIC_APP_NAME"
