@@ -32,6 +32,10 @@ let SearchField = React.createClass({
         }
     },
 
+    _onSearchIconClick: function () {
+        this.refs.searchInput.getDOMNode().focus();
+    },
+
     render: function() {
         let classNames = ["search-field"];
         if (this.props.loading) {
@@ -40,6 +44,7 @@ let SearchField = React.createClass({
         return (
             <div className={classNames.join(" ")}>
                 <input
+                    ref="searchInput"
                     autoFocus={true}
                     value={this.state.value}
                     placeholder={this.props.placeholder || ""}
@@ -47,7 +52,7 @@ let SearchField = React.createClass({
                     onKeyDown={this._onKeyDown}
                     type="text"
                     maxLength="150"/>
-                <i className={"fa fa-search"}></i>
+                <i onClick={this._onSearchIconClick} className={"fa fa-search"}></i>
                 <ReactCSSTransitionGroup transitionName="transition" transitionAppear={true}>
                     { this.props.loading ? <Loader/> : null }
                 </ReactCSSTransitionGroup>
