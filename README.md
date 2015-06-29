@@ -5,7 +5,14 @@
 # DrugFax 
 *ATS 18F Demo (Pool 2)*
 
+## About
+**DrugFax** is the *CarFax for Drugs*, allowing consumers to understand the risks of their medication and the quality of drug manufacturers. 
 
+### Key Features
+* Users may search for drugs to view a detailed drug profile.
+* Users may *subscribe* to drugs that they are interested in to have quick access to information about drugs that matter to them most. 
+* Users may search for manufacturers and view their aggregate score, determined by the quantity of enforcement events associated with drugs that manufacturer produces.
+* Users may authenticate with common OAuth providers.
 
 ## Development
 ### Installation
