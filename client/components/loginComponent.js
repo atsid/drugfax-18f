@@ -29,10 +29,6 @@ let LoginComponent = React.createClass({
 
     },
 
-    goTo(url) {
-        window.open(url, "_blank").focus();
-    },
-
     /**
      * Handles the login button clicks
      * @param {String} type The type of login
