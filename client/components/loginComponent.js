@@ -83,8 +83,8 @@ let LoginComponent = React.createClass({
                     </span>
                 </div>
                 <div className={"login__options__footer"}>
-                    <div className={"pull-left"} onClick={() => this.goTo(GITHUB_URL)} >View project on Github</div>
-                    <div className={"pull-right"} onClick={() => this.goTo(ATSID_URL)} >Made with ❤ by atsid</div>
+                    <div className={"pull-left footer-link"} onClick={() => this.goTo(GITHUB_URL)} >View project on Github</div>
+                    <div className={"pull-right footer-link"} onClick={() => this.goTo(ATSID_URL)} >Made with ❤ by atsid</div>
                 </div>
             </div>
         </div>
