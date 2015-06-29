@@ -1,6 +1,5 @@
 "use strict";
-let config = require('config');
-let debug = require('debug')('app:middleware:force_ssl');
+let debug = require("debug")("app:middleware:force_ssl");
 
 /**
  * An express handler that redirects HTTP input to HTTPS port
@@ -10,7 +9,7 @@ let debug = require('debug')('app:middleware:force_ssl');
 // The load-balancer will handle request decryption.
 function forceSsl (req, res, next) {
     let isHealthCheck = () => req.url === "/api";
-    let isForwardedHttp = () => req.headers['x-forwarded-proto'] === 'http';
+    let isForwardedHttp = () => req.headers["x-forwarded-proto"] === "http";
     let getHost = () => req.headers.host;
 
     if (isForwardedHttp() && !isHealthCheck()) {
