@@ -5,6 +5,9 @@ let StyledButton = require("./common/styledButton");
 let authentication = require("../security/auth");
 var Navigation = require("react-router").Navigation;
 
+const GITHUB_URL = "https://github.com/atsid/18f-RFQ993471-POOL2";
+const ATSID_URL = "https://atsid.github.io";
+
 /**
  * The login component
  */
@@ -24,6 +27,10 @@ let LoginComponent = React.createClass({
           error: false
         };
 
+    },
+
+    goTo(url) {
+        window.open(url, "_blank").focus();
     },
 
     /**
@@ -53,7 +60,7 @@ let LoginComponent = React.createClass({
             <div className={"login__details"}>
                 <div className={"center-vh"}>
                     <h1>DrugFax</h1>
-                    <h2>Don't run the risk of buying pills with costly hidden problems. Shop with confidence for medicine with the DrugFAX drug history that's right for you.</h2>
+                    <h2>Don"t run the risk of buying pills with costly hidden problems. Shop with confidence for medicine with the DrugFAX drug history that"s right for you.</h2>
                 </div>
             </div>
             <div className={"login__options"}>
@@ -76,8 +83,8 @@ let LoginComponent = React.createClass({
                     </span>
                 </div>
                 <div className={"login__options__footer"}>
-                    <div className={"pull-left"}>View project on Github</div>
-                    <div className={"pull-right"}>Made with ❤ by atsid</div>
+                    <div className={"pull-left"} onClick={() => this.goTo(GITHUB_URL)} >View project on Github</div>
+                    <div className={"pull-right"} onClick={() => this.goTo(ATSID_URL)} >Made with ❤ by atsid</div>
                 </div>
             </div>
         </div>
