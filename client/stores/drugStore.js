@@ -1,13 +1,14 @@
 "use strict";
-
 let request = require("superagent-bluebird-promise");
 
 class DrugStore {
 
-    list(opts) {
+    list(opts={}) {
         let req = request.get("/api/drugs");
-        req.query({limit: opts.limit || 100});
-        req.query({skip: opts.skip || 0});
+        req.query({
+            skip: opts.skip || 0,
+            limit: opts.limit || 25
+        });
         if (opts.search) {
             req.query({search: opts.search});
         }
