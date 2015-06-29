@@ -2,6 +2,8 @@
 let rewire = require("rewire");
 let ProfileStore = rewire("./profileStore");
 let MockSuperagent = require("../common.spec/mock-superagent");
+let chai = require("chai");
+let { expect, assert } = chai;
 
 describe("The Profile Store", () => {
     let store = null;
