@@ -1,9 +1,13 @@
+"use strict";
+var config = require("config");
+
 /**
  * New Relic agent configuration.
  *
  * See lib/config.defaults.js in the agent distribution for a more complete
  * description of configuration variables and their potential values.
  */
+/*eslint-disable */
 exports.config = {
   /**
    * Array of application names.
@@ -12,7 +16,7 @@ exports.config = {
   /**
    * Your New Relic license key.
    */
-  license_key: process.env.NEWRELIC_LICENSE_KEY
+  license_key: config.monitoring.newrelicKey,
   logging: {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
@@ -21,4 +25,5 @@ exports.config = {
      */
     level: 'info'
   }
-}
+};
+/*eslint-enable */

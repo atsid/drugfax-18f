@@ -1,4 +1,7 @@
 module.exports =
+    monitoring:
+        newRelicKey: null
+
     container:
         composed: 0
 

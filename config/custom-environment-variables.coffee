@@ -23,3 +23,6 @@ module.exports =
 
     security:
         sessionStateSecret: "SESSION_STATE_SECRET"
+
+    monitoring:
+        newrelicKey: "NEWRELIC_LICENCE_KEY"
