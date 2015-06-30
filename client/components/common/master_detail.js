@@ -15,8 +15,6 @@ let MasterDetail = React.createClass({
         store: React.PropTypes.object,
         listItem: React.PropTypes.func,
         masterSearchPlaceholder: React.PropTypes.string,
-        masterHelpText: React.PropTypes.func,
-        masterEmptyState: React.PropTypes.func,
         itemName: React.PropTypes.string,
         route: React.PropTypes.object,
         params: React.PropTypes.object,
@@ -107,6 +105,7 @@ let MasterDetail = React.createClass({
             this.setState({loading: false});
         }
     },
+
     /*
      * Handle a request to 'infinitely' load more data.
      */
@@ -162,7 +161,7 @@ let MasterDetail = React.createClass({
                     </div>
                     Hi! Welcome to DrugFAX.
                     <br/>
-                    { this.getProp("masterSearchPlaceholder") || "Search" }
+                    { this.getProp("masterSearchPlaceholder") || "Search" }.
                 </div>
             );
         }
@@ -185,7 +184,7 @@ let MasterDetail = React.createClass({
         return (
             <div className={this._getClassNames()}>
                 <div className={"master-detail__master"}>
-                    <SearchField key={this.getProp("itemName")} onSearch={this._handleSearch} loading={this.state.loading} placeholder={this.getProp("masterSearchPlaceholder") || "Seach"}/>
+                    <SearchField key={this.getProp("itemName")} onSearch={this._handleSearch} loading={this.state.loading} placeholder={this.getProp("masterSearchPlaceholder") || "Search"}/>
                     <ReactCSSTransitionGroup transitionName="transition" transitionAppear={true}>
                         {this._renderList()}
                     </ReactCSSTransitionGroup>
