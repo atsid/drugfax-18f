@@ -10,9 +10,10 @@ let ManufacturerListItem = React.createClass({
     },
 
     render: function() {
+        var name = this.props.data && this.props.data.name;
         return (
-            <Link to={`/manufacturers/${encodeURIComponent(this.props.data.name)}`} className={"manufacturer-list__item"}>
-                <div className={"manufacturer-list__item__name"}>{this.props.data.name}</div>
+            <Link to={`/manufacturers/${encodeURIComponent(name)}`} className={"manufacturer-list__item"}>
+                <div className={"manufacturer-list__item__name"}>{name}</div>
             </Link>
         );
     }

@@ -116,6 +116,17 @@ describe("Manufacturer stats", () => {
         });
     });
 
+    it("should scrub escaped commas from manufacturer name when getting manufacturer info", () => {
+        let testNameWithCommas = "T%2CE%2CS%2CT%2CE%2CR";
+        let testName = "TESTER";
+        mockDrugCountApi404Call(testName);
+        mockDrugStatApi404Call(testName);
+        return manufacturerStats(testNameWithCommas).then((data) => {
+            expect(data.totalDrugs).to.equal(0);
+            expect(data.grade).to.equal(100);
+        });
+    });
+
     it("should return classifications", () => {
         let testName = "TESTER";
         mockDrugCountApiCall(testName, [1]);

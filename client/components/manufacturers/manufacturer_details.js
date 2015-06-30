@@ -1,7 +1,7 @@
 "use strict";
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-let ManufacturerStore = require("../../stores/manufacturerStore");
+let ManufacturerStore = require("../../stores/manufacturer_store");
 let Loader = require("../common/loader");
 let Bluebird = require("bluebird");
 
