@@ -30,17 +30,20 @@ let MyDrugs = React.createClass({
             fields: "openfda.brand_name"
         })
             .then((result) => result.items)
-            .then((subscriptions) => Bluebird.all(subscriptions.map((sub) => drugStore.get(sub.splSetId))))
+            .then((subscriptions) => subscriptions ? Bluebird.all(subscriptions.map((sub) => drugStore.get(sub.splSetId))) : [])
             .then((subscribedDrugs) => this.setState({subscriptions: subscribedDrugs, loading: false}))
-            .catch(() => this.setState({loading: false}));
+            .catch((err) => {
+                console.error("Error loading subscriptions", err, err.stack);
+                this.setState({loading: false});
+            });
     },
 
     render: function () {
         let subs = [];
         this.state.subscriptions.forEach((sub) => {
-            subs.push(<li><span>{sub.openfda.brand_name[0]}</span></li>);
+            let brand = sub.openfda.brand_name[0];
+            subs.push(<li><span>{brand}</span></li>);
         });
-
         return (
             <div>
                 <ReactCSSTransitionGroup component="div" transitionName="transition" transitionAppear={true}>
