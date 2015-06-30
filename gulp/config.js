@@ -29,6 +29,7 @@ module.exports = {
 
             CLIENT_DIST: "public",
             CLIENT_STYLES_DIST: "public/styles",
+            CLIENT_ASSETS_DIST: "public/assets",
             CLIENT_DIST_BUNDLE: "app.js"
         }
     }
