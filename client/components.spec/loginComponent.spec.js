@@ -6,6 +6,7 @@ let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
 let rewire = require("rewire");
 let LoginComponent = rewire("../components/loginComponent");
+let { expect } = require("chai");
 
 describe("Login Component", function() {
     it("should load", function() {

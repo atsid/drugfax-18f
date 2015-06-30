@@ -1,7 +1,7 @@
 "use strict";
 
 let {util} = require("../common.spec/spec.helpers");
-
+let { expect } = require("chai");
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
 let rewire = require("rewire");

@@ -5,6 +5,7 @@ require("../../common.spec/spec.helpers");
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
 let StyledButton = require("../../components/common/styledButton");
+let { expect } = require("chai");
 
 describe("StyledButton Component", function() {
     it("should load", function() {
