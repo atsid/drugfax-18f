@@ -4,6 +4,9 @@ let React = require("react/addons");
 let LineChart = require("react-chartjs").Line;
 let _ = require("lodash");
 
+const DATE_RANGE_MIN = "20050101",
+      DATE_RANGE_MAX = "20150101";
+
 let DrugChart = React.createClass({
 
     propTypes: {
@@ -43,7 +46,7 @@ let DrugChart = React.createClass({
      */
     getStateFromStore: function (id) {
         this.setState({loading: true});
-        this.props.store[this.props.storeMethod](id, "20050101", "20150101").then((res) => {
+        this.props.store[this.props.storeMethod](id, DATE_RANGE_MIN, DATE_RANGE_MAX).then((res) => {
             this.setState({data: res.body.data, loading: false});
         }).catch((err) => {
             console.log("error loading store data", err);
