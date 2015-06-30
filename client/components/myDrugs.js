@@ -3,7 +3,8 @@ let React = require("react/addons");
 let Loader = require("./common/loader");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let Bluebird = require("bluebird");
-let DrugList = require("./drugList");
+let ListDisplay = require("./common/listDisplay");
+let DrugListItem = require("./drugs/drugListItem");
 
 let SubscriptionStore = require("../stores/subscriptionStore");
 let DrugStore = require("../stores/drugStore");
@@ -46,7 +47,11 @@ let MyDrugs = React.createClass({
                     { !this.state.loading ?
                         <div>
                             <h1>Saved Drugs</h1>
-                            <DrugList key={this.state.value} data={this.state.subscriptions}/>
+                            <ListDisplay
+                                itemName={"drug"}
+                                itemComponent={DrugListItem}
+                                key={this.state.value}
+                                data={this.state.subscriptions}/>
                         </div>
                         : null
                     }

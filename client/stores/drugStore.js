@@ -18,6 +18,20 @@ class DrugStore {
         return req.promise();
     }
 
+    /**
+     * Returns a list of matching drugs by the given name
+     */
+    listByName(name, skip, limit) {
+        let qs = `openfda.brand_name:${name}+OR+openfda.substance_name:${name}+OR+openfda.manufacturer_name:${name}`;
+        return this.list({search: qs, skip: skip, limit: limit}).then((res) => {
+            return { data: res.body.data, total: res.body.meta.total };
+        }, (err) => {
+            if (err && err.name !== "CancellationError") {
+                return { data: null };
+            }
+        });
+    }
+
     get(id) {
         return request.get(`/api/drugs/by-spl-set-id/${id}`).promise().then((res) => res.body);
     }

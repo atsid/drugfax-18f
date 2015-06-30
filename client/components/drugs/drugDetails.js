@@ -1,10 +1,10 @@
 "use strict";
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-let DrugStore = require("../stores/drugStore");
-let Loader = require("./common/loader");
-let StyledButton = require("./common/styledButton");
-let SubscriptionStore = require("../stores/subscriptionStore");
+let DrugStore = require("../../stores/drugStore");
+let Loader = require("../common/loader");
+let StyledButton = require("../common/styledButton");
+let SubscriptionStore = require("../../stores/subscriptionStore");
 let Bluebird = require("bluebird");
 let { Link } = require("react-router");
 
@@ -26,12 +26,12 @@ let DrugDetails = React.createClass({
 
     componentDidMount: function () {
         this.getStateFromStore({
-            drugId: this.props.params.drugId
+            detailId: this.props.params.detailId
         });
     },
 
     componentWillReceiveProps: function (nextProps) {
-        if (nextProps.params.drugId !== this.props.params.drugId) {
+        if (nextProps.params.detailId !== this.props.params.detailId) {
             this.getStateFromStore(nextProps.params);
         }
     },
@@ -39,8 +39,8 @@ let DrugDetails = React.createClass({
     getStateFromStore: function (props) {
         this.setState({loading: true});
         Bluebird.all([
-            drugStore.get(props.drugId),
-            subscriptionStore.getSubscription(props.drugId)
+            drugStore.get(props.detailId),
+            subscriptionStore.getSubscription(props.detailId)
         ]).spread((drug, subscription) => {
             this.setState({data: drug, loading: false, subscription: subscription});
         }).catch((err) => {
@@ -50,13 +50,13 @@ let DrugDetails = React.createClass({
     },
 
     toggleSubscription: function() {
-        let drugId = this.props.params.drugId;
+        let detailId = this.props.params.detailId;
         let subscription = this.state.subscription;
         if (subscription) {
             return subscriptionStore.unsubscribe(subscription.id)
             .then(() => this.setState({subscription: null}));
         } else {
-            subscriptionStore.subscribe(drugId)
+            subscriptionStore.subscribe(detailId)
             .then((sub) => this.setState({subscription: sub}));
         }
     },
@@ -88,7 +88,7 @@ let DrugDetails = React.createClass({
                                 <div className="col-3">
                                     <h5>Manufacturer</h5>
                                     <p>
-                                        <Link to={"/manufacturers/detail"} query={{ name: this.state.data.openfda.manufacturer_name[0]}}>{this.state.data.openfda.manufacturer_name[0]}</Link>
+                                        <Link to={"/manufacturers/" + encodeURIComponent(this.state.data.openfda.manufacturer_name[0])}>{this.state.data.openfda.manufacturer_name[0]}</Link>
                                     </p>
                                 </div>
                                 <div className="col-3">

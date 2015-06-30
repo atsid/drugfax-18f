@@ -1,0 +1,101 @@
+.master-detail {
+    position: relative;
+    height: 100%;
+}
+
+.master-detail--populated {
+    .master-detail__master {
+        transform: translate(0, 0);
+        width: 400px;
+        top: 0;
+        left: 0;
+        border-right: 1px solid $component-border;
+        background: #f6f6f6;
+
+        .search-field {
+            input,
+            .fa {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+
+.master-detail--populated .master-detail__master .search-field,
+.master-detail--has-queried .master-detail__master .search-field {
+    margin-top: 0;
+
+    input,
+    .fa {
+        font-size: 18px;
+    }
+}
+
+.master-detail__master {
+    width: 600px;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0);
+    border-right: 1px solid transparent;
+    transition: all 350ms ease-out, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62);
+
+    .master-detail__master__empty-state {
+        color: #aaa;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 300;
+        opacity: 1;
+        transition: all 250ms cubic-bezier(.79,-0.1,.39,.62);
+        position: absolute;
+        width: 100%;
+
+        .master-detail__master__empty-state__icon {
+            font-size: 100px;
+            color: #aaa;
+        }
+    }
+
+    .result-count {
+        color: $color-muted;
+        padding: 8px 28px;
+        border-bottom: 1px solid $component-border;
+        margin-bottom: -1px;
+        position: relative;
+
+        .result-count__number {
+            color: $text-color;
+        }
+    }
+
+    .search-field {
+        margin-top: 100px;
+        input,
+        .fa {
+            font-size: 18px;
+        }
+    }
+}
+
+.master-detail--populated {
+    .master-detail__details {
+        position: absolute;
+        left: 400px;
+        top: 0;
+        height: 100%;
+        right: 0;
+        overflow-y: auto;
+    }
+}
+
+
+.master-detail__details {
+    .loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

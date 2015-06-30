@@ -1,0 +1,10 @@
+.list-display {
+    &.list-display--fade-appear {
+        opacity: 0.01;
+        transition: opacity 250ms ease-in;
+    }
+
+    &.list-display--fade-appear.drug-list--fade-appear-active {
+        opacity: 1;
+    }
+}
