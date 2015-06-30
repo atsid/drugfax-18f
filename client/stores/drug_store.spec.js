@@ -76,4 +76,40 @@ describe("The Drug Store", () => {
             });
         });
     });
+
+    describe("getEventCounts", () => {
+        it("can retrieve a list of event dates/counts for a drug id", () => {
+            agent.respondWith({
+                body: {
+                    data: [
+                        {time: "20050131", count: 1},
+                        {time: "20050215", count: 2},
+                    ]
+                }
+            });
+            return store.getEventCounts("1", "20050101", "20150101").then((result) => {
+                expect(result.body.data.length).to.equal(2);
+                expect(agent.invocation.query.count).to.equal("receivedate");
+                expect(agent.invocation.query.search).to.equal("receivedate:[20050101+TO+20150101]+AND+patient.drug.openfda.spl_set_id:\"1\"");
+            });
+        });
+    });
+
+    describe("getEnforcementCounts", () => {
+        it("can retrieve a list of enforcement dates/counts for a drug id", () => {
+            agent.respondWith({
+                body: {
+                    data: [
+                        {time: "20050131", count: 1},
+                        {time: "20050215", count: 2},
+                    ]
+                }
+            });
+            return store.getEnforcementCounts("1", "20050101", "20150101").then((result) => {
+                expect(result.body.data.length).to.equal(2);
+                expect(agent.invocation.query.count).to.equal("report_date");
+                expect(agent.invocation.query.search).to.equal("report_date:[20050101+TO+20150101]+AND+openfda.spl_set_id:\"1\"");
+            });
+        });
+    });
 });
