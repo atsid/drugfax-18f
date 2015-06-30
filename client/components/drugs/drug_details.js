@@ -1,10 +1,10 @@
 "use strict";
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-let DrugStore = require("../../stores/drugStore");
+let DrugStore = require("../../stores/drug_store");
 let Loader = require("../common/loader");
-let StyledButton = require("../common/styledButton");
-let SubscriptionStore = require("../../stores/subscriptionStore");
+let StyledButton = require("../common/styled_button");
+let SubscriptionStore = require("../../stores/subscription_store");
 let Bluebird = require("bluebird");
 let { Link } = require("react-router");
 

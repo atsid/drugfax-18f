@@ -1,6 +1,6 @@
 "use strict";
 let rewire = require("rewire");
-let SubscriptionStore = rewire("./subscriptionStore");
+let SubscriptionStore = rewire("./subscription_store");
 let MockSuperagent = require("../common.spec/mock-superagent");
 let { expect } = require("chai");
 

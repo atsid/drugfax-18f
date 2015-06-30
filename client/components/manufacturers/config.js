@@ -1,8 +1,8 @@
 "use strict";
 
-let ManufacturerStore = require("../../stores/manufacturerStore");
-let ManufacturerListItem = require("./manufacturerListItem");
-let ManufacturerDetails = require("./manufacturerDetails");
+let ManufacturerStore = require("../../stores/manufacturer_store");
+let ManufacturerListItem = require("./manufacturer_list_item");
+let ManufacturerDetails = require("./manufacturer_list_item");
 
 module.exports = {
     detail: ManufacturerDetails,

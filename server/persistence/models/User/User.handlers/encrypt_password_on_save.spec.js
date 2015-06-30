@@ -4,8 +4,6 @@ let rewire = require("rewire");
 let handler = rewire("./encrypt_password_on_save");
 
 describe("Encrypt Password On Save Handler", () => {
-    afterEach(() => handler.__set__("passwordChecker", require("../../../../components/password_checker")));
-
     it("can encrypt a password when it changes", (done) => {
         let user = {
             password: "abc123",
@@ -35,15 +33,16 @@ describe("Encrypt Password On Save Handler", () => {
             password: "abc123",
             isModified: () => true
         };
-        handler.__set__("passwordChecker", {
+        handler.__with__("passwordChecker", {
             encryptPassword: () => {
                 throw new Error("Triggering a blowup");
             }
+        })(() => {
+            let next = (err) => {
+                expect(err).to.be.ok;
+                done();
+            };
+            return handler.apply(user, [next]);
         });
-        let next = (err) => {
-            expect(err).to.be.ok;
-            done();
-        };
-        return handler.apply(user, [next]);
     });
 });

@@ -1,8 +1,8 @@
 "use strict";
 
-let DrugStore = require("../../stores/drugStore");
-let DrugListItem = require("./drugListItem");
-let DrugDetails = require("./drugDetails");
+let DrugStore = require("../../stores/drug_store");
+let DrugListItem = require("./drug_list_item");
+let DrugDetails = require("./drug_details");
 
 module.exports = {
     detail: DrugDetails,

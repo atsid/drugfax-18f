@@ -3,7 +3,7 @@ let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let Loader = require("./common/loader");
 let Bluebird = require("bluebird");
-let ProfileStore = require("../stores/profileStore");
+let ProfileStore = require("../stores/profile_store");
 
 let profileStore = new ProfileStore();
 

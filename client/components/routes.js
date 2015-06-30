@@ -2,13 +2,13 @@
 let React = require("react/addons");
 let { Router, Route, Redirect } = require("react-router");
 let History = require("react-router/lib/HashHistory");
-let MasterDetail = require("./common/masterDetail");
+let MasterDetail = require("./common/master_detail");
 
 let App = require("./app");
-let MyDrugs = require("./myDrugs");
+let MyDrugs = require("./my_drugs");
 
 let Login = require("./login");
-let MyProfile = require("./myProfile");
+let MyProfile = require("./my_profile");
 let auth = require("../security/auth");
 let utils = require("../common/utils");
 var isLoggedInGuard = utils.createGuardComponent.bind(this, () => auth.isLoggedIn());

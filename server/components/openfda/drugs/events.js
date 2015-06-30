@@ -1,6 +1,6 @@
 "use strict";
 
-let OpenFDABaseService = require("../common/baseService");
+let OpenFDABaseService = require("../common/base_service");
 
 /**
  * The Drug/Events Service

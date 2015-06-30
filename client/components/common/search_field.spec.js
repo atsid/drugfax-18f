@@ -2,7 +2,7 @@
 require("../../common.spec/spec.helpers");
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
-let SearchField = require("./searchField");
+let SearchField = require("./search_field");
 let { expect, assert } = require("chai");
 
 let noopSearch = () => {};

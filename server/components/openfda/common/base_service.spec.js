@@ -1,6 +1,6 @@
 "use strict";
 let rewire = require("rewire");
-let BaseService = rewire("./baseService");
+let BaseService = rewire("./base_service");
 let chai = require("chai");
 let expect = chai.expect;
 
