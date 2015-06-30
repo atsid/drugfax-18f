@@ -11,7 +11,7 @@ https://drugfax.atsid.net
 ### Key Features
 * Users may search for drugs and view a detailed drug profile.
 * Users may search for manufacturers and view their aggregate score, determined by the quantity of enforcement events associated with drugs that manufacturer produces.
-* Users may *subscribe* to drugs that they are interested in. 
+* Users may subscribe to drugs that they are interested in. 
 * Users may authenticate with common OAuth providers.
 
 ## Team
