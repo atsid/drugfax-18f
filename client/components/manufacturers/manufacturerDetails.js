@@ -10,8 +10,8 @@ let manufacturerStore = new ManufacturerStore();
 let ManufacturerDetail = React.createClass({
 
     propTypes: {
-        location: React.PropTypes.object,
-        noTransition: React.PropTypes.bool
+        noTransition: React.PropTypes.bool,
+        params: React.PropTypes.object
     },
 
     getInitialState() {
@@ -33,10 +33,10 @@ let ManufacturerDetail = React.createClass({
     /**
      * Loads the state from the store
      */
-    getStateFromStore(props) {
+    getStateFromStore(name) {
         this.setState({loading: true});
         Bluebird.all([
-            manufacturerStore.get(props.name)
+            manufacturerStore.get(name)
         ]).spread((manufacturer) => {
             this.setState({ loading: false, data: manufacturer });
         }).catch((err) => {
@@ -94,13 +94,10 @@ let ManufacturerDetail = React.createClass({
      * Updates the manufactuer that is being displayed and loads the data from services
      */
     updateDisplayedManufacturer() {
-        let { query } = this.props.location;
-        let name = query && query.name;
-        if (name && this.state && this.state.name !== name) {
-            this.setState({ name: name });
-            this.getStateFromStore({
-                name: name
-            });
+        let detailId = this.props.params.detailId;
+        if (detailId && this.state && this.state.detailId !== detailId) {
+            this.setState({ detailId: detailId });
+            this.getStateFromStore(detailId);
         }
     },
 
@@ -111,7 +108,7 @@ let ManufacturerDetail = React.createClass({
         return (<div>
             { !this.state.loading && name ?
             <div key="manufacturer-details" className={"manufacturer-details"}>
-                <h1>{name}</h1>
+                <h1>{decodeURIComponent(name)}</h1>
                 <div className="row manufacturer-details__info">
                     <div className="col-3 badge info__drugs">
                         <div className="badge__number">
