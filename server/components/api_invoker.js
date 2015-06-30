@@ -13,6 +13,7 @@ let buildRequest = (api, req) => {
     return api
         .search(req.query.search).parent()
         .limit(req.query.limit)
+        .count(req.query.count)
         .skip(req.query.skip);
 };
 
