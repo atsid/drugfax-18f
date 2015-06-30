@@ -5,7 +5,7 @@ let ReactTestUtils = React.addons.TestUtils;
 let SearchField = require("./searchField");
 let { expect } = require("chai");
 
-let noopSearch = (text) => {};
+let noopSearch = () => {};
 
 describe("SearchField Component", () => {
     it("should load", function() {
