@@ -3,40 +3,15 @@ var config = require("config");
 let debug = require("debug")("app:components:password_checker");
 var bcrypt = require("bcrypt");
 let saltWorkFactor = config.security.password.saltWorkFactor;
+let Bluebird = require("bluebird");
 
-let hash = (pw, salt) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.hash(pw, salt, (err, hashValue) => {
-            if (err) {
-                return reject(err);
-            }
-            resolve(hashValue);
-        });
-    });
-};
+let doHash = Bluebird.promisify(bcrypt.hash, bcrypt);
+let doSalt = Bluebird.promisify(bcrypt.genSalt, bcrypt);
+let doCompare = Bluebird.promisify(bcrypt.compare, bcrypt);
 
-let genSalt = (workFactor) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.genSalt(workFactor, (err, salt) => {
-            if (err) {
-                return reject(err);
-            }
-            resolve(salt);
-        });
-    });
-};
-
-let compare = (password, hashed) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(password, hashed, (err, res) => {
-            if (err) {
-                reject(err);
-            }
-            debug((res ? "password matches" : "password does not match"));
-            resolve(res);
-        });
-    });
-};
+let hash = (pw, salt) => doHash(pw, salt);
+let genSalt = (workFactor) => doSalt(workFactor);
+let compare = (password, hashed) => doCompare(password, hashed);
 
 /**
  * A predicate promise that determines if a password matches a given encrypted password

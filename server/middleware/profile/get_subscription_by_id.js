@@ -2,12 +2,13 @@
 let persistence = require("../../persistence");
 let NotAuthorizedError = require("../../errors/not_authorized");
 let NotFoundError = require("../../errors/not_found");
+let Subscription = persistence.models.Subscription;
 
 module.exports = (req, res) => {
     let user = req.user;
     let subscriptionId = req.params.subscriptionId;
 
-    return persistence.models.Subscription.findByIdQ(subscriptionId)
+    return Subscription.findByIdQ(subscriptionId)
     .then((found) => {
             if (!found) {
                 throw new NotFoundError("Could not find subscription");
