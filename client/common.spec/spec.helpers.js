@@ -34,6 +34,19 @@ var helpers = {
 
             return me;
         },
+
+        fakeComponent() {
+            /*eslint-disable react/no-multi-comp*/
+            let component = React.createClass({
+                render () {
+                    for (let key in this.props) {
+                        component[key] = this.props[key];
+                    }
+                    return (<div {...this.props} className="fake-component" ></div>);
+                }
+            });
+            return component;
+        },
         getStubRouter(type, stubs) {
             function RouterStub() { }
 

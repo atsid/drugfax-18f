@@ -8,6 +8,9 @@ let AppComponent = require("./components/appComponent");
 let Drugs = require("./components/drugs");
 let DrugDetails = require("./components/drugDetails");
 let MyDrugs = require("./components/myDrugs");
+
+let Manufacturers = require("./components/manufacturers");
+let ManufacturerDetails = require("./components/manufacturers/manufacturerDetails");
 let LoginComponent = require("./components/loginComponent");
 let MyProfile = require("./components/myProfile");
 let auth = require("./security/auth");
@@ -26,6 +29,10 @@ window.onload = function () {
             <Route component={isLoggedInGuard(AppComponent, { state: "login"})}>
                 <Route path="drugs" component={Drugs}>
                     <Route path=":drugId" component={DrugDetails}/>
+                </Route>
+
+                <Route path="manufacturers" component={Manufacturers}>
+                    <Route path="detail" component={ManufacturerDetails}/>
                 </Route>
 
                 <Route path="myDrugs" component={MyDrugs}>
