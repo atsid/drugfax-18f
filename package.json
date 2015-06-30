@@ -4,13 +4,13 @@
   "description": "ATS 18F Demonstration Project",
   "main": "index.js",
   "scripts": {
-    "test": "gulp",
-    "start": "node index",
-    "postinstall": "./scripts/npm/postinstall.sh",
-    "posttest": "./scripts/npm/posttest.sh",
     "develop": "gulp develop",
     "mergecoverage": "lcov-result-merger 'target/test-reports/**/lcov.info' target/lcov_combined.info",
-    "reportcoverage": "codeclimate < target/test-reports/combined/lcov.info"
+    "postinstall": "./scripts/npm/postinstall.sh",
+    "posttest": "./scripts/npm/posttest.sh",
+    "reportcoverage": "codeclimate < target/test-reports/combined/lcov.info",
+    "start": "node index",
+    "test": "gulp"
   },
   "repository": {
     "type": "git",
@@ -84,6 +84,7 @@
     "mocha": "^2.2.5",
     "nock": "^2.6.0",
     "react": "^0.13.3",
+    "react-infinite": "^0.4.0",
     "react-router": "^1.0.0-beta2",
     "rewire": "^2.3.4",
     "run-sequence": "^1.1.1",

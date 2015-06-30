@@ -7,15 +7,26 @@
         display: block;
         border-top: 1px solid transparent;
         border-bottom: 1px solid transparent;
+        height: 65px;
+        overflow: hidden;
 
 
         .drug-list__item__brand_name {
             font-size: 16px;
-            margin-bottom: 4px;
+            margin-bottom: -4px;
+            overflow: hidden;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-weight: 400;
         }
         .drug-list__item__manufacturer_name {
             color: #999;
             font-size: 13px;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-weight: 400;
         }
 
         &:hover {

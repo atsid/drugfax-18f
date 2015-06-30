@@ -1,6 +1,7 @@
 .drug-details {
     padding-left: 60px;
     padding-right: 60px;
+    max-width: 1000px;
 
     .subscribe,
     .unsubscribe {
@@ -12,10 +13,12 @@
         margin-bottom: 0;
         margin-top: 50px;
     }
+
     .drug-details__sub-title {
         color: $color-muted;
         font-weight: 400;
         margin-bottom: 30px;
+        margin-top: -10px;
     }
 
     .subscribe {
@@ -29,7 +32,7 @@
 
     h5 {
         margin-top: 1.25em;
-        margin-bottom: .5em;
+        margin-bottom: 0;
     }
 
     .row {

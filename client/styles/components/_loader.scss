@@ -51,15 +51,15 @@ $width: 50px;
 
 @keyframes color {
     100%, 0% {
-        stroke: $red;
-    }
-    40% {
         stroke: $blue;
     }
-    66% {
+    40% {
         stroke: $green;
     }
-    80%, 90% {
+    66% {
         stroke: $yellow;
+    }
+    80%, 90% {
+        stroke: $red;
     }
 }

@@ -29,8 +29,10 @@ let DrugDetails = React.createClass({
         });
     },
 
-    componentWillReceiveProps(nextProps) {
-        this.getStateFromStore(nextProps.params);
+    componentWillReceiveProps: function (nextProps) {
+        if (nextProps.params.drugId !== this.props.params.drugId) {
+            this.getStateFromStore(nextProps.params);
+        }
     },
 
     getStateFromStore: function (props) {

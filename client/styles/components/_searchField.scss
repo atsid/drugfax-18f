@@ -1,5 +1,6 @@
 .search-field {
     position: relative;
+    transition: all 250ms ease-out;
 
     &.search-field--loading {
         > .fa-search {
@@ -18,7 +19,7 @@
         border-bottom: 1px solid $component-border;
         width: 100%;
         display: block;
-        transition: all 0.5s ease;
+        transition: all 250ms ease-out;
 
         &:focus {
             outline: none;
@@ -27,18 +28,22 @@
 
         &::-webkit-input-placeholder {
            color: #ccc;
+           font-weight: 300;
         }
 
         &:-moz-placeholder { /* Firefox 18- */
            color: #ccc;
+           font-weight: 300;
         }
 
         &::-moz-placeholder {  /* Firefox 19+ */
            color: #ccc;
+           font-weight: 300;
         }
 
         &:-ms-input-placeholder {
            color: #ccc;
+           font-weight: 300;
         }
     }
 
@@ -50,7 +55,7 @@
         top: 0;
         color: #ccc;
         opacity: 1;
-        transition: opacity 250ms ease-in;
+        transition: all 250ms ease-out;
     }
 
     .loader {
