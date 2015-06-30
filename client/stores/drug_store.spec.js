@@ -83,7 +83,7 @@ describe("The Drug Store", () => {
                 body: {
                     data: [
                         {time: "20050131", count: 1},
-                        {time: "20050215", count: 2},
+                        {time: "20050215", count: 2}
                     ]
                 }
             });
@@ -101,7 +101,7 @@ describe("The Drug Store", () => {
                 body: {
                     data: [
                         {time: "20050131", count: 1},
-                        {time: "20050215", count: 2},
+                        {time: "20050215", count: 2}
                     ]
                 }
             });
