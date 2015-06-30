@@ -37,7 +37,7 @@ The client-tests use [jsdom](https://github.com/tmpvar/jsdom) to emulate DOM int
 Unit testing coverage has been reported to [CodeClimate](codeclimate.com), and metrics may be viewable at the CodeClimate badge link at the top of this file.
 
 ## Development / CI Practices
-We used the [https://guides.github.com/introduction/flow/](Github Flow) practice of encapsulating changes to the project as pull requests. 
+We used the [Github Flow](https://guides.github.com/introduction/flow/) practice of encapsulating changes to the project as pull requests. 
 This allows us to have a code review policy before code is merged into the master (stable) branch.  
 We use [Wercker](wercker.com) to build the application.
 Wercker supports Github Flow and provides build information with every build on every branch, this allows us some level of verification before code is merged into the stable branch.
