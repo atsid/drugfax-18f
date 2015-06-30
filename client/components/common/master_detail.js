@@ -159,7 +159,7 @@ let MasterDetail = React.createClass({
                     <div className={"master-detail__master__empty-state__icon"}>
                         <i className="fa fa-search"></i>
                     </div>
-                    Hi! Welcome to DrugFAX.
+                    Hi! Welcome to DrugFax.
                     <br/>
                     { this.getProp("masterSearchPlaceholder") || "Search" }.
                 </div>
