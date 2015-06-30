@@ -2,7 +2,6 @@
 let { expect } = require("chai");
 let rewire = require("rewire");
 let middleware = rewire("./get_subscription_by_id");
-let persistence = require("../../persistence");
 let Bluebird = require("bluebird");
 
 describe("GetSubscriptionById Middleware", () => {
