@@ -4,7 +4,7 @@ let request = require("superagent-bluebird-promise");
 
 class ManufacturerStore {
 
-    list(opts) {
+    list(opts={}) {
         let req = request.get("/api/manufacturers");
         req.query({limit: opts.limit || 100});
         req.query({skip: opts.skip || 0});
@@ -18,7 +18,9 @@ class ManufacturerStore {
     }
 
     get(name) {
-        return request.get(`/api/manufacturers/by-name/${name}`).promise().then((res) => res.body);
+        return request.get("/api/manufacturers/by-name")
+            .query({"name": name})
+            .promise().then((res) => res.body);
     }
 }
 
