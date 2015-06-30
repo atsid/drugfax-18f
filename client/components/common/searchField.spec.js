@@ -3,7 +3,7 @@ require("../../common.spec/spec.helpers");
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
 let SearchField = require("./searchField");
-let { expect } = require("chai");
+let { expect, assert } = require("chai");
 
 let noopSearch = () => {};
 
@@ -29,6 +29,28 @@ describe("SearchField Component", () => {
         ReactTestUtils.Simulate.click(searchIcon);
         ReactTestUtils.Simulate.change(inputBox, {target: {value: "derp"}});
         ReactTestUtils.Simulate.keyDown(inputBox, {key: "Enter", keyCode: 13});
+    });
+
+    it("will not trigger a search when the search value is null", () => {
+        let onSearch = () => assert.fail("Search should not have been invoked");
+        var renderedComponent = ReactTestUtils.renderIntoDocument(
+            <SearchField onSearch={onSearch}/>
+        );
+        let searchIcon = ReactTestUtils.findRenderedDOMComponentWithTag(renderedComponent, "i");
+        let inputBox = ReactTestUtils.findRenderedDOMComponentWithTag(renderedComponent, "input");
+        ReactTestUtils.Simulate.click(searchIcon);
+        ReactTestUtils.Simulate.keyDown(inputBox, {key: "Enter", keyCode: 13});
+    });
+
+    it("will not trigger a search when a random key is pressed", () => {
+        let onSearch = () => assert.fail("Search should not have been invoked");
+        var renderedComponent = ReactTestUtils.renderIntoDocument(
+            <SearchField onSearch={onSearch}/>
+        );
+        let searchIcon = ReactTestUtils.findRenderedDOMComponentWithTag(renderedComponent, "i");
+        let inputBox = ReactTestUtils.findRenderedDOMComponentWithTag(renderedComponent, "input");
+        ReactTestUtils.Simulate.click(searchIcon);
+        ReactTestUtils.Simulate.keyDown(inputBox, {key: "Down", keyCode: 40});
     });
 
     it("will apply a loading state when the search results are loading", () => {
