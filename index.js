@@ -6,4 +6,4 @@ if (config.monitoring.newRelicKey) {
     require("newrelic");
 }
 require("babel/register");
-require("./server/appcluster");
+require("mr-cluster");

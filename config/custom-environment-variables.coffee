@@ -15,6 +15,9 @@ module.exports =
     openfda:
         apiKey: "OPENFDA_APIKEY"
 
+    clustering:
+        workerLimit: "CLUSTERING_WORKER_LIMIT"
+
     database:
         connectionString: "DB_CONNECTION_STRING"
         composeConnection:
