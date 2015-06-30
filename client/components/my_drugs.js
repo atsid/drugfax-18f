@@ -3,11 +3,11 @@ let React = require("react/addons");
 let Loader = require("./common/loader");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let Bluebird = require("bluebird");
-let ListDisplay = require("./common/listDisplay");
-let DrugListItem = require("./drugs/drugListItem");
+let ListDisplay = require("./common/list_display");
+let DrugListItem = require("./drugs/drug_list_item");
 
-let SubscriptionStore = require("../stores/subscriptionStore");
-let DrugStore = require("../stores/drugStore");
+let SubscriptionStore = require("../stores/subscription_store");
+let DrugStore = require("../stores/drug_store");
 
 let subscriptionStore = new SubscriptionStore();
 let drugStore = new DrugStore();

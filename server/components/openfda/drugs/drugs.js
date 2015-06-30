@@ -2,7 +2,7 @@
 
 let OpenFDADrugEvents = require("./events");
 let OpenFDADrugEnforcements = require("./enforcements");
-let OpenFDABaseService = require("../common/baseService");
+let OpenFDABaseService = require("../common/base_service");
 
 /**
  * The drugs/labels service

@@ -6,7 +6,6 @@ let callback = rewire("./local_auth_callback");
 
 describe("local authentication callback", () => {
     beforeEach(() => require("../../../../../startup_hooks").resolve());
-    afterEach(() => callback.__set__("User", require("../../../../../persistence").models.User));
 
     it("can authenticate a user with email and password", () => {
         let onComplete = (err, user) => {
@@ -33,15 +32,16 @@ describe("local authentication callback", () => {
     });
 
     it("will invoke done with an error in case of an error", (done) => {
-        callback.__set__("User", {
+        callback.__with__("User", {
             findOneQ: () => {
                 throw new Error("throwing intentional error");
             }
+        })(() => {
+            let onComplete = (err) => {
+                expect(err).to.be.ok;
+                done();
+            };
+            callback("herp@derp.com", "abc123", onComplete);
         });
-        let onComplete = (err) => {
-            expect(err).to.be.ok;
-            done();
-        };
-        callback("herp@derp.com", "abc123", onComplete);
     });
 });

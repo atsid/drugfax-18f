@@ -2,7 +2,7 @@
 
 let React = require("react");
 let Navigation = require("./navigation");
-let NavigationItemStore = require("../stores/navigationItemStore");
+let NavigationItemStore = require("../stores/navigation_item_store");
 let store = new NavigationItemStore();
 
 let AppComponent = React.createClass({

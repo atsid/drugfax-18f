@@ -1,7 +1,7 @@
 "use strict";
 
 let React = require("react/addons");
-let StyledButton = require("./common/styledButton");
+let StyledButton = require("./common/styled_button");
 let authentication = require("../security/auth");
 var Navigation = require("react-router").Navigation;
 
