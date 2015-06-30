@@ -1,13 +1,11 @@
 "use strict";
-
-let chai = require("chai");
-let expect = chai.expect;
+let { expect, assert } = require("chai");
 let manufacturerStats = require("./manufacturer_stats");
 let nock = require("nock");
 
-describe("Manufacturer stats", function() {
+describe("Manufacturer stats", () => {
     let scope;
-    beforeEach(function() {
+    beforeEach(() => {
         scope = nock("https://api.fda.gov");
         nock.cleanAll();
     });
@@ -20,12 +18,6 @@ describe("Manufacturer stats", function() {
             });
     }
 
-    function mockDrugCountApi404Call(name) {
-        scope
-            .get(`/drug/label.json?search=(openfda.manufacturer_name%3A%22${name}%22)&limit=1000&count=openfda.spl_set_id.exact`)
-            .reply(404);
-    }
-
     function mockDrugStatApiCall(name, data) {
         scope
             .get(`/drug/enforcement.json?search=(openfda.manufacturer_name%3A%22${name}%22)&count=classification.exact`)
@@ -34,13 +26,24 @@ describe("Manufacturer stats", function() {
             });
     }
 
-    function mockDrugStatApi404Call(name) {
+    let mockDrugCountApiError = (name, status) => {
+        scope
+            .get(`/drug/label.json?search=(openfda.manufacturer_name%3A%22${name}%22)&limit=1000&count=openfda.spl_set_id.exact`)
+            .reply(status);
+    };
+
+    let mockDrugStatApiError = (name, status) => {
         scope
             .get(`/drug/enforcement.json?search=(openfda.manufacturer_name%3A%22${name}%22)&count=classification.exact`)
-            .reply(404);
-    }
+            .reply(status);
+    };
 
-    it("should return a 50% grade if the manufacturer has 10 drugs and 5 recalls", function() {
+    let mockDrugCountApi404Call = (name) => mockDrugCountApiError(name, 404);
+    let mockDrugCountApi500Call = (name) => mockDrugCountApiError(name, 500);
+    let mockDrugStatApi404Call = (name) => mockDrugStatApiError(name, 404);
+    let mockDrugStatApi500Call = (name) => mockDrugStatApiError(name, 500);
+
+    it("should return a 50% grade if the manufacturer has 10 drugs and 5 recalls", () => {
         let testName = "TESTER";
         mockDrugCountApiCall(testName, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
         mockDrugStatApiCall(testName, [{ term: "Class I", count: 1 }, { term: "Class II", count: 4 }]);
@@ -50,7 +53,7 @@ describe("Manufacturer stats", function() {
         });
     });
 
-    it("should return a 0% grade if the manufacturer has less drugs and than recalls", function() {
+    it("should return a 0% grade if the manufacturer has less drugs and than recalls", () => {
         let testName = "TESTER";
         mockDrugCountApiCall(testName, [1]);
         mockDrugStatApiCall(testName, [{ term: "Class I", count: 1 }, { term: "Class II", count: 4 }]);
@@ -60,7 +63,7 @@ describe("Manufacturer stats", function() {
         });
     });
 
-    it("should return a 100% grade if the manufacturer has drugs but no recalls", function() {
+    it("should return a 100% grade if the manufacturer has drugs but no recalls", () => {
         let testName = "TESTER";
         mockDrugCountApiCall(testName, [1]);
         mockDrugStatApi404Call(testName);
@@ -70,7 +73,7 @@ describe("Manufacturer stats", function() {
         });
     });
 
-    it("should return a 100% grade if the manufacturer has drugs but no recalls", function() {
+    it("should return a 100% grade if the manufacturer has drugs but no recalls", () => {
         let testName = "TESTER";
         mockDrugCountApiCall(testName, [1]);
         mockDrugStatApi404Call(testName);
@@ -80,7 +83,7 @@ describe("Manufacturer stats", function() {
         });
     });
 
-    it("should return a 100% grade if the manufacturer has no drugs and no recalls", function() {
+    it("should return a 100% grade if the manufacturer has no drugs and no recalls", () => {
         let testName = "TESTER";
         mockDrugCountApi404Call(testName);
         mockDrugStatApi404Call(testName);
@@ -90,7 +93,19 @@ describe("Manufacturer stats", function() {
         });
     });
 
-    it("should scrub commas from manufacturer name when getting manufacturer info", function() {
+    it("should emit an when the source error code is not a 404", (done) => {
+        let testName = "TESTER";
+        mockDrugCountApi500Call(testName);
+        mockDrugStatApi500Call(testName);
+        manufacturerStats(testName)
+            .then(() => assert.fail("did not expect to pass"))
+            .catch((err) => {
+                expect(err).to.be.ok;
+                done();
+            });
+    });
+
+    it("should scrub commas from manufacturer name when getting manufacturer info", () => {
         let testNameWithCommas = "T,E,S,T,E,R";
         let testName = "TESTER";
         mockDrugCountApi404Call(testName);
@@ -101,7 +116,7 @@ describe("Manufacturer stats", function() {
         });
     });
 
-    it("should return classifications", function() {
+    it("should return classifications", () => {
         let testName = "TESTER";
         mockDrugCountApiCall(testName, [1]);
         mockDrugStatApiCall(testName, [{ term: "Class I", count: 1 }, { term: "Class II", count: 4 }]);

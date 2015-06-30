@@ -1,7 +1,7 @@
 "use strict";
 
 let React = require("react");
-let NavigationComponent = require("./navigationComponent");
+let Navigation = require("./navigation");
 let NavigationItemStore = require("../stores/navigationItemStore");
 let store = new NavigationItemStore();
 
@@ -15,7 +15,7 @@ let AppComponent = React.createClass({
         var navItems = store.list();
         return (
             <div className={"app-container"}>
-                <NavigationComponent items={navItems} />
+                <Navigation items={navItems} />
                 <div className={"app-container__content"}>
                     {this.props.children}
                 </div>
