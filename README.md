@@ -26,20 +26,20 @@ DrugFax has been containerized using Docker and is hosted on AWS Elastic Beansta
 We use NewRelic to monitor DrugFax. NewRelic provides performance and availability monitoring, and can alert us to critical events using a service integration with PagerDuty.
  
 ## Configuration Management
-We use [https://www.npmjs.com/package/config](node-config) to manage our application configuration. 
+We use [node-config](https://www.npmjs.com/package/config) to manage our application configuration. 
 Node-Config allows you to define a default configuration object, and optional overrides per each NODE_ENV environment. 
 Additionally, it provides a bridge for environment variables to be injected into the configuration object. 
 We use environment variables exclusively to manage sensitive API keys and connection strings.
 
 ## Testing
-The entire application has been tested using [https://github.com/mochajs/mocha](mocha), [http://chaijs.com/](chai), and [https://visionmedia.github.io/superagent/](SuperAgent). 
-The client-tests use [https://github.com/tmpvar/jsdom](jsdom) to emulate DOM interactions. 
-Unit testing coverage has been reported to [codeclimate.com](CodeClimate), and metrics may be viewable at the CodeClimate badge link at the top of this file.
+The entire application has been tested using [mocha](https://github.com/mochajs/mocha), [chai](http://chaijs.com/), and [SuperAgent](https://visionmedia.github.io/superagent/). 
+The client-tests use [jsdom](https://github.com/tmpvar/jsdom) to emulate DOM interactions. 
+Unit testing coverage has been reported to [CodeClimate](codeclimate.com), and metrics may be viewable at the CodeClimate badge link at the top of this file.
 
 ## Development / CI Practices
 We used the [https://guides.github.com/introduction/flow/](Github Flow) practice of encapsulating changes to the project as pull requests. 
 This allows us to have a code review policy before code is merged into the master (stable) branch.  
-We use [wercker.com](Wercker) to build the application.
+We use [Wercker](wercker.com) to build the application.
 Wercker supports Github Flow and provides build information with every build on every branch, this allows us some level of verification before code is merged into the stable branch.
 Wercker, CodeClimate, and Github all emit WebHook events into Slack, which we have utilized as our team communication mechanism.
 
@@ -47,24 +47,27 @@ Wercker, CodeClimate, and Github all emit WebHook events into Slack, which we ha
 DrugFax has been written using a variety of open-source technologies. Including:
 
 ### Database Technologies
-* MongoDB
-* Mongoose
+* [MongoDB](www.mongodb.org)
+* [mongoose](http://mongoosejs.com/)
+* [mongoose-organizer](https://www.npmjs.com/package/mongoose-organizer) (ATS Open Source)
 
 ### App-Server Technologies
-* NodeJS
-* Express
-* Node-config
-* Express-Jefferson (ATS Open Source)
-* Express-Mountie (ATS Open Source)
+* [NodeJS](https://nodejs.org/)
+* [Express](expressjs.com/)
+* [Passport](passportjs.org)
+* [node-config](https://www.npmjs.com/package/config)
+* [express-jefferson](https://www.npmjs.com/package/express-jefferson) (ATS Open Source)
+* [express-mountie](https://www.npmjs.com/package/express-mountie) (ATS Open Source)
 
 ### Client Technologies
-* React
-* Browserify
-* chart.js
+* [React](https://facebook.github.io/react/)
+* [Browserify](http://browserify.org/)
+* [chart.js](http://www.chartjs.org/)
 
-### Build System
-* gulp
-* nodemon
+### Development/Build System
+* [gulp](http://gulpjs.com/)
+* [nodemon](http://nodemon.io/)
+* [Docker Compose](https://docs.docker.com/compose/)
 
 ## Development
 ### Installation
