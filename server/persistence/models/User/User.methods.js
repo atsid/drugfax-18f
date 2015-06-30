@@ -9,11 +9,13 @@ function isValidPassword (password) {
     return passwordChecker.isValidPassword(password, this.password);
 }
 
-function process() {
+function process(req) {
     let result = this.toObject();
+    if (!req.user || `${req.user.id}` !== `${result.id}`) {
+        delete result.facebookId;
+        delete result.twitterId;
+    }
     delete result.password;
-    delete result.facebookId;
-    delete result.twitterId;
     delete result._id;
     delete result.__v;
     return result;

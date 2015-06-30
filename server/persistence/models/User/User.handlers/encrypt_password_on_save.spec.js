@@ -33,9 +33,11 @@ describe("Encrypt Password On Save Handler", () => {
             password: "abc123",
             isModified: () => true
         };
-        handler.__with__("passwordChecker", {
-            encryptPassword: () => {
-                throw new Error("Triggering a blowup");
+        handler.__with__({
+            "passwordChecker": {
+                encryptPassword: () => {
+                    throw new Error("Triggering a blowup");
+                }
             }
         })(() => {
             let next = (err) => {
