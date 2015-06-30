@@ -20,6 +20,18 @@ describe("The API Invoker", () => {
             });
         });
 
+        it("can pass count parameters to the openFDA API", () => {
+            let api = new FakeApi();
+            let req = {
+                query: {
+                    count: "receivedate"
+                }
+            };
+            return invoker.invoke(api, req).then(() => {
+                expect(api.countVal).to.equal("receivedate");
+            });
+        });
+
         it("can prune result fields based on a fields parameter", () => {
             let api = new FakeApi();
             let req = {
