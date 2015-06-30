@@ -1,5 +1,5 @@
 "use strict";
-let specUtil = require("./spec.helpers").util;
+let specUtil = require("../common.spec/spec.helpers").util;
 let util = require("../common/utils");
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;

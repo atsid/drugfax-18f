@@ -21,11 +21,12 @@ module.exports =
         password:
             saltWorkFactor: 10
 
+    clustering:
+        workerLimit: 1
+        entryPoint: __dirname + "/../server/main"
+
     server:
         port: 9000
-        clustering:
-            workerLimit: 1
-            isEnabled: true
 
     database:
         connectionString: 'mongodb://localhost/18f'

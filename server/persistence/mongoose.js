@@ -1,5 +1,6 @@
 "use strict";
 let config = require("config");
+let getConnectionString = require("./get_connection_string");
 let mongoose = require("mongoose-q")(require("mongoose"), {
     spread: true,
     q: require("q-bluebird")
@@ -9,16 +10,7 @@ let mongoose = require("mongoose-q")(require("mongoose"), {
  * Initializes the MongoDB Connection
  */
 function connect() {
-    let db = config.database;
-
-    let isComposed = () => parseInt(config.container.composed);
-    let composeConnectionString = () => {
-        let host = db.composeConnection.host;
-        let port = db.composeConnection.port;
-        let dbName = db.composeConnection.dbName;
-        return `mongodb://${host}:${port}/${dbName}`;
-    };
-    let connectionString = isComposed() ? composeConnectionString() : db.connectionString;
+    let connectionString = getConnectionString(config);
     mongoose.connect(connectionString);
 }
 

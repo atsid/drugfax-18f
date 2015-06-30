@@ -6,7 +6,6 @@ let apiInvoker = require("../../components/api_invoker");
 let index = (req, res) => {
     let search = req.query.search;
     req.query.search = search ? search.replace("name", "openfda.manufacturer_name") : "";
-
     return apiInvoker.buildRequest(drugs(), req)
         .count("openfda.manufacturer_name.exact")
         .run()
