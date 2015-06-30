@@ -56,7 +56,7 @@ let LoginComponent = React.createClass({
             <div className={"login__details"}>
                 <div className={"center-vh"}>
                     <h1>DrugFax</h1>
-                    <h2>Don't run the risk of buying pills with costly hidden problems. Shop with confidence for medicine with the DrugFaX drug history that's right for you.</h2>
+                    <h2>Don't run the risk of buying pills with costly hidden problems. Shop with confidence for medicine with the DrugFax drug history that's right for you.</h2>
                 </div>
             </div>
             <div className={"login__options"}>
