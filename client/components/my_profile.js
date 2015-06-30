@@ -2,13 +2,11 @@
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let Loader = require("./common/loader");
-let Bluebird = require("bluebird");
 let ProfileStore = require("../stores/profile_store");
-
 let profileStore = new ProfileStore();
+let Bluebird = require("bluebird");
 
 let MyProfile = React.createClass({
-
     getInitialState: function () {
         return {
             loading: true,
@@ -17,20 +15,16 @@ let MyProfile = React.createClass({
     },
 
     componentDidMount: function () {
-        this.getStateFromStore(this.props);
-    },
-
-    componentWillReceiveProps(nextProps) {
-        this.getStateFromStore(nextProps.params);
+        return this.getStateFromStore(this.props);
     },
 
     getStateFromStore: function () {
         this.setState({loading: true});
-        Bluebird.all([
-            profileStore.get()
-        ]).spread((profile) => {
-            this.setState({loading: false, profile: profile});
-        }).catch((err) => {
+
+        Bluebird.resolve(true)
+        .then(() => profileStore.get())
+        .then((profile) => this.setState({loading: false, profile: profile}))
+        .catch((err) => {
             console.log("error loading store data", err);
             this.setState({loading: false});
         });
@@ -38,11 +32,11 @@ let MyProfile = React.createClass({
 
     render: function() {
         let profileBits = [];
-        let addProfileBit = (key, value) => {
+        let addProfileBit = (name, key, value) => {
             if (value) {
                 profileBits.push(
-                    <div>
-                        <span>{key}:&nbsp;</span>
+                    <div className={"profile_" + key} key={key}>
+                        <span>{name}:&nbsp;</span>
                         <span>{value}</span>
                     </div>
                 );
@@ -50,16 +44,16 @@ let MyProfile = React.createClass({
         };
 
         if (this.state.profile) {
-            addProfileBit("Name", this.state.profile.name);
-            addProfileBit("Email", this.state.profile.email);
-            addProfileBit("Facebook Token", this.state.profile.facebookId);
-            addProfileBit("Twitter Token", this.state.profile.twitterId);
+            addProfileBit("Name", "name", this.state.profile.name);
+            addProfileBit("Email", "email", this.state.profile.email);
+            addProfileBit("Facebook Token", "facebook", this.state.profile.facebookId);
+            addProfileBit("Twitter Token", "twitter", this.state.profile.twitterId);
         }
 
         return (
             <div>
                 <ReactCSSTransitionGroup component="div" transitionName="transition" transitionAppear={true}>
-                    { !this.state.loading && this.state.profile ?
+                    { !this.state.loading ?
                         <div key="my-profile" className={"my-profile"}>
                             <h1>My Profile</h1>
                             {profileBits}

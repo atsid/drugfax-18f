@@ -32,9 +32,11 @@ describe("local authentication callback", () => {
     });
 
     it("will invoke done with an error in case of an error", (done) => {
-        callback.__with__("User", {
-            findOneQ: () => {
-                throw new Error("throwing intentional error");
+        callback.__with__({
+            "User": {
+                findOneQ: () => {
+                    throw new Error("throwing intentional error");
+                }
             }
         })(() => {
             let onComplete = (err) => {
