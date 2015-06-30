@@ -7,7 +7,6 @@ let MasterDetail = require("./common/masterDetail");
 let App = require("./app");
 let MyDrugs = require("./myDrugs");
 
-let ManufacturerDetails = require("./manufacturers/manufacturerDetails");
 let Login = require("./login");
 let MyProfile = require("./myProfile");
 let auth = require("../security/auth");
