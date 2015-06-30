@@ -167,6 +167,9 @@ let MasterDetail = React.createClass({
         }
     },
 
+    /**
+     * Renders the empty state for the list view
+     */
     _renderEmptyState: function () {
         if (this.state.data && this.state.data.length === 0) {
             return (

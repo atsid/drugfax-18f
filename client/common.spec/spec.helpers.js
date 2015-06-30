@@ -35,14 +35,14 @@ var helpers = {
             return me;
         },
 
-        fakeComponent() {
+        fakeComponent(className) {
             /*eslint-disable react/no-multi-comp*/
             let component = React.createClass({
                 render () {
                     for (let key in this.props) {
                         component[key] = this.props[key];
                     }
-                    return (<div {...this.props} className="fake-component" ></div>);
+                    return (<div {...this.props} className={(className ? className + "-" : "") + "fake-component"} ></div>);
                 }
             });
             return component;
