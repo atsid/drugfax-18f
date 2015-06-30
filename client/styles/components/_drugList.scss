@@ -34,7 +34,7 @@
         }
 
         &.active {
-            transition: all 200ms ease-out;
+            @include transition(all 200ms ease-out);
             border-top-color: $component-border;
             border-bottom-color: $component-border;
             background-color: #fff;
@@ -45,7 +45,7 @@
 
     &.drug-list--fade-appear {
         opacity: 0.01;
-        transition: opacity 250ms ease-in;
+        @include transition(opacity 250ms ease-in);
     }
 
     &.drug-list--fade-appear.drug-list--fade-appear-active {

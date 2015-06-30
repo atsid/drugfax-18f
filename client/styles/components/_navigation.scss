@@ -29,7 +29,7 @@ $icon-color: mix($color-secondary, #fff, 50%);
 }
 
 .nav__items__item {
-    transition: all 125ms ease-in;
+    @include transition(all 125ms ease-in);
 
     display: block;
     color: $icon-color;

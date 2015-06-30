@@ -12,7 +12,7 @@ $width: 50px;
 }
 
 .circular {
-    animation: rotate 2s linear infinite;
+    @include animation('rotate 2s linear infinite');
     height: $width;
     position: relative;
     width: $width;
@@ -22,19 +22,19 @@ $width: 50px;
 .path {
     stroke-dasharray: 1,200;
     stroke-dashoffset: 0;
-    animation:
-     dash 1.5s ease-in-out infinite,
-     color 6s ease-in-out infinite
-    ;
+    @include animation(
+     'dash 1.5s ease-in-out infinite,
+     color 6s ease-in-out infinite'
+    );
     stroke-linecap: round;
 }
 
-@keyframes rotate {
+@include keyframes(rotate) {
     100% {
-        transform: rotate(360deg);
+        @include transform(rotate(360deg));
     }
 }
-@keyframes dash {
+@include keyframes(dash) {
     0% {
         stroke-dasharray: 1,200;
         stroke-dashoffset: 0;
@@ -49,7 +49,7 @@ $width: 50px;
     }
 }
 
-@keyframes color {
+@include keyframes(color) {
     100%, 0% {
         stroke: $blue;
     }
