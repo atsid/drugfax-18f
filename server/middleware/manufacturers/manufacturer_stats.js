@@ -8,7 +8,7 @@ let drugs = require("../../components/drugs_api");
  */
 let sanitizeName = (name) => {
     // Commas seem to choke up the openFDA API even though it is in a quote
-    return name.replace(/,/g, "");
+    return name.replace(/,/g, "").replace(/%2C/g, "");
 };
 
 /**

@@ -19,7 +19,7 @@ class ManufacturerStore {
 
     get(name) {
         return request.get("/api/manufacturers/by-name")
-            .query({"name": encodeURIComponent(name)})
+            .query({ "name": name })
             .promise().then((res) => res.body);
     }
 
