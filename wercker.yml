@@ -111,3 +111,8 @@ deploy:
         - script:
             name: Deploy to elastic beanstalk
             code: cd $WERCKER_SOURCE_DIR/.tmp && eb deploy $DEPLOY_ENVIRONMENT -l "1.0.$WERCKER_GIT_COMMIT"
+
+    after-steps:
+        - wantedly/pretty-slack-notify:
+            webhook_url: $SLACK_WEBHOOK_URL
+            channel: $SLACK_NOTIFICATION_CHANNEL
