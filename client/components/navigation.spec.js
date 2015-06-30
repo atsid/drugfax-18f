@@ -5,7 +5,7 @@ let { expect } = require("chai");
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
 let rewire = require("rewire");
-let NavigationComponent = rewire("../components/navigationComponent");
+let Navigation = rewire("../components/navigation");
 
 describe("Navigation Component", function() {
 
@@ -15,7 +15,7 @@ describe("Navigation Component", function() {
             icon: "MyTestIcon",
             route: "myRoute"
         }];
-        let Stubbed = util.stubRouterContext(NavigationComponent, "object");
+        let Stubbed = util.stubRouterContext(Navigation, "object");
         let renderedComponent = ReactTestUtils.renderIntoDocument(
           <Stubbed items={items} />
         );

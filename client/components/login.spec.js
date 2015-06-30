@@ -5,12 +5,12 @@ let { util } = require("../common.spec/spec.helpers");
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
 let rewire = require("rewire");
-let LoginComponent = rewire("../components/loginComponent");
+let Login = rewire("../components/login");
 let { expect } = require("chai");
 
 describe("Login Component", function() {
     it("should load", function() {
-        let Stubbed = util.stubRouterContext(LoginComponent, "function");
+        let Stubbed = util.stubRouterContext(Login, "function");
         let renderedComponent = ReactTestUtils.renderIntoDocument(
           <Stubbed />
         );
@@ -18,10 +18,10 @@ describe("Login Component", function() {
     });
 
     function simulateLogin(name, routerStubs, props) {
-        let Stubbed = util.stubRouterContext(LoginComponent, "function", routerStubs);
+        let Stubbed = util.stubRouterContext(Login, "function", routerStubs);
         let loginCalled = false;
         let promise = util.fakePromise();
-        LoginComponent.__set__("authentication", {
+        Login.__set__("authentication", {
             login: function(type) {
                 loginCalled = true;
                 expect(type).to.equal(name);
