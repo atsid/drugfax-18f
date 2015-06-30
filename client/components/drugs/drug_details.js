@@ -2,8 +2,9 @@
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let DrugStore = require("../../stores/drug_store");
-let Loader = require("../common/loader");
-let StyledButton = require("../common/styled_button");
+let DrugChart = require("./../common/drug_chart");
+let Loader = require("./../common/loader");
+let StyledButton = require("./../common/styled_button");
 let SubscriptionStore = require("../../stores/subscription_store");
 let Bluebird = require("bluebird");
 let { Link } = require("react-router");
@@ -100,6 +101,8 @@ let DrugDetails = React.createClass({
                                     <p>{this.state.data.openfda.route[0]}</p>
                                 </div>
                             </div>
+                            <h5>Adverse Events</h5>
+                            <DrugChart store={drugStore} storeMethod={"getEventCounts"} dataId={this.props.params.detailId}/>
                             <h5>Dosage and Administration</h5>
                             <p>{this.state.data.dosage_and_administration}</p>
                             <h5>Warnings</h5>

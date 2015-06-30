@@ -20,6 +20,11 @@ class OpenFdaMock {
         return this;
     }
 
+    count(val) {
+        this.countVal = val;
+        return this;
+    }
+
     skip(val) {
         this.skipVal = val;
         return this;
