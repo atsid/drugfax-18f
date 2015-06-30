@@ -11,7 +11,7 @@ let ManufacturerListItem = React.createClass({
 
     render: function() {
         return (
-            <Link to={`/manufacturers/detail`} query={{ name: this.props.data.name}} className={"manufacturer-list__item"}>
+            <Link to={`/manufacturers/${encodeURIComponent(this.props.data.name)}`} className={"manufacturer-list__item"}>
                 <div className={"manufacturer-list__item__name"}>{this.props.data.name}</div>
             </Link>
         );

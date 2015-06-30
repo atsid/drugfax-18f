@@ -11,11 +11,22 @@ let SearchField = React.createClass({
     propTypes: {
         onSearch: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.string,
-        loading: React.PropTypes.bool
+        loading: React.PropTypes.bool,
+        key: React.PropTypes.string.isRequired
     },
 
     getInitialState: function() {
         return {value: ""};
+    },
+
+    /**
+     * If our props are changed restart this beast
+     */
+    componentWillReceiveProps: function(nextProps) {
+        // This is necessary cause React reuses components if it can
+        if (this.props.key !== nextProps.key) {
+            this.setState(this.getInitialState());
+        }
     },
 
     _onChange: function(event) {

@@ -5,16 +5,14 @@ let { Router, Route, Redirect } = require("react-router");
 let HashHistory = require("react-router/lib/HashHistory");
 
 let AppComponent = require("./components/appComponent");
-let Drugs = require("./components/drugs");
-let DrugDetails = require("./components/drugDetails");
+let drugsConfig = require("./components/drugs/config");
+let manufacturersConfig = require("./components/manufacturers/config");
 let MyDrugs = require("./components/myDrugs");
-
-let Manufacturers = require("./components/manufacturers");
-let ManufacturerDetails = require("./components/manufacturers/manufacturerDetails");
 let LoginComponent = require("./components/loginComponent");
 let MyProfile = require("./components/myProfile");
 let auth = require("./security/auth");
 let utils = require("./common/utils");
+let MasterDetail = require("./components/common/masterDetail");
 
 var isLoggedInGuard = utils.createGuardComponent.bind(this, () => auth.isLoggedIn());
 
@@ -27,16 +25,16 @@ window.onload = function () {
     React.render((
         <Router history={new HashHistory()}>
             <Route component={isLoggedInGuard(AppComponent, { state: "login"})}>
-                <Route path="drugs" component={Drugs}>
-                    <Route path=":drugId" component={DrugDetails}/>
+                <Route path="drugs" masterDetailConfig={drugsConfig} component={MasterDetail}>
+                    <Route path=":detailId" component={drugsConfig.detail} />
                 </Route>
 
-                <Route path="manufacturers" component={Manufacturers}>
-                    <Route path="detail" component={ManufacturerDetails}/>
+                <Route path="manufacturers" masterDetailConfig={manufacturersConfig} component={MasterDetail}>
+                    <Route path=":detailId" component={manufacturersConfig.detail} />
                 </Route>
 
                 <Route path="myDrugs" component={MyDrugs}>
-                    <Route path=":drugId" component={DrugDetails}/>
+                    <Route path=":drugId" component={drugsConfig.detail}/>
                 </Route>
 
                 <Route path="myProfile" component={MyProfile} />

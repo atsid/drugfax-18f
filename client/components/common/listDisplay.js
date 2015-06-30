@@ -1,16 +1,17 @@
 "use strict";
 
 let React = require("react/addons");
-let DrugListItem = require("./drugListItem");
 let Infinite = require("react-infinite");
 let { Navigation } = require("react-router");
 
-let DrugList = React.createClass({
+let ListDisplay = React.createClass({
 
     propTypes: {
         data: React.PropTypes.array.isRequired,
-        onInfiniteLoad: React.PropTypes.func.isRequired,
-        isInfiniteLoading: React.PropTypes.bool.isRequired
+        itemComponent: React.PropTypes.func.isRequired,
+        itemName: React.PropTypes.string.isRequired,
+        onInfiniteLoad: React.PropTypes.func,
+        isInfiniteLoading: React.PropTypes.bool
     },
 
     mixins: [Navigation],
@@ -21,7 +22,8 @@ let DrugList = React.createClass({
 
 
     /*
-     * Update the dimensions and listen for window resize events
+     * Update the dimensions and listen
+    },for window resize events
      */
     componentDidMount: function() {
         this._updateDimensions();
@@ -44,7 +46,6 @@ let DrugList = React.createClass({
         return { height: window.innerHeight - 106 };
     },
 
-
     /*
      * Update state with the new preferred list dimensions
      */
@@ -52,18 +53,18 @@ let DrugList = React.createClass({
         this.setState(this._getContainerHeight());
     },
 
-
     render: function() {
+        let ItemComponent = this.props.itemComponent;
         return (
-            <div className={"drug-list"} ref="drugList">
+            <div className={"list-display " + this.props.itemName + "-list"} ref="myList">
                 <Infinite elementHeight={65}
                             containerHeight={this.state.height}
                             onInfiniteLoad={this.props.onInfiniteLoad}
                             loadingSpinnerDelegate={null}
                             infiniteLoadBeginBottomOffset={200}
                             isInfiniteLoading={this.props.isInfiniteLoading}>
-                    {this.props.data.map((item) => {
-                        return <DrugListItem data={item} key={item.set_id}/>;
+                    {this.props.data.map((item, i) => {
+                        return <ItemComponent data={item} key={i}/>;
                     })}
                 </Infinite>
             </div>
@@ -71,4 +72,4 @@ let DrugList = React.createClass({
     }
 });
 
-module.exports = DrugList;
+module.exports = ListDisplay;

@@ -19,8 +19,23 @@ class ManufacturerStore {
 
     get(name) {
         return request.get("/api/manufacturers/by-name")
-            .query({"name": name})
+            .query({"name": encodeURIComponent(name)})
             .promise().then((res) => res.body);
+    }
+
+    /**
+     * Returns a list of matching drugs by the given name
+     */
+    listByName(name) {
+        let qs = `name:${name}`;
+        return this.list({search: qs, limit: 100}).then((res) => {
+            let data = res.body.data;
+            return { data: data, total: data.length };
+        }, (err) => {
+            if (err && err.name !== "CancellationError") {
+                return { data: null };
+            }
+        });
     }
 }
 
