@@ -24,11 +24,12 @@ class ManufacturerStore {
     }
 
     /**
-     * Returns a list of matching drugs by the given name
+     * Returns a list of matching manufacturers by the given name
      */
-    listByName(name) {
+    listByName(name, skip=0, limit=100) {
         let qs = `name:${name}`;
-        return this.list({search: qs, limit: 100}).then((res) => {
+        return this.list({search: qs, limit: limit, skip: skip})
+        .then((res) => {
             let data = res.body.data;
             return { data: data, total: data.length };
         }, (err) => {

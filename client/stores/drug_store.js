@@ -21,7 +21,7 @@ class DrugStore {
     /**
      * Returns a list of matching drugs by the given name
      */
-    listByName(name, skip, limit) {
+    listByName(name, skip=0, limit=50) {
         let qs = `openfda.brand_name:${name}+OR+openfda.substance_name:${name}+OR+openfda.manufacturer_name:${name}`;
         return this.list({search: qs, skip: skip, limit: limit}).then((res) => {
             return { data: res.body.data, total: res.body.meta.total };

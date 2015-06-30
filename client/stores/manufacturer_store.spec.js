@@ -39,6 +39,36 @@ describe("The Manufacturer Store", () => {
         });
     });
 
+    describe("listByName", () => {
+        it("can retrieve a list of manufacturers using a name query", () => {
+            agent.respondWith({
+                body: {
+                    data: [
+                        { id: 1 }
+                    ]
+                }
+            });
+            return store.listByName("aspirin").then((res) => {
+                expect(res.data.length).to.equal(1);
+                expect(res.total).to.equal(1);
+            });
+        });
+
+        it("can accept paging parameters", () => {
+            agent.respondWith({
+                body: {
+                    data: [
+                        { id: 1 }
+                    ]
+                }
+            });
+            return store.listByName("aspirin", 10, 100).then(() => {
+                expect(agent.invocation.query.limit).to.equal(100);
+                expect(agent.invocation.query.skip).to.equal(10);
+            });
+        });
+    });
+
     describe("get", () => {
         it("can get a manufacturer by name", () => {
             return store.get("abc123")

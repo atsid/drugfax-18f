@@ -44,4 +44,36 @@ describe("The Drug Store", () => {
                 });
         });
     });
+
+    describe("listByName", () => {
+        it("can retrieve a list of drugs matching a given name", () => {
+            agent.respondWith({
+                body: {
+                    meta: {total: 100},
+                    data: [
+                        {id: 1}
+                    ]
+                }
+            });
+            return store.listByName("tylenol").then((result) => {
+                 expect(result.data.length).to.equal(1);
+                expect(result.total).to.equal(100);
+            });
+        });
+
+        it("can accept overridden paging parameters", () => {
+            agent.respondWith({
+                body: {
+                    meta: {total: 100},
+                    data: [
+                        {id: 1}
+                    ]
+                }
+            });
+            return store.listByName("tylenol", 50, 100).then(() => {
+                expect(agent.invocation.query.skip).to.equal(50);
+                expect(agent.invocation.query.limit).to.equal(100);
+            });
+        });
+    });
 });
