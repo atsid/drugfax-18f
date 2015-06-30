@@ -19,7 +19,7 @@
         border-bottom: 1px solid $component-border;
         width: 100%;
         display: block;
-        transition: all 250ms ease-out;
+        @include transition(all 250ms ease-out);
 
         &:focus {
             outline: none;
@@ -55,7 +55,7 @@
         top: 0;
         color: #ccc;
         opacity: 1;
-        transition: all 250ms ease-out;
+        @include transition(all 250ms ease-out);
     }
 
     .loader {
