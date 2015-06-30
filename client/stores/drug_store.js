@@ -3,17 +3,21 @@ let request = require("superagent-bluebird-promise");
 
 class DrugStore {
 
-    list(opts={}) {
-        let req = request.get("/api/drugs");
+    _applyBaseParams(req, opts) {
         req.query({
             skip: opts.skip || 0,
             limit: opts.limit || 25
         });
-        if (opts.search) {
-            req.query({search: opts.search});
-        }
         if (opts.fields) {
             req.query({fields: opts.fields});
+        }
+    }
+
+    list(opts={}) {
+        let req = request.get("/api/drugs");
+        this._applyBaseParams(req, opts);
+        if (opts.search) {
+            req.query({search: opts.search});
         }
         return req.promise();
     }
@@ -33,7 +37,27 @@ class DrugStore {
     }
 
     get(id) {
-        return request.get(`/api/drugs/by-spl-set-id/${id}`).promise().then((res) => res.body);
+        return request.get(`/api/drugs/by-spl-set-id/${id}`).promise().then(res => res.body);
+    }
+
+    getEventCounts(id, startDate, endDate, opts={}) {
+        let req = request.get("/api/drugs/events");
+        this._applyBaseParams(req, opts);
+        req.query({
+            search: `receivedate:[${startDate}+TO+${endDate}]+AND+patient.drug.openfda.spl_set_id:"${id}"`,
+            count: "receivedate"
+        });
+        return req.promise();
+    }
+
+    getEnforcementCounts(id, startDate, endDate, opts={}) {
+        let req = request.get("/api/drugs/enforcements");
+        this._applyBaseParams(req, opts);
+        req.query({
+            search: `report_date:[${startDate}+TO+${endDate}]+AND+openfda.spl_set_id:"${id}"`,
+            count: "report_date"
+        });
+        return req.promise();
     }
 }
 
