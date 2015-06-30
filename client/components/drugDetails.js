@@ -6,6 +6,7 @@ let Loader = require("./common/loader");
 let StyledButton = require("./common/styledButton");
 let SubscriptionStore = require("../stores/subscriptionStore");
 let Bluebird = require("bluebird");
+let { Link } = require("react-router");
 
 let drugStore = new DrugStore();
 let subscriptionStore = new SubscriptionStore();
@@ -87,7 +88,7 @@ let DrugDetails = React.createClass({
                                 <div className="col-3">
                                     <h5>Manufacturer</h5>
                                     <p>
-                                        <a>{this.state.data.openfda.manufacturer_name[0]}</a>
+                                        <Link to={"/manufacturers/detail"} query={{ name: this.state.data.openfda.manufacturer_name[0]}}>{this.state.data.openfda.manufacturer_name[0]}</Link>
                                     </p>
                                 </div>
                                 <div className="col-3">

@@ -1,0 +1,81 @@
+.manufacturer-details {
+    padding-left: 60px;
+    padding-right: 60px;
+
+    .subscribe,
+    .unsubscribe {
+        margin-top: 18px;
+    }
+
+    h1 {
+        font-weight: 300;
+        margin-bottom: 0;
+        margin-top: 50px;
+    }
+    .manufacturer-details__sub-title {
+        color: $color-muted;
+        font-weight: 400;
+        margin-bottom: 30px;
+    }
+
+    .subscribe {
+        background-color: $color-primary;
+    }
+
+    .unsubscribe {
+        background-color: $button-bg;
+        color: $button-fg;
+    }
+
+    h5 {
+        margin-top: 1.25em;
+        margin-bottom: .5em;
+    }
+
+    .row {
+        &:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    }
+
+    .col-3 {
+        width: 33.3%;
+        float: left;
+    }
+
+    .badge {
+        font-size: 100px !important;
+        float: left;
+    }
+
+    .manufacturer-details__info {
+        width: 50%;
+
+        .info__badge,
+        .info__badge .badge__label{
+            border-style: double;
+            border-width: 4px;
+            border-color: white;
+            margin-top: -.7em;
+        }
+
+        .info__badge {
+            font-size: 150px !important;
+            margin: 40px;
+            float: left;
+        }
+
+        .badge__label {
+            font-size: .15em;
+        }
+
+        .info__drugs,
+        .info__events {
+            margin: 40px;
+            margin-top: 1em;
+            float: left;
+        }
+    }
+}
