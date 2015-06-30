@@ -7,9 +7,7 @@ let nock = require("nock");
 
 describe("Manufacturer stats", function() {
     let scope;
-    beforeEach(function() {
-        scope = nock("https://api.fda.gov");
-    });
+    beforeEach(() => scope = nock("https://api.fda.gov"));
 
     function mockDrugCountApiCall(name, data) {
         scope

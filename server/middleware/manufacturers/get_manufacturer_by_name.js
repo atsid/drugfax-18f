@@ -7,15 +7,10 @@ let manufacturerStats = require("./manufacturer_stats");
  */
 module.exports = (req, res) => {
     let name = req.query.name;
-    manufacturerStats(name)
-        .then((data) => {
-            res.json({
-                name: name,
-                stats: data
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-            res.json({ error: "Unknown service error" });
+    return manufacturerStats(name).then((data) => {
+        res.json({
+            name: name,
+            stats: data
         });
+    });
 };

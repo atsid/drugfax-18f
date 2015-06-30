@@ -48,6 +48,14 @@ class MockSuperagent {
         return Bluebird.resolve(this.response);
     }
 
+    run() {
+        return this.promise();
+    }
+
+    pipe(out) {
+        out.write(this.response.toJSON());
+    }
+
     respondWith (response) {
         this.response = response;
         return this;
