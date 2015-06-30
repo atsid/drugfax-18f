@@ -9,7 +9,7 @@ module.exports = function (next) {
 
     if (user.password && isPasswordModified) {
         debug("password change detected for ", user.email || user.name);
-        Bluebird.resolve(true)
+        return Bluebird.resolve(true)
             .then(() => passwordChecker.encryptPassword(user.password))
             .then((hash) => user.password = hash)
             .then(next)
