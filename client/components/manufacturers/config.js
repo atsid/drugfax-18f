@@ -9,5 +9,5 @@ module.exports = {
     store: new ManufacturerStore(),
     itemName: "manufacturer",
     listItem: ManufacturerListItem,
-    masterSearchPlaceholder: "Search for a drug manufacturer."
+    masterSearchPlaceholder: "Search for a drug manufacturer"
 };
