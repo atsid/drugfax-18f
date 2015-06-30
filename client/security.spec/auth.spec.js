@@ -1,6 +1,5 @@
 "use strict";
-let chai = require("chai");
-let { expect, assert } = chai;
+let { expect, assert } = require("chai");
 let { util } = require("../common.spec/spec.helpers.js");
 let nock = require("nock");
 let auth = require("../security/auth");

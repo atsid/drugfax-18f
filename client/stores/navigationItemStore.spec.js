@@ -1,7 +1,6 @@
 "use strict";
 let NavItemStore = require("./navigationItemStore");
-let chai = require("chai");
-let { expect, assert } = chai;
+let { expect, assert } = require("chai");
 
 describe("The NavigationItem Store", () => {
     let store = null;
