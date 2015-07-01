@@ -1,7 +1,7 @@
 "use strict";
 let React = require("react/addons");
 let { Router, Route, Redirect } = require("react-router");
-let History = require("react-router/lib/HashHistory");
+let { history } = require("react-router/lib/HashHistory");
 let MasterDetail = require("./common/master_detail");
 
 let App = require("./app");
@@ -18,7 +18,7 @@ let manufacturersConfig = require("./manufacturers/config");
 let Routes = React.createClass({
     render: function() {
         return (
-            <Router history={new History()}>
+            <Router history={history}>
                 <Route component={isLoggedInGuard(App, { state: "login"})}>
                     <Route path="drugs" masterDetailConfig={drugsConfig} component={MasterDetail}>
                         <Route path=":detailId" component={drugsConfig.detail} />

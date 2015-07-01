@@ -89,7 +89,7 @@
     "react": "^0.13.3",
     "react-chartjs": "^0.6.0",
     "react-infinite": "^0.4.0",
-    "react-router": "^1.0.0-beta2",
+    "react-router": "^1.0.0-beta3",
     "rewire": "^2.3.4",
     "run-sequence": "^1.1.1",
     "sinon": "^1.15.4",
