@@ -1,6 +1,6 @@
 .search-field {
     position: relative;
-    transition: all 250ms ease-out;
+    @include transition(all 250ms ease-out);
 
     &.search-field--loading {
         > .fa-search {
