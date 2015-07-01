@@ -9,18 +9,16 @@ let ManufacturerDetailsComponent = rewire("./manufacturer_details");
 let sinon = require("sinon");
 let { expect } = require("chai");
 
-describe("Manufacturer Detail Component", function() {
+describe("Manufacturer Detail Component", () => {
 
-    function createManufacturerDetailComponent(params) {
+    let createManufacturerDetailComponent = (params) => {
         let store = {
             list: function() {},
-            get: function() {
-            }
+            get: function() {}
         };
-
         let storeStub = sinon.stub(store);
-
         let promise = util.fakePromise();
+
         storeStub.get.withArgs(sinon.match.any).returns(promise);
 
         params = params || {};
@@ -37,7 +35,7 @@ describe("Manufacturer Detail Component", function() {
         };
     }
 
-    function statTest(statProp, parentSelector, eleValue, statValue, done) {
+    let statTest = (statProp, parentSelector, eleValue, statValue, done) => {
         let { renderedComponent, store, promise } = createManufacturerDetailComponent({ detailId: "TESTMAN" });
         promise.trigger({
             name: "TESTMAN",
@@ -47,55 +45,55 @@ describe("Manufacturer Detail Component", function() {
         });
 
         // For some reason this timeout is necessary, Bluebird?
-        setTimeout(function() {
+        setImmediate(() => {
             let badgeEle = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, parentSelector);
             let numberEle = ReactTestUtils.findRenderedDOMComponentWithClass(badgeEle, "badge__number");
             expect(numberEle.getDOMNode().innerHTML).to.be.equal(eleValue);
             done();
-        }, 10);
+        });
     }
 
     let letterTest = statTest.bind(this, "grade", "info__badge");
 
-    it("should load", function() {
+    it("should load", () => {
         expect(createManufacturerDetailComponent().renderedComponent).to.exist;
     });
 
-    it("should try to load the state from the store on load", function() {
+    it("should try to load the state from the store on load", () => {
         let { renderedComponent, store } = createManufacturerDetailComponent({ detailId: "TESTMAN" });
 
         sinon.assert.calledOnce(store.get);
     });
 
-    it("should load totalDrugs", function(done){
+    it("should load totalDrugs", (done) => {
         statTest("totalDrugs", "info__drugs", "12", 12, done);
     });
 
-    it("should load totalIncidents", function(done){
+    it("should load totalIncidents", (done) => {
         statTest("totalIncidents", "info__events", "12", 12, done);
     });
 
-    it("should display \"A\" for >= 90", function(done){
+    it("should display \"A\" for >= 90", (done) => {
         letterTest("A", 90, done);
     });
 
-    it("should display \"B\" for >= 80", function(done){
+    it("should display \"B\" for >= 80", (done) => {
         letterTest("B", 80, done);
     });
 
-    it("should display \"C\" for >= 70", function(done){
+    it("should display \"C\" for >= 70", (done) => {
         letterTest("C", 70, done);
     });
 
-    it("should display \"D\" for >= 60", function(done){
+    it("should display \"D\" for >= 60", (done) => {
         letterTest("D", 60, done);
     });
 
-    it("should display \"F\" for < 50", function(done){
+    it("should display \"F\" for < 50", (done) => {
         letterTest("F", 40, done);
     });
 
-    it("should display \"B\"+ for > 87", function(done){
+    it("should display \"B\"+ for > 87", (done) => {
         letterTest("B+", 88, done);
     });
 });

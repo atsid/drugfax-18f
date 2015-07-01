@@ -5,18 +5,19 @@ let React = require("react/addons");
 let rewire = require("rewire");
 let ReactTestUtils = React.addons.TestUtils;
 let ListDisplay = rewire("./list_display");
-let { expect, assert } = require("chai");
+let { expect } = require("chai");
 
 describe("ListDisplay", () => {
     let createComponent = (data, props) => {
         let Infinite = util.fakeComponent();
         let itemComponent = util.fakeComponent("item-component");
         let itemName = "Fake Item Name";
-        ListDisplay.__set__("Infinite", Infinite);
+        let Stubbed = util.stubRouterContext(ListDisplay, "object");
         props = props || {};
         props.router = {};
         data = data || [];
-        let Stubbed = util.stubRouterContext(ListDisplay, "object");
+
+        ListDisplay.__set__("Infinite", Infinite);
         return {
             Infinite,
             renderedComponent: ReactTestUtils.renderIntoDocument(
@@ -34,7 +35,6 @@ describe("ListDisplay", () => {
     it("should load items for each data element", () => {
         let fakeData = [1, 2, 3];
         let { renderedComponent, itemComponent } = createComponent(fakeData);
-
         let items = ReactTestUtils.scryRenderedDOMComponentsWithClass(renderedComponent, "item-component-fake-component");
 
         expect(items.length).to.be.equal(3);

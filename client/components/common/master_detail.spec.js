@@ -5,7 +5,7 @@ let React = require("react/addons");
 let rewire = require("rewire");
 let ReactTestUtils = React.addons.TestUtils;
 let MasterDetail = rewire("./master_detail");
-let { expect, assert } = require("chai");
+let { expect } = require("chai");
 let sinon = require("sinon");
 
 describe("MasterDetail", () => {
@@ -91,7 +91,6 @@ describe("MasterDetail", () => {
 
     it("should load the total count if there are items", () => {
         let { renderedComponent, fakeData } = searchTest(true);
-
         let resultEle =
             ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "result-count");
 

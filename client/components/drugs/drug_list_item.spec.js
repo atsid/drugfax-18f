@@ -8,7 +8,7 @@ let rewire = require("rewire");
 let DrugListItem = rewire("./drug_list_item");
 let { expect } = require("chai");
 
-describe("Drug List Item Component", function() {
+describe("Drug List Item Component", () => {
 
     let testData = {
         "set_id": "TEST_ID",
@@ -18,7 +18,7 @@ describe("Drug List Item Component", function() {
         }
     };
 
-    function createComponent(data) {
+    let createComponent = (data) => {
         data = data || testData;
         let Stubbed = util.stubRouterContext(DrugListItem, "object");
         let renderedComponent = ReactTestUtils.renderIntoDocument(
@@ -29,25 +29,25 @@ describe("Drug List Item Component", function() {
         };
     }
 
-    it("should load", function() {
+    it("should load", () => {
         expect(createComponent().renderedComponent).to.exist;
     });
 
-    it("should load the drug name", function() {
+    it("should load the drug name", () => {
         let { renderedComponent } = createComponent();
         let div = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "drug-list__item__brand_name");
 
         expect(div.getDOMNode().innerHTML).to.be.equal("TEST_BRAND_NAME");
     });
 
-    it("should load the manufacturer name", function() {
+    it("should load the manufacturer name", () => {
         let { renderedComponent } = createComponent();
         let div = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "drug-list__item__manufacturer_name");
 
         expect(div.getDOMNode().innerHTML).to.be.equal("TEST_MANUFACTURER_NAME");
     });
 
-    it("should load the correct url for the link", function() {
+    it("should load the correct url for the link", () => {
         let { renderedComponent } = createComponent();
         let link = ReactTestUtils.findRenderedDOMComponentWithTag(renderedComponent, "a");
 

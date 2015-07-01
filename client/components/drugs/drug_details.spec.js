@@ -9,7 +9,7 @@ let DrugDetails = rewire("./drug_details");
 let { expect } = require("chai");
 let sinon = require("sinon");
 
-describe("Drug Details Component", function() {
+describe("Drug Details Component", () => {
 
     let testDrugData = {
         "set_id": "TEST_ID",
