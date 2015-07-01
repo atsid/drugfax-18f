@@ -52,6 +52,7 @@ let MyDrugs = React.createClass({
                             <h1>Saved Drugs</h1>
                             <ListDisplay
                                 itemName={"drug"}
+                                itemHeight={65}
                                 itemComponent={DrugListItem}
                                 key={this.state.value}
                                 data={this.state.subscriptions}/>

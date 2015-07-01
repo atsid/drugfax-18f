@@ -49,22 +49,19 @@ let ManufacturerDetail = React.createClass({
      * Gets an appropriate color for a percentage grade
      * @param {number} grade The grade to get a color for
      */
-    getColorStyleForGrade(grade) {
+    getClassNameForGrade(grade) {
         grade = grade ? Math.round(grade) : 100;
-        let color = "#D32F2F";
+        let className = "badge--f";
         if (grade >= 90) {
-            color = "#00B84C";
+            className = "badge--a";
         } else if (grade >= 80) {
-            color = "#8BC34A";
+            className = "badge--b";
         } else if (grade >= 70) {
-            color = "#FFC107";
+            className = "badge--c";
         } else if (grade >= 60) {
-            color = "#F57C00";
+            className = "badge--d";
         }
-        return {
-            color: "white",
-            backgroundColor: color
-        };
+        return className;
     },
 
     /**
@@ -110,28 +107,40 @@ let ManufacturerDetail = React.createClass({
             <div key="manufacturer-details" className={"manufacturer-details"}>
                 <h1>{decodeURIComponent(name)}</h1>
                 <div className="row manufacturer-details__info">
-                    <div className="col-3 badge info__drugs">
-                        <div className="badge__number">
-                            { stats.totalDrugs }
-                        </div>
-                        <div className="badge__label">
-                            Drugs
-                        </div>
-                    </div>
-                    <div className="col-3 badge info__badge" style={this.getColorStyleForGrade(stats.grade)}>
-                        <div className="badge__number">
-                            { this.getLetterGradeForNumberGrade(stats.grade) }
-                        </div>
-                        <div className="badge__label" style={this.getColorStyleForGrade(stats.grade)}>
-                            DrugFax Rating<span className="asterisk">*</span>
+                    <div className="col-3">
+                        <div className="badge badge--drugs">
+                            <div className="badge__circle">
+                                <div className="badge__circle__number">
+                                    { stats.totalDrugs }
+                                </div>
+                            </div>
+                            <div className="badge__label">
+                                Drugs
+                            </div>
                         </div>
                     </div>
-                    <div className="col-3 badge info__events">
-                        <div className="badge__number">
-                            { stats.totalIncidents }
+                    <div className="col-3">
+                        <div className={"badge badge--grade badge--large " + this.getClassNameForGrade(stats.grade)}>
+                            <div className="badge__circle">
+                                <div className="badge__circle__number">
+                                    { this.getLetterGradeForNumberGrade(stats.grade) }
+                                </div>
+                            </div>
+                            <div className="badge__label">
+                                DrugFax Rating<span className="asterisk">*</span>
+                            </div>
                         </div>
-                        <div className="badge__label">
-                            Enforcements
+                    </div>
+                    <div className="col-3">
+                        <div className="badge badge--incidents">
+                            <div className="badge__circle">
+                                <div className="badge__circle__number">
+                                    { stats.totalIncidents }
+                                </div>
+                            </div>
+                            <div className="badge__label">
+                                Enforcements
+                            </div>
                         </div>
                     </div>
                 </div>

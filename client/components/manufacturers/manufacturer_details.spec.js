@@ -47,13 +47,13 @@ describe("Manufacturer Detail Component", () => {
         // For some reason this timeout is necessary, Bluebird?
         setImmediate(() => {
             let badgeEle = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, parentSelector);
-            let numberEle = ReactTestUtils.findRenderedDOMComponentWithClass(badgeEle, "badge__number");
+            let numberEle = ReactTestUtils.findRenderedDOMComponentWithClass(badgeEle, "badge__circle__number");
             expect(numberEle.getDOMNode().innerHTML).to.be.equal(eleValue);
             done();
         });
     };
 
-    let letterTest = statTest.bind(this, "grade", "info__badge");
+    let letterTest = statTest.bind(this, "grade", "badge--grade");
 
     it("should load", () => {
         expect(createManufacturerDetailComponent().renderedComponent).to.exist;
@@ -66,11 +66,11 @@ describe("Manufacturer Detail Component", () => {
     });
 
     it("should load totalDrugs", (done) => {
-        statTest("totalDrugs", "info__drugs", "12", 12, done);
+        statTest("totalDrugs", "badge--drugs", "12", 12, done);
     });
 
     it("should load totalIncidents", (done) => {
-        statTest("totalIncidents", "info__events", "12", 12, done);
+        statTest("totalIncidents", "badge--incidents", "12", 12, done);
     });
 
     it("should display \"A\" for >= 90", (done) => {

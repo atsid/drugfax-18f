@@ -10,6 +10,7 @@ let ListDisplay = React.createClass({
         data: React.PropTypes.array.isRequired,
         itemComponent: React.PropTypes.func.isRequired,
         itemName: React.PropTypes.string.isRequired,
+        itemHeight: React.PropTypes.number.isRequired,
         onInfiniteLoad: React.PropTypes.func,
         isInfiniteLoading: React.PropTypes.bool
     },
@@ -57,7 +58,7 @@ let ListDisplay = React.createClass({
         let ItemComponent = this.props.itemComponent;
         return (
             <div className={"list-display " + this.props.itemName + "-list"} ref="myList">
-                <Infinite elementHeight={65}
+                <Infinite elementHeight={this.props.itemHeight}
                             containerHeight={this.state.height}
                             onInfiniteLoad={this.props.onInfiniteLoad}
                             loadingSpinnerDelegate={null}

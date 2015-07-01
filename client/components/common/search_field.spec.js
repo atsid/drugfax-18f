@@ -31,17 +31,6 @@ describe("SearchField Component", () => {
         ReactTestUtils.Simulate.keyDown(inputBox, {key: "Enter", keyCode: 13});
     });
 
-    it("will not trigger a search when the search value is null", () => {
-        let onSearch = () => assert.fail("Search should not have been invoked");
-        var renderedComponent = ReactTestUtils.renderIntoDocument(
-            <SearchField onSearch={onSearch}/>
-        );
-        let searchIcon = ReactTestUtils.findRenderedDOMComponentWithTag(renderedComponent, "i");
-        let inputBox = ReactTestUtils.findRenderedDOMComponentWithTag(renderedComponent, "input");
-        ReactTestUtils.Simulate.click(searchIcon);
-        ReactTestUtils.Simulate.keyDown(inputBox, {key: "Enter", keyCode: 13});
-    });
-
     it("will not trigger a search when a random key is pressed", () => {
         let onSearch = () => assert.fail("Search should not have been invoked");
         var renderedComponent = ReactTestUtils.renderIntoDocument(
