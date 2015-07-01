@@ -5,6 +5,7 @@ let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let Bluebird = require("bluebird");
 let ListDisplay = require("./common/list_display");
 let DrugListItem = require("./drugs/drug_list_item");
+let EmptyState = require("./common/empty_state");
 
 let SubscriptionStore = require("../stores/subscription_store");
 let DrugStore = require("../stores/drug_store");
@@ -38,6 +39,14 @@ let MyDrugs = React.createClass({
             });
     },
 
+    _getEmptyState: function () {
+        return (
+            <EmptyState>
+                No subscriptions yet.
+            </EmptyState>
+        );
+    },
+
     render: function () {
         let subs = [];
         this.state.subscriptions.forEach((sub) => {
@@ -48,14 +57,16 @@ let MyDrugs = React.createClass({
             <div>
                 <ReactCSSTransitionGroup component="div" transitionName="transition" transitionAppear={true}>
                     { !this.state.loading ?
-                        <div>
+                        <div className="my-drugs">
                             <h1>Saved Drugs</h1>
-                            <ListDisplay
-                                itemName={"drug"}
-                                itemHeight={65}
-                                itemComponent={DrugListItem}
-                                key={this.state.value}
-                                data={this.state.subscriptions}/>
+                            { this.state.subscriptions.length ?
+                                <ListDisplay
+                                    itemName={"drug"}
+                                    itemHeight={65}
+                                    itemComponent={DrugListItem}
+                                    key={this.state.value}
+                                    data={this.state.subscriptions}/>
+                                : this._getEmptyState() }
                         </div>
                         : null
                     }

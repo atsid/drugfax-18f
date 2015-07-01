@@ -2,6 +2,7 @@
 
 let React = require("react/addons");
 let SearchField = require("./search_field");
+let EmptyState = require("./empty_state");
 let ListDisplay = require("./list_display");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -151,14 +152,11 @@ let MasterDetail = React.createClass({
     _renderHelpText: function () {
         if (!this.state.hasQueried && !this.state.data && !this.props.params.detailId && !this.state.loading) {
             return (
-                <div className={"master-detail__master__empty-state"}>
-                    <div className={"master-detail__master__empty-state__icon"}>
-                        <i className="fa fa-search"></i>
-                    </div>
+                <EmptyState iconClass="fa-search">
                     Hi! Welcome to DrugFax.
                     <br/>
                     { this.getProp("masterSearchPlaceholder") || "Search" }.
-                </div>
+                </EmptyState>
             );
         }
     },
@@ -169,12 +167,9 @@ let MasterDetail = React.createClass({
     _renderEmptyState: function () {
         if (this.state.data && this.state.data.length === 0) {
             return (
-                <div className={"master-detail__master__empty-state"}>
-                    <div className={"master-detail__master__empty-state__icon"}>
-                        <i className="fa fa-frown-o"></i>
-                    </div>
+                <EmptyState iconClass="fa-frown-o">
                     No results for "{this.state.value}"
-                </div>
+                </EmptyState>
             );
         }
     },
