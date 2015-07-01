@@ -23,7 +23,7 @@
         }
 
         &.active {
-            transition: all 200ms ease-out;
+            @include transition(all 200ms ease-out);
             border-top-color: $component-border;
             border-bottom-color: $component-border;
             background-color: #fff;
@@ -34,7 +34,7 @@
 
     &.manufacturer-list--fade-appear {
         opacity: 0.01;
-        transition: opacity 250ms ease-in;
+        @include transition(opacity 250ms ease-in);
     }
 
     &.manufacturer-list--fade-appear.manufacturer-list--fade-appear-active {
