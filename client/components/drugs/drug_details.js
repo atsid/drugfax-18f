@@ -82,7 +82,7 @@ let DrugDetails = React.createClass({
                         <div key="drug-details" className={"drug-details"}>
                             <StyledButton icon={this.subscribeButtonIcon()} className={"pull-right button--large button--primary " + this.subscribeButtonClass()} disabled={this.state.loading} onClick={this.toggleSubscription}>{this.subscribeText()}</StyledButton>
                             <h1>{this.state.data.openfda.brand_name[0]}</h1>
-                            <h4 className={"drug-details__sub-title"}>{this.state.data.openfda.substance_name[0]}</h4>
+                            <h4 className={"drug-details__sub-title"}>{this.state.data.openfda.generic_name[0]}</h4>
                             <h5>Indications and Usage</h5>
                             <p>{this.state.data.indications_and_usage}</p>
                             <div className="row">
@@ -94,11 +94,11 @@ let DrugDetails = React.createClass({
                                 </div>
                                 <div className="col-3">
                                     <h5>Type</h5>
-                                    <p>{this.state.data.openfda.product_type[0]}</p>
+                                    <p>{this.state.data.openfda.product_type ? this.state.data.openfda.product_type[0] : "n/a"}</p>
                                 </div>
                                 <div className="col-3">
                                     <h5>Route</h5>
-                                    <p>{this.state.data.openfda.route[0]}</p>
+                                    <p>{this.state.data.openfda.route ? this.state.data.openfda.route[0] : "n/a"}</p>
                                 </div>
                             </div>
                             <h5>Adverse Events</h5>
