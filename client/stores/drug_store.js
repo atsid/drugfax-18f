@@ -36,14 +36,14 @@ class DrugStore extends BaseStore {
             return { data: res.body.data, total: res.body.meta.total };
         }, (err) => {
             if (err && err.name !== "CancellationError") {
-                this.errorHandler("Could not load drug \"" + name + "\": ");
+                this.errorHandler("Could not load drug \"" + name + "\": ", err);
                 return { data: null };
             }
         });
     }
 
     get(id) {
-        return request.get(`/api/drugs/by-spl-set-id/${id}`).promise().then(res => res.body).catch(this.errorHandler);
+        return request.get(`/api/drugs/by-spl-set-id/${id}`).promise().then(res => res.body).catch(this.errorHandler.bind(this, "Could not load drug: "));
     }
 
     getEventCounts(id, startDate, endDate, opts={}) {

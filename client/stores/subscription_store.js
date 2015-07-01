@@ -45,7 +45,7 @@ class SubscriptionStore extends BaseStore {
             .send({splSetId: splSetId})
             .promise()
             .then((res) => res.body)
-            .catch(this.errorHandler.bind(this, "Could not load subscribe: "));
+            .catch(this.errorHandler.bind(this, "Could not subscribe: "));
     }
 
     /**
