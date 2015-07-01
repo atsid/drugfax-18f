@@ -127,7 +127,7 @@
         },
         "ProdTwitterCallbackUrl": {
           "Type": "String",
-          "Description": "Twitter API Consumer Secret",
+          "Description": "Prod Twitter Callback URL",
           "Default": "https://drugfax.atsid.net/api/auth/twitter/callback"
         },
         "TwitterConsumerSecret": {
