@@ -93,12 +93,11 @@ let MasterDetail = React.createClass({
      * Handle a user initiated search
      */
     _handleSearch: function (query) {
-        this.setState({ value: query });
-        if (query) {
-            this.setState({data: null});
-            this._performQuery(query, 0);
-        } else {
-            this.setState({loading: false});
+        if (query !== this.state.value) {
+            this.setState({ data: null, value: query });
+            if (query ) {
+                this._performQuery(query, 0);
+            }
         }
     },
 
