@@ -3,7 +3,7 @@ let { expect, assert } = require("chai");
 let manufacturerStats = require("./manufacturer_stats");
 let nock = require("nock");
 
-describe("Manufacturer stats", () => {
+describe.only("Manufacturer stats", () => {
     let scope;
     beforeEach(() => {
         scope = nock("https://api.fda.gov");
@@ -107,6 +107,17 @@ describe("Manufacturer stats", () => {
 
     it("should scrub commas from manufacturer name when getting manufacturer info", () => {
         let testNameWithCommas = "T,E,S,T,E,R";
+        let testName = "TESTER";
+        mockDrugCountApi404Call(testName);
+        mockDrugStatApi404Call(testName);
+        return manufacturerStats(testNameWithCommas).then((data) => {
+            expect(data.totalDrugs).to.equal(0);
+            expect(data.grade).to.equal(100);
+        });
+    });
+
+    it("should scrub single-quotes from manufacturer name when getting manufacturer info", () => {
+        let testNameWithCommas = "T'E'S'T'E'R";
         let testName = "TESTER";
         mockDrugCountApi404Call(testName);
         mockDrugStatApi404Call(testName);

@@ -7,8 +7,8 @@ let drugs = require("../../components/drugs_api");
  * @param name The name of the manufacturer
  */
 let sanitizeName = (name) => {
-    // Commas seem to choke up the openFDA API even though it is in a quote
-    return name.replace(/,/g, "").replace(/%2C/g, "");
+    // Certain characters seem to choke up the openFDA API even when escaped
+    return name.replace(/[,']|(%2C)|(%27)/g, "");
 };
 
 /**
