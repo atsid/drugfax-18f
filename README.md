@@ -25,7 +25,7 @@ https://drugfax.atsid.net
 DrugFax has been containerized using Docker and is hosted on AWS Elastic Beanstalk using the Beanstalk/Docker template. 
 The creation of necessary infrastructure has been automated by using [AWS CloudFormation](https://aws.amazon.com/cloudformation/). 
 The CloudFormation document we used to generate the live infrastructure has been provided in [cloudformation.json](https://github.com/atsid/18f-RFQ993471-POOL2/blob/master/cloudformation.json).
-The database instances for the application are hosted in [compose.io](http://compose.io/), which provide automated scaling and management of MongeDB and other NoSQL databases.
+The database instances for the application are hosted in [compose.io](http://compose.io/), which hosted management of MongeDB and other NoSQL databases.
 
 ## Monitoring
 We use NewRelic to monitor DrugFax. NewRelic provides performance and availability monitoring, and can alert us to critical events using a service integration with PagerDuty.
