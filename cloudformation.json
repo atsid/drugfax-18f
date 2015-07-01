@@ -36,7 +36,7 @@
             "ConstraintDescription" : "must be a valid EC2 instance type."
         },
         "IntegInstanceType" : {
-            "Description" : "Production EC2 instance type",
+            "Description" : "Integ EC2 instance type",
             "Type" : "String",
             "Default" : "t2.micro",
             "AllowedValues" : [ "t1.micro", "t2.micro", "t2.small", "t2.medium", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"],
@@ -51,17 +51,17 @@
         },
         "S3Bucket": {
             "Type": "String",
-            "Default": "elasticbeanstalk-us-west-2-943291351674",
+            "Default": "elasticbeanstalk-us-east-1-943291351674",
             "Description": "Initial version S3 Bucket name"
         },
         "S3Key": {
             "Type": "String",
-            "Default": "18F/us-east-1-2.zip",
+            "Default": "drugfax/1.0.cc021df4ab21c478f0dd0bf253eaa0075b18f0e6.zip",
             "Description": "Initial version S3 Key name"
         },
         "ApplicationName": {
             "Type": "String",
-            "Default": "DrugFax",
+            "Default": "18F-DrugFax",
             "Description": "The name of the application (for Beanstalk)"
         },
         "ApplicationDescription": {
@@ -76,7 +76,7 @@
         },
         "IntegDbConnectionString": {
             "Type": "String",
-            "Description": "Production Database Connection String"
+            "Description": "Integ Database Connection String"
         },
         "ProdDbConnectionString": {
             "Type": "String",
@@ -100,15 +100,39 @@
         },
         "IntegFacebookCallbackUrl": {
             "Type": "String",
-            "Description": "The integration facebook callback url"
+            "Description": "The integration facebook callback url",
+            "Default": "https://drugfax-integ.atsid.net/api/auth/facebook/callback"
         },
         "ProdFacebookCallbackUrl": {
             "Type": "String",
-            "Description": "The production facebook callback url"
+            "Description": "The production facebook callback url",
+            "Default": "https://drugfax.atsid.net/api/auth/facebook/callback"
         },
         "FacebookClientSecret": {
             "Type": "String",
             "Description": "The Facebook Client Secret"
+        },
+        "NewRelicLicenseKey": {
+          "Type": "String",
+          "Description": "Production NewRelic monitoring license key"
+        },
+        "OpenFdaApiKey": {
+          "Type": "String",
+          "Description": "OpenFDA Api Key"
+        },
+        "IntegTwitterCallbackUrl": {
+          "Type": "String",
+          "Description": "Integ Twitter Callback URL",
+          "Default": "https://drugfax-integ.atsid.net/api/auth/twitter/callback"
+        },
+        "ProdTwitterCallbackUrl": {
+          "Type": "String",
+          "Description": "Twitter API Consumer Secret",
+          "Default": "https://drugfax.atsid.net/api/auth/twitter/callback"
+        },
+        "TwitterConsumerSecret": {
+          "Type": "String",
+          "Description": "Twitter Consumer Secret"
         }
     },
     "Mappings" : {
@@ -476,10 +500,16 @@
                 "VpcId" : { "Ref" : "VPC" },
                 "SecurityGroupIngress" : [
                     { "IpProtocol" : "tcp", "FromPort" : "80",  "ToPort" : "80",  "SourceSecurityGroupId" : { "Ref" : "BeanstalkSecurityGroup" }} ,
-                    { "IpProtocol" : "tcp", "FromPort" : "443", "ToPort" : "443", "SourceSecurityGroupId" : { "Ref" : "BeanstalkSecurityGroup" } } ],
+                    { "IpProtocol" : "tcp", "FromPort" : "443", "ToPort" : "443", "SourceSecurityGroupId" : { "Ref" : "BeanstalkSecurityGroup" }},
+                    { "IpProtocol" : "tcp", "FromPort" : "10558", "ToPort" : "10558", "SourceSecurityGroupId" : { "Ref" : "BeanstalkSecurityGroup" }},
+                    { "IpProtocol" : "tcp", "FromPort" : "11114", "ToPort" : "11114", "SourceSecurityGroupId" : { "Ref" : "BeanstalkSecurityGroup" }},
+                    { "IpProtocol" : "tcp", "FromPort" : "27017", "ToPort" : "27017", "SourceSecurityGroupId" : { "Ref" : "BeanstalkSecurityGroup" }}],
                 "SecurityGroupEgress" : [
                     { "IpProtocol" : "tcp", "FromPort" : "80",  "ToPort" : "80",  "CidrIp" : "0.0.0.0/0" } ,
-                    { "IpProtocol" : "tcp", "FromPort" : "443", "ToPort" : "443", "CidrIp" : "0.0.0.0/0" } ]
+                    { "IpProtocol" : "tcp", "FromPort" : "443", "ToPort" : "443", "CidrIp" : "0.0.0.0/0" },
+                    { "IpProtocol" : "tcp", "FromPort" : "10558", "ToPort" : "10558", "CidrIp" : "0.0.0.0/0" },
+                    { "IpProtocol" : "tcp", "FromPort" : "11114", "ToPort" : "11114", "CidrIp" : "0.0.0.0/0" },
+                    { "IpProtocol" : "tcp", "FromPort" : "27017", "ToPort" : "27017", "CidrIp" : "0.0.0.0/0" }]
             }
         },
 
@@ -604,7 +634,10 @@
                     {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "NODE_ENV", "Value": { "Ref": "IntegNodeEnv" }},
                     {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "SESSION_STATE_SECRET", "Value": { "Ref": "IntegSessionStateSecret" }},
                     {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CALLBACK_URL", "Value": { "Ref": "IntegFacebookCallbackUrl" }},
-                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CLIENT_SECRET", "Value": { "Ref": "FacebookClientSecret" }}
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CLIENT_SECRET", "Value": { "Ref": "FacebookClientSecret" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "DEBUG", "Value": "app*"},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "TWITTER_CALLBACK_URL", "Value": { "Ref": "IntegTwitterCallbackUrl" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "TWITTER_CONSUMER_SECRET", "Value": { "Ref": "TwitterConsumerSecret" }}
                 ]
             }
         },
@@ -632,7 +665,12 @@
                     {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "NODE_ENV", "Value": { "Ref": "ProdNodeEnv" }},
                     {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "SESSION_STATE_SECRET", "Value": { "Ref": "ProdSessionStateSecret" }},
                     {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CALLBACK_URL", "Value": { "Ref": "ProdFacebookCallbackUrl" }},
-                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CLIENT_SECRET", "Value": { "Ref": "FacebookClientSecret" }}
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "FACEBOOK_CLIENT_SECRET", "Value": { "Ref": "FacebookClientSecret" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "DEBUG", "Value": "app*"},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "NEWRELIC_LICENSE_KEY", "Value": { "Ref": "NewRelicLicenseKey" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "OPENFDA_APIKEY", "Value": { "Ref": "OpenFdaApiKey" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "TWITTER_CALLBACK_URL", "Value": { "Ref": "ProdTwitterCallbackUrl" }},
+                    {"Namespace": "aws:elasticbeanstalk:application:environment", "OptionName": "TWITTER_CONSUMER_SECRET", "Value": { "Ref": "TwitterConsumerSecret" }}
                 ]
             }
         }
