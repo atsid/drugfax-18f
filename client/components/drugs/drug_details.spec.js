@@ -15,7 +15,7 @@ describe("Drug Details Component", () => {
         "set_id": "TEST_ID",
         "openfda": {
             "brand_name": ["TEST_BRAND_NAME"],
-            "substance_name": ["TEST_SUBSTANCE_NAME"],
+            "generic_name": ["TEST_GENERIC_NAME"],
             "manufacturer_name": ["TEST_MANUFACTURER_NAME"],
             "product_type": ["TEST_PRODUCT_TYPE"],
             "route": ["TEST_ROUTE"]
@@ -119,8 +119,8 @@ describe("Drug Details Component", () => {
         expect(createComponent().renderedComponent).to.exist;
     });
 
-    it("should load substance name", (done) => {
-        checkForTextTest("TEST_SUBSTANCE_NAME", done);
+    it("should load generic name", (done) => {
+        checkForTextTest("TEST_GENERIC_NAME", done);
     });
 
     it("should load product type", (done) => {
