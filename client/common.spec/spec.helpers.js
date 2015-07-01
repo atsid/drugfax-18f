@@ -35,16 +35,18 @@ var helpers = {
             return me;
         },
 
-        fakeComponent(className) {
+        fakeComponent(className, props) {
             /*eslint-disable react/no-multi-comp*/
-            let component = React.createClass({
+            let componentDef = {
                 render () {
                     for (let key in this.props) {
                         component[key] = this.props[key];
                     }
                     return (<div {...this.props} className={(className ? className + "-" : "") + "fake-component"} ></div>);
                 }
-            });
+            };
+
+            let component = React.createClass(Object.assign(componentDef, props || {}));
             return component;
         },
         getStubRouter(type, stubs) {

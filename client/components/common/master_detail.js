@@ -4,6 +4,7 @@ let React = require("react/addons");
 let SearchField = require("./search_field");
 let ListDisplay = require("./list_display");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+let { messageStore } = require("./message_store");
 
 const PAGE_SIZE = 40;
 

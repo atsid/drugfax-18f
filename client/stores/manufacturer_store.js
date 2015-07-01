@@ -1,8 +1,9 @@
 "use strict";
 
 let request = require("superagent-bluebird-promise");
+let BaseStore = require("./base_store");
 
-class ManufacturerStore {
+class ManufacturerStore extends BaseStore {
 
     list(opts={}) {
         let req = request.get("/api/manufacturers");
@@ -14,13 +15,15 @@ class ManufacturerStore {
         if (opts.fields) {
             req.query({fields: opts.fields});
         }
-        return req.promise();
+        return req.promise().catch(this.errorHandler.bind(this, "Could not load manufacturer list: "));
     }
 
     get(name) {
         return request.get("/api/manufacturers/by-name")
             .query({ "name": name })
-            .promise().then((res) => res.body);
+            .promise()
+            .then((res) => res.body)
+            .catch(this.errorHandler.bind(this, "Could not load manufacturer \"" + name + "\": "));
     }
 
     /**

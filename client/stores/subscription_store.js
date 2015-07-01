@@ -1,8 +1,12 @@
 "use strict";
 
 let request = require("superagent-bluebird-promise");
+let BaseStore = require("./base_store");
 
-class SubscriptionStore {
+/**
+ * A data store for the user profile
+ */
+class SubscriptionStore extends BaseStore {
     list(opts={}) {
         let req = request.get("/api/profile/subscriptions");
         req.query({limit: opts.limit || 25});
@@ -10,7 +14,7 @@ class SubscriptionStore {
         if (opts.search) {
             req.query({search: opts.search});
         }
-        return req.promise().then((res) => res.body);
+        return req.promise().then((res) => res.body).catch(this.errorHandler.bind(this, "Could not load your subscriptions: "));
     }
 
     /**
@@ -19,7 +23,7 @@ class SubscriptionStore {
      * @returns {*|Bluebird.Promise}
      */
     get(id) {
-        return request.get(`/api/profile/subscriptions/${id}`).promise().then((resp) => resp.body);
+        return request.get(`/api/profile/subscriptions/${id}`).promise().then((resp) => resp.body).catch(this.errorHandler.bind(this, "Could not get your subscription: "));
     }
 
     /**
@@ -27,7 +31,7 @@ class SubscriptionStore {
      * @param id
      */
     unsubscribe(id) {
-        return request.del(`/api/profile/subscriptions/${id}`).promise();
+        return request.del(`/api/profile/subscriptions/${id}`).promise().catch(this.errorHandler.bind(this, "Could not unsubscribe: "));
     }
 
     /**
@@ -40,7 +44,8 @@ class SubscriptionStore {
             .set("Content-Type", "application/json")
             .send({splSetId: splSetId})
             .promise()
-            .then((res) => res.body);
+            .then((res) => res.body)
+            .catch(this.errorHandler.bind(this, "Could not load subscribe: "));
     }
 
     /**
@@ -52,7 +57,8 @@ class SubscriptionStore {
         return request.get("/api/profile/subscriptions")
                 .query({splSetId: splSetId})
                 .promise()
-                .then((res) => res.body.items.length > 0 ? res.body.items[0] : null);
+                .then((res) => res.body.items.length > 0 ? res.body.items[0] : null)
+                .catch(this.errorHandler.bind(this, "Could not get subscription: "));
     }
 
     /**
