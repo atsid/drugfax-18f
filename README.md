@@ -15,9 +15,11 @@ https://drugfax.atsid.net
 * Users may authenticate with common OAuth providers.
 
 ## Team
-* ![Chris Trevino](https://avatars0.githubusercontent.com/u/113544?v=3&s=40) [Chris Trevino](http://www.github.com/darthtrevino) Team Leader, Technical Architect 
-* ![David Tittsworth](https://avatars0.githubusercontent.com/u/2513737?v=3&s=40) [David Tittsworth](http://www.github.com/stopyoukid) Back-End Engineer
-* ![Brian Mathews](https://avatars0.githubusercontent.com/u/848347?v=3&s=40) [Brian Mathews](http://ww.github.com/bmathews) Front-End Engineer
+![Chris Trevino](https://avatars0.githubusercontent.com/u/113544?v=3&s=40) **[Chris Treviño](http://www.github.com/darthtrevino)** *Team Leader, Technical Architect*
+
+![David Tittsworth](https://avatars0.githubusercontent.com/u/2513737?v=3&s=40) **[David Tittsworth](http://www.github.com/stopyoukid)** *Back-End Engineer*
+
+![Brian Mathews](https://avatars0.githubusercontent.com/u/848347?v=3&s=40) **[Brian Mathews](http://ww.github.com/bmathews)** *Front-End Engineer*
 
 ## Infrastructure
 DrugFax has been containerized using Docker and is hosted on AWS Elastic Beanstalk using the Beanstalk/Docker template. 
