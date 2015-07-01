@@ -1,11 +1,20 @@
 "use strict";
 let Bluebird = require("bluebird");
 let request = require("superagent-bluebird-promise");
+let { messageTypes, messageStore } = require("../components/common/message_store");
 
 /**
  * Provides basic authentication methods
  */
 class Authentication {
+
+    /**
+     * Shows a generic service error
+     * @param err The service error
+     */
+    _serviceError(message, err) {
+        messageStore.addMessage(messageTypes.error, message + (err.message || err));
+    }
 
     /**
      * Returns true if the current user is logged in
@@ -19,7 +28,14 @@ class Authentication {
                     this.user = res.body;
                     return true;
                 })
-            .catch(() => false);
+            .catch((err) => {
+                if (!err.notFound) {
+                    return false;
+                } else {
+                    this._serviceError("Could not load current user: ", err);
+                    return false;
+                }
+            });
         }
     }
 
@@ -38,7 +54,14 @@ class Authentication {
                 .then(() => request.post("/api/auth/local").send(user))
                 .then((loginRes) => this.user = loginRes.body)
                 .then(() => true)
-                .catch(() => false);
+                .catch((err) => {
+                    if (!err.notFound) {
+                        return false;
+                    } else {
+                        this._serviceError("Could not login: ", err);
+                        return false;
+                    }
+                });
         } else {
             window.location.href = "/api/auth/" + loginType;
         }
@@ -51,7 +74,10 @@ class Authentication {
         this.user = undefined;
         return request.del("/api/auth/current")
             .then(() => window.location.href = "/#/login")
-            .catch(() => window.location.href = "/#/login");
+            .catch((err) => {
+                 this._serviceError("Could not logout: ", err);
+                 window.location.href = "/#/login";
+             });
     }
 }
 

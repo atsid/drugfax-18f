@@ -57,6 +57,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.3",
     "q-bluebird": "0.0.1",
+    "react-toastr": "^1.4.0",
     "superagent": "^1.2.0",
     "superagent-bluebird-promise": "^2.0.2"
   },
