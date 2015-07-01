@@ -16,6 +16,7 @@ let MasterDetail = React.createClass({
         listItem: React.PropTypes.func,
         masterSearchPlaceholder: React.PropTypes.string,
         itemName: React.PropTypes.string,
+        itemHeight: React.PropTypes.number,
         route: React.PropTypes.object,
         params: React.PropTypes.object,
         children: React.PropTypes.node
@@ -144,6 +145,7 @@ let MasterDetail = React.createClass({
                     <ListDisplay containerHeight={250}
                             itemName={this.getProp("itemName")}
                             itemComponent={this.getProp("listItem")}
+                            itemHeight={this.getProp("itemHeight")}
                             onInfiniteLoad={this._handleInfiniteLoad}
                             isInfiniteLoading={this.state.loading} key={this.state.value} data={this.state.data}/>
                 </div>

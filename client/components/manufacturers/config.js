@@ -8,6 +8,7 @@ module.exports = {
     detail: ManufacturerDetails,
     store: new ManufacturerStore(),
     itemName: "manufacturer",
+    itemHeight: 43,
     listItem: ManufacturerListItem,
     masterSearchPlaceholder: "Search for a drug manufacturer"
 };
