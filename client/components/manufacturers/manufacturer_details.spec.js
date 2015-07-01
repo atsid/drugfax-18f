@@ -33,7 +33,7 @@ describe("Manufacturer Detail Component", () => {
             store: storeStub,
             promise
         };
-    }
+    };
 
     let statTest = (statProp, parentSelector, eleValue, statValue, done) => {
         let { renderedComponent, store, promise } = createManufacturerDetailComponent({ detailId: "TESTMAN" });
@@ -51,7 +51,7 @@ describe("Manufacturer Detail Component", () => {
             expect(numberEle.getDOMNode().innerHTML).to.be.equal(eleValue);
             done();
         });
-    }
+    };
 
     let letterTest = statTest.bind(this, "grade", "info__badge");
 

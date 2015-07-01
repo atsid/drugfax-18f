@@ -18,7 +18,7 @@ describe("Manufacturer List Item Component", () => {
         return {
             renderedComponent
         };
-    }
+    };
 
     it("should load", () => {
         expect(createComponent({}).renderedComponent).to.exist;
