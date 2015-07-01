@@ -21,7 +21,7 @@ describe("ListDisplay", () => {
         return {
             Infinite,
             renderedComponent: ReactTestUtils.renderIntoDocument(
-                <Stubbed itemComponent={itemComponent} data={data} itemName={itemName} {...props}/>
+                <Stubbed itemComponent={itemComponent} itemHeight={50} data={data} itemName={itemName} {...props}/>
             ),
             itemComponent,
             itemName
