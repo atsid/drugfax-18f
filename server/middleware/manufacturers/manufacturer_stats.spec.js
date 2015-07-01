@@ -3,7 +3,7 @@ let { expect, assert } = require("chai");
 let manufacturerStats = require("./manufacturer_stats");
 let nock = require("nock");
 
-describe.only("Manufacturer stats", () => {
+describe("Manufacturer stats", () => {
     let scope;
     beforeEach(() => {
         scope = nock("https://api.fda.gov");
