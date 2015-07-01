@@ -11,20 +11,19 @@ let SearchField = React.createClass({
     propTypes: {
         onSearch: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.string,
-        loading: React.PropTypes.bool,
-        key: React.PropTypes.string.isRequired
+        loading: React.PropTypes.bool
     },
 
     getInitialState: function() {
         return {value: ""};
     },
 
+
     /**
-     * If our props are changed restart this beast
+     * Clear value if our placeholder text has changed
      */
     componentWillReceiveProps: function(nextProps) {
-        // This is necessary cause React reuses components if it can
-        if (this.props.key !== nextProps.key) {
+        if (this.props.placeholder !== nextProps.placeholder) {
             this.setState(this.getInitialState());
         }
     },
@@ -37,9 +36,7 @@ let SearchField = React.createClass({
         if (event.keyCode === ENTER_KEY_CODE) {
             event.preventDefault();
             let value = this.state.value.trim();
-            if (value) {
-                this.props.onSearch(value);
-            }
+            this.props.onSearch(value);
         }
     },
 

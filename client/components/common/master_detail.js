@@ -12,11 +12,6 @@ const PAGE_SIZE = 40;
  */
 let MasterDetail = React.createClass({
     propTypes: {
-        store: React.PropTypes.object,
-        listItem: React.PropTypes.func,
-        masterSearchPlaceholder: React.PropTypes.string,
-        itemName: React.PropTypes.string,
-        itemHeight: React.PropTypes.number,
         route: React.PropTypes.object,
         params: React.PropTypes.object,
         children: React.PropTypes.node
