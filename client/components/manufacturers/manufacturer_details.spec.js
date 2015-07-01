@@ -13,8 +13,8 @@ describe("Manufacturer Detail Component", () => {
 
     let createManufacturerDetailComponent = (params) => {
         let store = {
-            list: function() {},
-            get: function() {}
+            list: () => {},
+            get: () => {}
         };
         let storeStub = sinon.stub(store);
         let promise = util.fakePromise();

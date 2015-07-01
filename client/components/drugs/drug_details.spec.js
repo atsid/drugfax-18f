@@ -27,11 +27,11 @@ describe("Drug Details Component", () => {
 
     let createStore = () => {
         let store = {
-            list: function(){},
-            get: function(){},
-            getSubscription: function(){},
-            unsubscribe: function(){},
-            subscribe: function(){}
+            list: () => {},
+            get: () => {},
+            getSubscription: () => {},
+            unsubscribe: () => {},
+            subscribe: () => {}
         };
         return sinon.stub(store);
     };

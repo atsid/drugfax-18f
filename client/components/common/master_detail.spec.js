@@ -25,8 +25,7 @@ describe("MasterDetail", () => {
 
     let createStore = () => {
         let me = {
-            listByName: function() {
-            }
+            listByName: () => {}
         };
         return sinon.stub(me);
     };
@@ -99,14 +98,14 @@ describe("MasterDetail", () => {
     });
 
     it("should pass along the list item renderer to the list display", () => {
-        let fakeListItem = function() {};
+        let fakeListItem = () => {};
         let { renderedComponent, fakeData, ListDisplay } = searchTest(true, undefined, { listItem: fakeListItem });
 
         expect(ListDisplay.itemComponent).to.equal(fakeListItem);
     });
 
     it("should pass along the data to the list display", () => {
-        let fakeListItem = function() {};
+        let fakeListItem = () => {};
         let { renderedComponent, fakeData, ListDisplay } = searchTest(true, undefined, { listItem: fakeListItem });
 
         expect(ListDisplay.data).to.equal(fakeData);
