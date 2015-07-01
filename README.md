@@ -78,17 +78,20 @@ We use environment variables exclusively to manage sensitive API keys and connec
 
 ![Config Stack Diagram](./documentation/config_stack.png)
 
-## Testing
-The entire application has been tested using [mocha](https://github.com/mochajs/mocha), [chai](http://chaijs.com/), and [SuperAgent](https://visionmedia.github.io/superagent/). 
-The client-tests use [jsdom](https://github.com/tmpvar/jsdom) to emulate DOM interactions. 
-Unit testing coverage has been reported to [CodeClimate](codeclimate.com), and metrics may be viewable at the CodeClimate badge link at the top of this file.
-
 ## Development / CI Practices
+
+![Developer Flow Diagram](./documentation/developer_flow.png)
+
 We used the [Github Flow](https://guides.github.com/introduction/flow/) practice of encapsulating changes to the project as pull requests. 
 This allows us to have a code review policy before code is merged into the master (stable) branch.  
 We use [Wercker](wercker.com) to build the application.
 Wercker supports Github Flow and provides build information with every build on every branch, this allows us some level of verification before code is merged into the stable branch.
 Wercker, CodeClimate, and Github all emit WebHook events into Slack, which we have utilized as our team communication mechanism.
+
+## Testing
+The entire application has been tested using [mocha](https://github.com/mochajs/mocha), [chai](http://chaijs.com/), and [SuperAgent](https://visionmedia.github.io/superagent/). 
+The client-tests use [jsdom](https://github.com/tmpvar/jsdom) to emulate DOM interactions. 
+Unit testing coverage has been reported to [CodeClimate](codeclimate.com), and metrics may be viewable at the CodeClimate badge link at the top of this file.
 
 ## Development
 ### Installation
