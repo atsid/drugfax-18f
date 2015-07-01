@@ -24,14 +24,14 @@ let NavigationComponent = React.createClass({
             if (item.route) {
                 elements.push(
                     <Link className={"nav__items__item"} to={item.route} key={item.name}>
-                        <i className={classes} title={item.description}/>
+                        <i className={classes}/>
                         <span className={"nav__items__item__label"}>{item.name}</span>
                     </Link>
                 );
             } else {
                 elements.push(
                     <div className={"nav__items__item"} onClick={item.action} key={item.name}>
-                        <i className={classes} title={item.description}/>
+                        <i className={classes}/>
                         <span className={"nav__items__item__label"}>{item.name}</span>
                     </div>
                 );
