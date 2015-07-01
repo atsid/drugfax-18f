@@ -1,25 +1,80 @@
 .badge {
-    border: 1px solid $color-muted;
+    margin: 0 auto;
+}
+
+.badge__circle {
+    margin: 0 auto;
+    border: 2px solid #e3e3e3;
+    height: 2.5em;
+    width: 2.5em;
     text-align: center;
-    height: 1em !important;
     border-radius: 50%;
-    color: $color-muted;
-    font-size: 250px;
-    width: 1em !important;
+    font-size: 38px;
     font-weight: 300;
 }
 
-.badge__number {
-    font-size: .5em;
+.badge__circle__number {
+    position: relative;
+    top: -.1em;
 }
 
 .badge__label {
-    border: 1px solid $color-muted;
-    font-size: .2em;
-    margin-top: -.5em;
-    width: 6em;
-    margin-left: -10%;
+    text-transform: uppercase;
+    text-align: center;
+    margin: -40px auto 0 auto;
+    width: 10em;
+    color: $color-muted;
+    border: 2px solid #e3e3e3;
+    font-size: 13px;
+    font-weight: 600;
     background-color: white;
-    border-radius: .25em;
-    width: 120%;
+    border-radius: 2px;
+    box-shadow: 0 0 0 2px #fff;
 }
+
+.badge--large {
+    .badge__circle {
+        font-size: 50px;
+    }
+    .badge__circle__number {
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+    .badge__label {
+        width: 12em;
+    }
+}
+
+@mixin badge-variant($background, $foreground) {
+    .badge__circle {
+        background-color: $background;
+        border-color: #fff;
+        box-shadow: 0 0 0 2px $background;
+    }
+    .badge__label {
+        color: $foreground;
+        background-color: $background;
+        border-color: #fff;
+        box-shadow: 0 0 0 2px $background;
+    }
+    .badge__circle__number {
+        color: $foreground;
+    }
+}
+
+.badge--a {
+    @include badge-variant(#00B84C, #fff);
+}
+.badge--b {
+    @include badge-variant(#8BC34A, #fff);
+}
+.badge--c {
+    @include badge-variant(#FFC107, #333);
+}
+.badge--d {
+    @include badge-variant(#F57C00, #fff);
+}
+.badge--f {
+    @include badge-variant(#D32F2F, #fff);
+}
+
