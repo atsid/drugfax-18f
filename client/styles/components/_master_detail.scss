@@ -42,22 +42,6 @@
     border-right: 1px solid transparent;
     @include transition(all 350ms ease-out, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62));
 
-    .master-detail__master__empty-state {
-        color: #aaa;
-        text-align: center;
-        font-size: 18px;
-        font-weight: 300;
-        opacity: 1;
-        @include transition(all 250ms cubic-bezier(.79,-0.1,.39,.62));
-        position: absolute;
-        width: 100%;
-
-        .master-detail__master__empty-state__icon {
-            font-size: 100px;
-            color: #aaa;
-        }
-    }
-
     .result-count {
         color: $color-muted;
         padding: 8px 28px;
