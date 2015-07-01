@@ -2,7 +2,8 @@
 [![Code Climate](https://codeclimate.com/repos/55845aeb6956805917006f76/badges/bae1be1b55e103c9689c/gpa.svg)](https://codeclimate.com/repos/55845aeb6956805917006f76/feed)
 [![Test Coverage](https://codeclimate.com/repos/55845aeb6956805917006f76/badges/bae1be1b55e103c9689c/coverage.svg)](https://codeclimate.com/repos/55845aeb6956805917006f76/coverage)
 
-# DrugFax - ATS 18F Demo (Pool 2)
+![DrugFax Logo](./documentation/logo.png)
+### ATS 18F Demo (Pool 2)
 
 https://drugfax.atsid.net
 
@@ -21,42 +22,17 @@ https://drugfax.atsid.net
 
 ![Brian Mathews](https://avatars0.githubusercontent.com/u/848347?v=3&s=40) **[Brian Mathews](http://ww.github.com/bmathews)** *Front-End Engineer*
 
-## Infrastructure
-DrugFax has been containerized using Docker and is hosted on AWS Elastic Beanstalk using the Beanstalk/Docker template. 
-The creation of necessary infrastructure has been automated by using [AWS CloudFormation](https://aws.amazon.com/cloudformation/). 
-The CloudFormation document we used to generate the live infrastructure has been provided in [cloudformation.json](https://github.com/atsid/18f-RFQ993471-POOL2/blob/master/cloudformation.json).
-The database instances for the application are hosted in [compose.io](http://compose.io/), which hosted management of MongeDB and other NoSQL databases.
+## Technology Stack
+![Technology Stack Logos](./documentation/application_stack.png)
 
-## Monitoring
-We use NewRelic to monitor DrugFax. NewRelic provides performance and availability monitoring, and can alert us to critical events using a service integration with PagerDuty.
- 
-## Configuration Management
-We use [node-config](https://www.npmjs.com/package/config) to manage our application configuration. 
-Node-Config allows you to define a default configuration object, and optional overrides per each NODE_ENV environment. 
-Additionally, it provides a bridge for environment variables to be injected into the configuration object. 
-We use environment variables exclusively to manage sensitive API keys and connection strings.
 
-## Testing
-The entire application has been tested using [mocha](https://github.com/mochajs/mocha), [chai](http://chaijs.com/), and [SuperAgent](https://visionmedia.github.io/superagent/). 
-The client-tests use [jsdom](https://github.com/tmpvar/jsdom) to emulate DOM interactions. 
-Unit testing coverage has been reported to [CodeClimate](codeclimate.com), and metrics may be viewable at the CodeClimate badge link at the top of this file.
-
-## Development / CI Practices
-We used the [Github Flow](https://guides.github.com/introduction/flow/) practice of encapsulating changes to the project as pull requests. 
-This allows us to have a code review policy before code is merged into the master (stable) branch.  
-We use [Wercker](wercker.com) to build the application.
-Wercker supports Github Flow and provides build information with every build on every branch, this allows us some level of verification before code is merged into the stable branch.
-Wercker, CodeClimate, and Github all emit WebHook events into Slack, which we have utilized as our team communication mechanism.
-
-## Technologies Used
 DrugFax has been written using a variety of open-source technologies. Including:
-
-### Database Technologies
+### Database
 * [MongoDB](www.mongodb.org)
 * [mongoose](http://mongoosejs.com/)
 * [mongoose-organizer](https://www.npmjs.com/package/mongoose-organizer) (ATS Open Source)
 
-### App-Server Technologies
+### App-Server
 * [NodeJS](https://nodejs.org/)
 * [Express](expressjs.com/)
 * [Passport](passportjs.org)
@@ -73,6 +49,49 @@ DrugFax has been written using a variety of open-source technologies. Including:
 * [gulp](http://gulpjs.com/)
 * [nodemon](http://nodemon.io/)
 * [Docker Compose](https://docs.docker.com/compose/)
+
+### Testing
+* [SuperAgent](https://github.com/visionmedia/superagent)
+* [Mocha](http://mochajs.org/)
+* [Chai](chaijs.com)
+* [rewire](https://github.com/jhnns/rewire)
+* [nock](https://github.com/pgte/nock)
+
+<sub>ATS ❤ Open Source</sub>
+
+## Infrastructure
+DrugFax has been containerized using Docker and is hosted on AWS Elastic Beanstalk using the Beanstalk/Docker template. 
+The creation of necessary infrastructure has been automated by using [AWS CloudFormation](https://aws.amazon.com/cloudformation/). 
+The CloudFormation document we used to generate the live infrastructure has been provided in [cloudformation.json](https://github.com/atsid/18f-RFQ993471-POOL2/blob/master/cloudformation.json).
+The database instances for the application are hosted in [compose.io](http://compose.io/), which hosted management of MongoDB and other NoSQL databases.
+
+![Infrastructure Diagram](./documentation/infrastructure.png)
+
+## Monitoring
+DrugFax is monitored using NewRelic. NewRelic provides performance and availability monitoring, and can alert us to critical events using a service integration with PagerDuty.
+ 
+## Configuration Management
+We use [node-config](https://www.npmjs.com/package/config) to manage our application configuration. 
+Node-Config allows you to define a default configuration object, and optional overrides per each NODE_ENV environment. 
+Additionally, it provides a bridge for environment variables to be injected into the configuration object. 
+We use environment variables exclusively to manage sensitive API keys and connection strings.
+
+![Config Stack Diagram](./documentation/config_stack.png)
+
+## Development / CI Practices
+
+![Developer Flow Diagram](./documentation/developer_flow.png)
+
+We used the [Github Flow](https://guides.github.com/introduction/flow/) practice of encapsulating changes to the project as pull requests. 
+This allows us to have a code review policy before code is merged into the master (stable) branch.  
+We use [Wercker](wercker.com) to build the application.
+Wercker supports Github Flow and provides build information with every build on every branch, this allows us some level of verification before code is merged into the stable branch.
+Wercker, CodeClimate, and Github all emit WebHook events into Slack, which we have utilized as our team communication mechanism.
+
+## Testing
+The entire application has been tested using [mocha](https://github.com/mochajs/mocha), [chai](http://chaijs.com/), and [SuperAgent](https://visionmedia.github.io/superagent/). 
+The client-tests use [jsdom](https://github.com/tmpvar/jsdom) to emulate DOM interactions. 
+Unit testing coverage has been reported to [CodeClimate](codeclimate.com), and metrics may be viewable at the CodeClimate badge link at the top of this file.
 
 ## Development
 ### Installation
