@@ -5,7 +5,7 @@ let BaseStore = require("./base_store");
 
 class ManufacturerStore extends BaseStore {
 
-    list(opts={}) {
+    list(opts={}, noErrorHandling) {
         let req = request.get("/api/manufacturers");
         req.query({limit: opts.limit || 100});
         req.query({skip: opts.skip || 0});
@@ -15,7 +15,11 @@ class ManufacturerStore extends BaseStore {
         if (opts.fields) {
             req.query({fields: opts.fields});
         }
-        return req.promise().catch(this.errorHandler.bind(this, "Could not load manufacturer list: "));
+        let promise = req.promise();
+        if (!noErrorHandling) {
+            promise.catch(this.errorHandler.bind(this, "Could not load manufacturer list: "));
+        }
+        return promise;
     }
 
     get(name) {
@@ -31,12 +35,13 @@ class ManufacturerStore extends BaseStore {
      */
     listByName(name, skip=0, limit=100) {
         let qs = `name:${name}`;
-        return this.list({search: qs, limit: limit, skip: skip})
+        return this.list({search: qs, limit: limit, skip: skip}, true)
         .then((res) => {
             let data = res.body.data;
             return { data: data, total: data.length };
         }, (err) => {
             if (err && err.name !== "CancellationError") {
+                this.errorHandler("Could not load manufacturer \"" + name + "\": ", err);
                 return { data: null };
             }
         });

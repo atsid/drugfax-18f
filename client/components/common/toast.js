@@ -32,6 +32,12 @@ let Toast = React.createClass({
         }
     },
 
+    componentWillUnmount() {
+        if (this.props.store) {
+            this.props.store.removeMessageListener(this.onMessage);
+        }
+    },
+
     /**
      * When a message is received, show it
      * @param message The message that was received in the message store

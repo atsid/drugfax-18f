@@ -1,6 +1,7 @@
 "use strict";
 let debug = require("debug")("app:middleware:openfda_invoker");
 let applyFields = require("./apply_fields");
+let OpenFDABadRequest = require("../errors/openfda_bad_request");
 
 const EMPTY_RESULT = {
     meta: {
@@ -57,10 +58,9 @@ let middleware = (api, req, res) => {
                 res.json(EMPTY_RESULT);
             } else {
                 debug(err);
-                res.json({error: "Unknown service error"});
-                res.end();
+                throw new OpenFDABadRequest(err.response && err.response.body);
             }
         });
 };
 
-module.exports = {buildRequest, invoke, middleware, getMeta};
+module.exports = {buildRequest, invoke, middleware, getMeta, EMPTY_RESULT};

@@ -35,6 +35,17 @@ let messageStore = {
     },
 
     /**
+     * Removes a listener for when messages are removed
+     * @param listener The message listener
+     */
+    removeMessageListener(listener) {
+        let index = messageListeners.indexOf(listener);
+        if (index >= 0) {
+            return messageListeners.splice(index, 1)[0];
+        }
+    },
+
+    /**
      * Gets all messages in the store
      */
     getMessages() {

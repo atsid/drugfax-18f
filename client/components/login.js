@@ -4,6 +4,8 @@ let React = require("react/addons");
 let StyledButton = require("./common/styled_button");
 let authentication = require("../security/auth");
 var Navigation = require("react-router").Navigation;
+let Toast = require("./common/toast");
+let { messageStore } = require("./common/message_store");
 
 const GITHUB_URL = "https://github.com/atsid/18f-RFQ993471-POOL2";
 const ATSID_URL = "https://atsid.github.io";
@@ -53,6 +55,7 @@ let LoginComponent = React.createClass({
   render() {
     return (
         <div className={"login" + (this.state.error ? " login--error" : "")}>
+            <Toast store={messageStore} />
             <div className={"login__details"}>
                 <div className={"center-vh"}>
                     <h1>DrugFax</h1>

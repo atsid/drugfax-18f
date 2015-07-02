@@ -35,6 +35,8 @@ class OpenFDABaseService {
         }
 
         if (search) {
+            // If the flag is enabled for sanitizing searches, sanitize it
+            search = (this.api.options || {}).sanitizeSearch ? this._sanitizeSearch(search) : search;
             queryArgs.push("search=" + search);
         }
 
@@ -110,6 +112,15 @@ class OpenFDABaseService {
     runRaw() {
         var url = this.buildUrl();
         return request.get(url);
+    }
+
+    /**
+     * Sanitizes the given value for use with the openfda API
+     * @param value The value to sanitize
+     */
+    _sanitizeSearch(value) {
+        // Certain characters seem to choke up the openFDA API even when escaped
+        return value.replace(/[,']|(%2C)|(%27)/g, "");
     }
 }
 

@@ -2,6 +2,7 @@
 
 let drugs = require("../../components/drugs_api");
 let apiInvoker = require("../../components/api_invoker");
+let OpenFDABadRequest = require("../../errors/openfda_bad_request");
 
 let index = (req, res) => {
     let search = req.query.search;
@@ -19,6 +20,13 @@ let index = (req, res) => {
                     };
                 })
             });
+        })
+        .catch((err) => {
+            if (err.status === 404) {
+                res.send(apiInvoker.EMPTY_RESULT);
+            } else {
+                throw new OpenFDABadRequest(err.response && err.response.body);
+            }
         });
 };
 

@@ -69,6 +69,18 @@ describe("message store", () => {
         });
     });
 
+    describe("removeMessageListener", () => {
+        it("should return the removed listener if the listener is in the store", () => {
+            let listener = () => {};
+            store.addMessageListener(listener);
+            expect(store.removeMessageListener(listener)).to.be.equal(listener);
+        });
+
+        it("should return undefined if the listener is not in the store", () => {
+            expect(store.removeMessageListener(() => {})).to.be.undefined;
+        });
+    });
+
     describe("clearListeners", () => {
         it("should clear all listeners after called", () => {
             let called = false;
