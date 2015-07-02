@@ -3,20 +3,11 @@
 let drugs = require("../../components/drugs_api");
 
 /**
- * Sanitizes the given manufacturer name for use with the openfda API
- * @param name The name of the manufacturer
- */
-let sanitizeName = (name) => {
-    // Certain characters seem to choke up the openFDA API even when escaped
-    return name.replace(/[,']|(%2C)|(%27)/g, "");
-};
-
-/**
  * Returns the total number of drugs for the given manufacturer
  */
 let getManufacturerTotalDrugsByName = (name) => {
     return drugs()
-        .search(`openfda.manufacturer_name:\"${sanitizeName(name)}\"`).parent()
+        .search(`openfda.manufacturer_name:\"${name}\"`).parent()
         .count("openfda.spl_set_id.exact")
         .limit(1000) // Arbitrary limit since counting doesn't return a total
         .run()
@@ -36,6 +27,7 @@ let getManufacturerStatsByName = (name) => {
                     grade: 100
                 });
             } else {
+                console.log(err);
                 reject(err);
             }
         };
@@ -44,7 +36,7 @@ let getManufacturerStatsByName = (name) => {
         getManufacturerTotalDrugsByName(name)
             .then((totalDrugs) => {
                 return drugs().enforcements()
-                    .search(`openfda.manufacturer_name:\"${sanitizeName(name)}\"`).parent()
+                    .search(`openfda.manufacturer_name:\"${name}\"`).parent()
                     .count("classification.exact")
                     .run()
                     .then((resp) => {

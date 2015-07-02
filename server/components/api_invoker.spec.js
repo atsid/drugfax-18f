@@ -95,17 +95,15 @@ describe("The API Invoker", () => {
             let api = new FakeApi();
             api.respondWithError({});
 
-            let result = null;
             let req = { query: {} };
             let res = {
-                json: (sentJson) => result = sentJson,
+                json: () => null,
                 end: () => null
             };
 
-            return invoker.middleware(api, req, res)
-                .then(() => {
-                    expect(result.error).to.equal("Unknown service error");
-                });
+            return invoker.middleware(api, req, res).catch((err) => {
+                expect(err.message).to.contain("OpenFDA API error");
+            });
         });
 
         it("emits API invocation results as JSON", () => {

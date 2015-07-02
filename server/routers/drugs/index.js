@@ -6,6 +6,7 @@ let drugs = require("../../middleware/drugs");
 let cache = require("../../middleware/cache");
 
 let router = jefferson.router({
+    proxies: [require("express-jefferson/proxies/promise-handler")],
     pre: {
         all: [cache({maxAge: 3600})]
     },

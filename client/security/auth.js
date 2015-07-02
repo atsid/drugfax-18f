@@ -25,11 +25,11 @@ class Authentication {
         } else {
             return request.get("/api/auth/current")
             .then((res) => {
-                    this.user = res.body;
-                    return true;
-                })
+                this.user = res.body;
+                return true;
+            })
             .catch((err) => {
-                if (!err.notFound) {
+                if (err.status === 404) {
                     return false;
                 } else {
                     this._serviceError("Could not load current user: ", err);
@@ -55,7 +55,7 @@ class Authentication {
                 .then((loginRes) => this.user = loginRes.body)
                 .then(() => true)
                 .catch((err) => {
-                    if (!err.notFound) {
+                    if (err.status === 404) {
                         return false;
                     } else {
                         this._serviceError("Could not login: ", err);

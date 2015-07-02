@@ -10,7 +10,7 @@ class BaseStore {
      */
     errorHandler(genericMessage, err) {
         if (err && err.name !== "CancellationError") {
-            messageStore.addMessage(messageTypes.error, genericMessage + (err.message || "Unknown Error"));
+            messageStore.addMessage(messageTypes.error, genericMessage + ((err.res && err.res.text) || "Unknown Error"));
         }
     }
 }

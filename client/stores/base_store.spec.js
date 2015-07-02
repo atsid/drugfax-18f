@@ -27,7 +27,7 @@ describe("base store", () => {
 
         it("should add a message to the message store", () => {
             let { messageStore, store } = createStore();
-            store.errorHandler("Test Error: ", { name: "Test error", message: "Test Message" });
+            store.errorHandler("Test Error: ", { name: "Test error", res: { text: "Test Message" }});
 
             expect(messageStore.__addedMessageType).to.be.equal("error");
             expect(messageStore.__addedMessageText).to.be.equal("Test Error: Test Message");
@@ -35,7 +35,7 @@ describe("base store", () => {
 
         it("should not add a message to the message store if it is a cancellation error", () => {
             let { messageStore, store } = createStore();
-            store.errorHandler("Test Error: ", { name: "CancellationError", message: "Test Message" });
+            store.errorHandler("Test Error: ", { name: "CancellationError", res: { text: "Test Message" }});
 
             expect(messageStore.__addedMessageType).to.be.undefined;
             expect(messageStore.__addedMessageText).to.be.undefined;

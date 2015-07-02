@@ -2,4 +2,4 @@
 let config = require("config");
 let apiFactory = require("./openfda/api");
 let apiKey = config.openfda && config.openfda.apiKey;
-module.exports = () => apiFactory(apiKey).drugs();
+module.exports = () => apiFactory({ sanitizeSearch: true }, apiKey).drugs();
