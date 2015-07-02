@@ -32,7 +32,7 @@ DrugFax has been written using a variety of open-source technologies. Including:
 * [mongoose](http://mongoosejs.com/)
 * [mongoose-organizer](https://www.npmjs.com/package/mongoose-organizer) (ATS Open Source)
 
-### App-Server
+### Server
 * [NodeJS](https://nodejs.org/)
 * [Express](expressjs.com/)
 * [Passport](passportjs.org)
@@ -40,12 +40,12 @@ DrugFax has been written using a variety of open-source technologies. Including:
 * [express-jefferson](https://www.npmjs.com/package/express-jefferson) (ATS Open Source)
 * [express-mountie](https://www.npmjs.com/package/express-mountie) (ATS Open Source)
 
-### Client Technologies
+### Client
 * [React](https://facebook.github.io/react/)
 * [Browserify](http://browserify.org/)
 * [chart.js](http://www.chartjs.org/)
 
-### Development/Build System
+### Development & Build System
 * [gulp](http://gulpjs.com/)
 * [nodemon](http://nodemon.io/)
 * [Docker Compose](https://docs.docker.com/compose/)
