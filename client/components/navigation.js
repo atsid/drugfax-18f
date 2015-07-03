@@ -23,14 +23,14 @@ let NavigationComponent = React.createClass({
 
             if (item.route) {
                 elements.push(
-                    <Link className={"nav__items__item"} to={item.route} key={item.name}>
+                    <Link className={"nav__items__item"} onClick={this.onItemClick.bind(this, item)} to={item.route} key={item.name}>
                         <i className={classes}/>
                         <span className={"nav__items__item__label"}>{item.name}</span>
                     </Link>
                 );
             } else {
                 elements.push(
-                    <div className={"nav__items__item"} onClick={item.action} key={item.name}>
+                    <div className={"nav__items__item"} onClick={this.onItemClick.bind(this, item)} key={item.name}>
                         <i className={classes}/>
                         <span className={"nav__items__item__label"}>{item.name}</span>
                     </div>
@@ -40,19 +40,33 @@ let NavigationComponent = React.createClass({
         return elements;
     },
 
-    onHambugerClick() {
+    onItemClick: function (item) {
+        if (item.action) {
+            item.action();
+        } else {
+            this.onHamburgerClick();
+        }
+    },
+
+    onHamburgerClick() {
         this.setState({ expanded: !this.state.expanded });
     },
 
     render() {
-        var navItemsClasses = "nav__items";
+        let navItemsClasses = "nav__items";
+        let navClasses = "nav";
         if (this.state.expanded) {
             navItemsClasses += " nav__items--expanded";
+            navClasses += " nav--expanded";
         }
+
         return (
-            <div className={"nav"}>
-                <div className={"nav__hamburger"} onClick={this.onHambugerClick}>
+            <div className={navClasses}>
+                <div className={"nav__hamburger"} onClick={this.onHamburgerClick}>
                     <i className={"fa fa-bars"}></i>
+                    <div className="nav__hamburger__title">
+                        DrugFax
+                    </div>
                 </div>
                 <div className={navItemsClasses}>
                     {this.buildItemElements()}

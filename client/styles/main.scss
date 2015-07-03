@@ -33,4 +33,9 @@
     position: relative;
     height: 100%;
     margin-left: 80px;
+
+    @media (max-width: $width-mobile) {
+        margin-left: 0;
+        padding-top: 60px;
+    }
 }

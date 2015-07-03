@@ -30,7 +30,8 @@ let MasterDetail = React.createClass({
             data: null,
             currentRequest: null,
             hasQueried: false,
-            loading: false
+            loading: false,
+            collapseSearch: !!this.props.params.detailId
         };
     },
 
@@ -124,6 +125,9 @@ let MasterDetail = React.createClass({
         if (this.state.hasQueried) {
             classes.push("master-detail--has-queried");
         }
+        if (this.state.collapseSearch) {
+            classes.push("master-detail--collapse-search");
+        }
         return classes.join(" ");
     },
 
@@ -143,6 +147,7 @@ let MasterDetail = React.createClass({
                             itemComponent={this.getProp("listItem")}
                             itemHeight={this.getProp("itemHeight")}
                             onInfiniteLoad={this._handleInfiniteLoad}
+                            onItemClick={this._handleItemClicked}
                             isInfiniteLoading={this.state.loading} key={this.state.value} data={this.state.data}/>
                 </div>
             );
@@ -175,10 +180,21 @@ let MasterDetail = React.createClass({
         }
     },
 
+    _handleItemClicked: function () {
+        if (!this.state.collapseSearch) {
+            this._toggleCollapseSearch();
+        }
+    },
+
+    _toggleCollapseSearch: function () {
+        this.setState({collapseSearch: !this.state.collapseSearch});
+    },
+
     render: function() {
         return (
             <div className={this._getClassNames()}>
                 <div className={"master-detail__master"}>
+                    <i onClick={this._toggleCollapseSearch} className={"fa " + (this.state.collapseSearch ? "fa-search" : "fa-angle-double-right")}></i>
                     <SearchField key={this.getProp("itemName")} onSearch={this._handleSearch} loading={this.state.loading} placeholder={this.getProp("masterSearchPlaceholder") || "Search"}/>
                     <ReactCSSTransitionGroup transitionName="transition" transitionAppear={true}>
                         {this._renderList()}

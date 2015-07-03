@@ -1,6 +1,7 @@
 "use strict";
 
 let { util } = require("../../common.spec/spec.helpers");
+let { animationPromise } = require("../../common/utils");
 
 let React = require("react/addons");
 let ReactTestUtils = React.addons.TestUtils;
@@ -39,6 +40,7 @@ describe("Drug Details Component", () => {
         let drugStoreStub = createStore();
         let subStoreStub = createStore();
         let drugPromise = util.fakePromise();
+        let ap = animationPromise.bind(null, 0);
         let subPromise = util.fakePromise();
         let DrugChart = util.fakeComponent();
         let StyledButton = util.fakeComponent("styled-button");
@@ -50,6 +52,7 @@ describe("Drug Details Component", () => {
 
         DrugDetails.__set__("drugStore", drugStoreStub);
         DrugDetails.__set__("subscriptionStore", subStoreStub);
+        DrugDetails.__set__("animationPromise", ap);
         DrugDetails.__set__("DrugChart", DrugChart);
         DrugDetails.__set__("StyledButton", StyledButton);
         let Stubbed = util.stubRouterContext(DrugDetails, "object");
@@ -61,6 +64,7 @@ describe("Drug Details Component", () => {
             store: drugStoreStub,
             subStore: subStoreStub,
             drugPromise,
+            ap,
             subPromise,
             StyledButton
         };

@@ -12,7 +12,8 @@ let ListDisplay = React.createClass({
         itemName: React.PropTypes.string.isRequired,
         itemHeight: React.PropTypes.number.isRequired,
         onInfiniteLoad: React.PropTypes.func,
-        isInfiniteLoading: React.PropTypes.bool
+        isInfiniteLoading: React.PropTypes.bool,
+        onItemClick: React.PropTypes.func
     },
 
     mixins: [Navigation],
@@ -65,7 +66,7 @@ let ListDisplay = React.createClass({
                             infiniteLoadBeginBottomOffset={200}
                             isInfiniteLoading={this.props.isInfiniteLoading}>
                     {this.props.data.map((item, i) => {
-                        return <ItemComponent data={item} key={i}/>;
+                        return <ItemComponent onItemClick={this.props.onItemClick} data={item} key={i}/>;
                     })}
                 </Infinite>
             </div>
