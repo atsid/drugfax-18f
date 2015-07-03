@@ -10,19 +10,19 @@ class NavigationItemStore {
         return [{
             name: "Drug search",
             icon: "medkit",
-            route: "drugs"
+            route: "/drugs"
         }, {
             name: "Manufacturer search",
             icon: "hospital-o",
-            route: "manufacturers"
+            route: "/manufacturers"
         }, {
             name: "My Drugs",
             icon: "star",
-            route: "myDrugs"
+            route: "/myDrugs"
         }, {
             name: "My Profile",
             icon: "user",
-            route: "myProfile"
+            route: "/myProfile"
         }, {
             name: "Logout",
             icon: "sign-out",
