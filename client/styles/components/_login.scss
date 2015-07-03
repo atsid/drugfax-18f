@@ -10,6 +10,19 @@
         float: left;
         position: relative;
 
+        @media (max-width: $width-mobile) {
+            height: auto;
+            width: 100%;
+            float: none;
+
+            .center-vh {
+                position: static;
+                @include transform(none);
+                padding: 0 40px;
+                margin-bottom: 40px;
+            }
+        }
+
         h1 {
             color: #fff;
             text-align: center;
@@ -34,6 +47,14 @@
         right: 0;
         height: 100%;
         text-align: center;
+
+        @media (max-width: $width-mobile) {
+            position: static;
+            height: auto;
+            width: 100%;
+            float: none;
+            margin-top: 20px;
+        }
 
         .login__options__buttons {
             width: 100%;
@@ -67,6 +88,23 @@
             bottom: 50px;
             width: 100%;
             padding: 20px;
+        }
+    }
+}
+
+
+
+@media (max-width: $width-mobile) {
+    .center-vh {
+        position: static;
+        @include transform(none);
+        margin: auto;
+    }
+
+    .login .login__options {
+        .login__options__disclaimer,
+        .login__options__footer {
+            position: static;
         }
     }
 }
