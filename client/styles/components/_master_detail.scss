@@ -11,13 +11,6 @@
         left: 0;
         border-right: 1px solid $component-border;
         background: #f6f6f6;
-
-        .search-field {
-            input,
-            .fa {
-                font-size: 18px;
-            }
-        }
     }
 }
 
@@ -25,11 +18,6 @@
 .master-detail--populated .master-detail__master .search-field,
 .master-detail--has-queried .master-detail__master .search-field {
     margin-top: 0;
-
-    input,
-    .fa {
-        font-size: 18px;
-    }
 }
 
 .master-detail__master {
@@ -62,10 +50,6 @@
 
     .search-field {
         margin-top: 100px;
-        input,
-        .fa {
-            font-size: 18px;
-        }
     }
 }
 

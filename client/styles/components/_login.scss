@@ -30,6 +30,11 @@
             width: 100%;
             font-size: 80px;
             font-weight: 100;
+
+            @media (max-width: $width-mobile) {
+                font-size: 40px;
+            }
+
         }
 
         h2 {
