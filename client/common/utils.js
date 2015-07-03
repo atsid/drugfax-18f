@@ -2,6 +2,7 @@
 
 let React = require("react");
 let { Navigation } = require("react-router");
+let Bluebird = require("bluebird");
 
 module.exports = {
     /**
@@ -42,7 +43,7 @@ module.exports = {
     },
 
     animationPromise(delay) {
-        return new Promise((resolve) => {
+        return new Bluebird((resolve) => {
             setTimeout(resolve, delay);
         });
     }

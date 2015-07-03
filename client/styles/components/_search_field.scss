@@ -12,14 +12,17 @@
         border: none;
         background: transparent;
         box-shadow: none;
-        padding: 0 28px;
+        padding: 16px 28px;
         font-size: 18px;
         font-weight: 500;
-        line-height: 3.5em;
         border-bottom: 1px solid $component-border;
         width: 100%;
         display: block;
         @include transition(all 250ms ease-out);
+
+        @media (max-width: 320px) {
+            font-size: 14px;
+        }
 
         &:focus {
             outline: none;
@@ -49,8 +52,8 @@
 
     > .fa {
         position: absolute;
+        line-height: 65px;
         right: 28px;
-        line-height: 3.5em;
         font-size: 18px;
         top: 0;
         color: #ccc;

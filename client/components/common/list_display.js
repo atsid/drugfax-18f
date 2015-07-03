@@ -45,7 +45,7 @@ let ListDisplay = React.createClass({
      * Determine the preferred container height
      */
     _getContainerHeight: function () {
-        return { height: window.innerHeight - 106 };
+        return { height: window.innerHeight - 107 };
     },
 
     /*
