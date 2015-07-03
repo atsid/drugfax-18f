@@ -39,5 +39,11 @@ module.exports = {
                 return ( this.state.loaded ? (<Component {...this.props} >{ this.props.children } </Component>) : null );
             }
         });
+    },
+
+    animationPromise(delay) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, delay);
+        });
     }
 };

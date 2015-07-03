@@ -7,6 +7,7 @@ let Loader = require("./../common/loader");
 let StyledButton = require("./../common/styled_button");
 let SubscriptionStore = require("../../stores/subscription_store");
 let Bluebird = require("bluebird");
+let animationPromise = require("../../common/utils").animationPromise;
 let { Link } = require("react-router");
 
 let drugStore = new DrugStore();
@@ -38,10 +39,11 @@ let DrugDetails = React.createClass({
     },
 
     getStateFromStore: function (props) {
-        this.setState({loading: true});
+        this.setState({data: null, loading: true});
         Bluebird.all([
             drugStore.get(props.detailId),
-            subscriptionStore.getSubscription(props.detailId)
+            subscriptionStore.getSubscription(props.detailId),
+            animationPromise(250)
         ]).spread((drug, subscription) => {
             this.setState({data: drug, loading: false, subscription: subscription});
         }).catch((err) => {
@@ -109,6 +111,8 @@ let DrugDetails = React.createClass({
                             <p>{this.state.data.warnings}</p>
                         </div> : null
                     }
+                </ReactCSSTransitionGroup>
+                <ReactCSSTransitionGroup component="div" transitionName="transition" transitionAppear={true}>
                     { this.state.loading ? <Loader/> : null }
                 </ReactCSSTransitionGroup>
             </div>

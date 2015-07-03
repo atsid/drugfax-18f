@@ -84,3 +84,30 @@
 .transition-appear.transition-appear-active {
     opacity: 1;
 }
+
+.row {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+.col-3 {
+    width: 33.3%;
+    float: left;
+    @media (max-width: $width-tablet) {
+        width: 100%;
+        clear: both;
+        float: none;
+    }
+}
+.col-6 {
+    width: 50%;
+    float: left;
+    @media (max-width: $width-tablet) {
+        width: 100%;
+        clear: both;
+        float: none;
+    }
+}

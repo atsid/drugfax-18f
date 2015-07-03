@@ -1,6 +1,10 @@
 .manufacturer-details {
     padding-left: 60px;
     padding-right: 60px;
+    @media (max-width: $width-tablet) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
     max-width: 1000px;
 
 
@@ -13,19 +17,6 @@
     h5 {
         margin-top: 1.25em;
         margin-bottom: .5em;
-    }
-
-    .row {
-        &:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    }
-
-    .col-3 {
-        width: 33.3%;
-        float: left;
     }
 
     .manufacturer-details__info {

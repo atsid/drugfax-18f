@@ -11,8 +11,8 @@ $icon-color: mix($color-secondary, #fff, 50%);
 }
 
 .nav__hamburger {
-    color: $icon-color;
-    padding: 18px;
+    padding: 0 21px;
+    line-height: 60px;
     cursor: pointer;
     display: none;
 }
@@ -68,7 +68,6 @@ $icon-color: mix($color-secondary, #fff, 50%);
 }
 
 
-/** Screen too small */
 @media (max-width: $width-mobile) {
     .nav {
         top: 0;
@@ -88,12 +87,12 @@ $icon-color: mix($color-secondary, #fff, 50%);
         bottom: 0;
         padding-top: 60px;
         background: #fff;
-        box-shadow: 0 0 20px rgba(0,0,0,.75);
+        box-shadow: 0 0 20px rgba(0,0,0,.5);
 
     }
 
     .nav__items__item__icon {
-        font-size: 26px;
+        font-size: 28px;
         width: 26px;
         margin-left: 16px;
         margin-right: 30px;
@@ -105,7 +104,7 @@ $icon-color: mix($color-secondary, #fff, 50%);
     .nav__items__item__label {
         display: inline-block;
         opacity: 1;
-        color: #333;
+        color: $text-color;
         background: transparent;
         left: 0;
         box-shadow: none;
@@ -126,18 +125,19 @@ $icon-color: mix($color-secondary, #fff, 50%);
             left: 0;
         }
         .nav__items__item__icon {
-            color: #333;
+            color: $text-color;
         }
     }
 
     .nav__items__item.active  {
         background-color: #f2f2f2;
         .nav__items__item__icon {
-            color: #333;
+            color: $text-color;
         }
     }
 
     .nav--expanded {
+        z-index: 1010;
         .nav__items {
             left: 0px;
         }
@@ -153,12 +153,26 @@ $icon-color: mix($color-secondary, #fff, 50%);
     .nav__hamburger {
         z-index: 100;
         position: relative;
-        display: block;
+        display: inline-block;
         @include transition(color 250ms ease-out);
+        font-size: 24px;
+        font-weight: 300;
 
         color: #fff;
         &:hover {
             color: #fff;
+        }
+
+        .fa {
+            font-size: 21px;
+            line-height: 60px;
+            margin-right: 20px;
+            vertical-align: top;
+        }
+        .nav__hamburger__title {
+            line-height: 60px;
+            vertical-align: top;
+            display: inline-block;
         }
     }
 }

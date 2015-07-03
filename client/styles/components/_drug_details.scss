@@ -1,17 +1,31 @@
 .drug-details {
     padding-left: 60px;
     padding-right: 60px;
+    @media (max-width: $width-tablet) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
     max-width: 1000px;
 
     .subscribe,
     .unsubscribe {
         margin-top: 18px;
+
+        @media (max-width: $width-tablet) {
+            width: 100%;
+            margin-top: 36px;
+            clear: both;
+            float: none;
+        }
     }
 
     h1 {
         font-weight: 300;
         margin-bottom: 0;
         margin-top: 50px;
+        @media (max-width: $width-tablet) {
+            margin-top: 18px;
+        }
     }
 
     .drug-details__sub-title {
@@ -33,22 +47,5 @@
     h5 {
         margin-top: 1.25em;
         margin-bottom: 0;
-    }
-
-    .row {
-        &:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    }
-
-    .col-3 {
-        width: 33.3%;
-        float: left;
-    }
-    .col-6 {
-        width: 50%;
-        float: left;
     }
 }

@@ -64,6 +64,9 @@ let NavigationComponent = React.createClass({
             <div className={navClasses}>
                 <div className={"nav__hamburger"} onClick={this.onHamburgerClick}>
                     <i className={"fa fa-bars"}></i>
+                    <div className="nav__hamburger__title">
+                        DrugFax
+                    </div>
                 </div>
                 <div className={navItemsClasses}>
                     {this.buildItemElements()}

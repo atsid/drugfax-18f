@@ -39,8 +39,14 @@
     left: 50%;
     top: 0;
     @include transform(translate(-50%, 0));
-    border-right: 1px solid transparent;
-    @include transition(all 350ms ease-out, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62));
+    border-right: 1px solid #fff;
+    @include transition(all 150ms ease-out, border-right-color 500ms cubic-bezier(.79,-0.1,.39,.62));
+
+
+    > .fa {
+        display: none;
+        font-size: 21px;
+    }
 
     .result-count {
         color: $color-muted;
@@ -76,11 +82,68 @@
 
 
 .master-detail__details {
-
     .loader {
         position: absolute;
         top: 50%;
         left: 50%;
         @include transform(translate(-50%, -50%));
+    }
+}
+
+@media (max-width: $width-mobile) {
+    .master-detail {
+        .master-detail__master {
+            border-right: none;
+            position: fixed;
+            top: 60px;
+            z-index: 1000;
+            left: 0;
+            width: 100%;
+            @include transform(none);
+
+            .search-field {
+                margin-top: 0;
+                background: #fff;
+            }
+
+            > .fa {
+                top: 0px;
+                right: 0;
+                margin-left: -72px;
+                padding: 0px 27px;
+                line-height: 60px;
+                position: fixed;
+                color: #fff;
+            }
+        }
+
+        .master-detail__details {
+            left: 0;
+        }
+    }
+
+    .master-detail--populated {
+        .master-detail__master {
+            top: 60px;
+
+            > .fa  {
+                display: block;
+                cursor: pointer;
+                @include transition(all 125ms ease-out);
+            }
+        }
+    }
+
+    .master-detail--collapse-search:not(.master-detail--has-queried),
+    .master-detail--collapse-search.master-detail--populated {
+        .master-detail__master {
+            left: 100%;
+        }
+    }
+    .master-detail--collapse-search:not(.master-detail--populated),
+    .master-detail--collapse-search.master-detail--has-queried:not(.master-detail--populated), {
+        .master-detail__master {
+            left: 0;
+        }
     }
 }

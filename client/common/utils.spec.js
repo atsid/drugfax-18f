@@ -6,6 +6,13 @@ let ReactTestUtils = React.addons.TestUtils;
 let { expect } = require("chai");
 
 describe("utils", function() {
+    describe("animationPromise", function() {
+        it("should behave like a normal promise", function(done) {
+            util.animationPromise(1).then(() => {
+                done();
+            });
+        });
+    });
     describe("createGuardComponent", function() {
         function createGuardComponent() {
             let promise = specUtil.fakePromise();
