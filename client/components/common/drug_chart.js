@@ -1,6 +1,6 @@
 "use strict";
 let React = require("react/addons");
-
+let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let LineChart = require("react-chartjs").Line;
 let _ = require("lodash");
 
@@ -18,7 +18,7 @@ let DrugChart = React.createClass({
     getInitialState: function () {
         return {
             loading: true,
-            data: null
+            data: []
         };
     },
 
@@ -109,7 +109,13 @@ let DrugChart = React.createClass({
     },
 
     render: function() {
-        return <LineChart className={"chart"} data={this._getChartData()} options={this._getChartOptions()} redraw/>;
+        return (
+            <ReactCSSTransitionGroup component="div" className="chart" transitionName="transition" transitionAppear={true}>
+                { !this.state.loading && !this.state.data.length ? <div key="empty" className={"chart__empty"}>No data for this chart.</div> : null }
+                { this.state.loading ? <div key="loading" className={"chart__loading"}>Loading chart data...</div> : null }
+                <LineChart key="chart" className={"chart"} data={this._getChartData()} options={this._getChartOptions()} redraw/>
+            </ReactCSSTransitionGroup>
+        );
     }
 });
 
