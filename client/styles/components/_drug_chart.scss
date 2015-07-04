@@ -1,4 +1,14 @@
-.chart {
+.chart > canvas {
     width: 100%;
     height: 200px;
+}
+
+.chart {
+    position: relative;
+}
+
+.chart__empty,
+.chart__loading {
+    @extend .center-vh;
+    color: #aaa;
 }
