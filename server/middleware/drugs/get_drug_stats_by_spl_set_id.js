@@ -1,6 +1,5 @@
 "use strict";
 let drugs = require("../../components/drugs_api");
-let apiInvoker = require("../../components/api_invoker");
 let OpenFDABadRequest = require("../../errors/openfda_bad_request");
 
 const TOTAL_NUMBER_OF_EVENTS = 5;
