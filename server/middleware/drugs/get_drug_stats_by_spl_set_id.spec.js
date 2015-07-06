@@ -3,7 +3,7 @@ let { expect, assert } = require("chai");
 let nock = require("nock");
 let service = require("./get_drug_stats_by_spl_set_id");
 
-describe.only("get_drug_stats_by_spl_set_id", () => {
+describe("get_drug_stats_by_spl_set_id", () => {
     let scope;
 
     beforeEach(() => {
