@@ -62,7 +62,8 @@ let DrugChart = React.createClass({
         return {
             pointDotRadius: 6,
             datasetStrokeWidth: 4,
-            pointDotStrokeWidth: 3
+            pointDotStrokeWidth: 3,
+            responsive: true
         };
     },
 
