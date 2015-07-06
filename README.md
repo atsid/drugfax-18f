@@ -70,7 +70,7 @@ The database instances for the application are hosted in [compose.io](http://com
 ![Infrastructure Diagram](./documentation/infrastructure.png)
 
 ## Monitoring
-DrugFax is monitored using NewRelic. NewRelic provides performance and availability monitoring, and can alert us to critical events using a service integration with PagerDuty.
+DrugFax is monitored using NewRelic. NewRelic provides performance and availability monitoring, and can alert us to critical events using a service integration with PagerDuty. If the NEWRELIC_LICENSE_KEY environment variable is set, the application will start up the NewRelic monitor.
  
 ## Configuration Management
 We use [node-config](https://www.npmjs.com/package/config) to manage our application configuration. 
