@@ -4,6 +4,7 @@ let apiInvoker = require("../../components/api_invoker");
 let OpenFDABadRequest = require("../../errors/openfda_bad_request");
 
 const TOTAL_NUMBER_OF_EVENTS = 5;
+const EMPTY_RESULT = {};
 
 /**
  * Returns a sex for the given number
@@ -73,7 +74,7 @@ module.exports = (req, res) => {
         .catch((err) => {
             console.log(err);
             if (err.status === 404) {
-                res.send(apiInvoker.EMPTY_RESULT);
+                res.send(EMPTY_RESULT);
             } else {
                 console.log(err);
                 throw new OpenFDABadRequest(err.response && err.response.body);
