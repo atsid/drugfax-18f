@@ -16,9 +16,16 @@ let drugsConfig = require("./drugs/config");
 let manufacturersConfig = require("./manufacturers/config");
 
 let Routes = React.createClass({
+
+    _handleRouteUpdate: function() {
+        if (window.ga) {
+            window.ga("send", "pageview", { page: this.refs.router.state.location.pathname });
+        }
+    },
+
     render: function() {
         return (
-            <Router history={history}>
+            <Router ref="router" history={history} onUpdate={this._handleRouteUpdate}>
                 <Route component={isLoggedInGuard(App, { state: "login"})}>
                     <Route path="drugs" masterDetailConfig={drugsConfig} component={MasterDetail}>
                         <Route path=":detailId" component={drugsConfig.detail} />
