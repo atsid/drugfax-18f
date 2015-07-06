@@ -21,6 +21,9 @@ module.exports = jefferson.router({
         },
         "/:splSetId/enforcements": {
             get: [drugs.getEnforcementsBySplSetId]
+        },
+        "/:splSetId/stats": {
+            get: [drugs.getStatsBySplSetId]
         }
     }
 });
