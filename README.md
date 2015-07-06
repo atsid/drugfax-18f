@@ -86,7 +86,8 @@ We use environment variables exclusively to manage sensitive API keys and connec
 
 We used the [Github Flow](https://guides.github.com/introduction/flow/) practice of encapsulating changes to the project as pull requests. 
 This allows us to have a code review policy before code is merged into the master (stable) branch.  
-We use [Wercker](wercker.com) to build the application.
+We use [Wercker](wercker.com) to build the application. 
+Successful Wercker builds are saved as new tagged version of the application in our Docker Hub account.
 Wercker supports Github Flow and provides build information with every build on every branch, this allows us some level of verification before code is merged into the stable branch.
 Wercker, CodeClimate, and Github all emit WebHook events into Slack, which we have utilized as our team communication mechanism.
 
