@@ -25,7 +25,6 @@ https://drugfax.atsid.net
 ## Technology Stack
 ![Technology Stack Logos](./documentation/application_stack.png)
 
-
 DrugFax has been written using a variety of open-source technologies. Including:
 ### Database
 * [MongoDB](www.mongodb.org)
@@ -56,6 +55,9 @@ DrugFax has been written using a variety of open-source technologies. Including:
 * [Chai](chaijs.com)
 * [rewire](https://github.com/jhnns/rewire)
 * [nock](https://github.com/pgte/nock)
+
+## License
+[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
 <sub>ATS ❤ Open Source</sub>
 
