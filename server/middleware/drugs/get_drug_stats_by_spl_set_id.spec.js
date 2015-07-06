@@ -92,7 +92,7 @@ describe("get_drug_stats_by_spl_set_id", () => {
         let setId = "TEST_ID";
         mockDrugTotalEventsError(setId, 404);
         return doCall(setId).then((data) => {
-            expect(data.data.length).to.be.equal(0);
+            expect(data).to.be.deep.equal({});
         });
     });
 
