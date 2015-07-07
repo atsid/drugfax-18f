@@ -99,7 +99,7 @@ As mentioned above, we package the DrugFax app as a Docker container, and use th
 
 ## Iterative approach (j.)
 
-The GitHub Flow process allows us to receive feedback via peer reviews throughout the development process. We use GitHub Issues to track development progress, and use [HuBoard](https://huboard.com/) to provide a more user-friendly, Kanban-style user experience for prioritizing and updating progress. As mentioned, all of these tools are integrated with our Slack channel, where most internal feedback is captured and used to inform subsequent work.
+The GitHub Flow process allows us to receive feedback via peer reviews throughout the development process. We use GitHub Issues to track development progress, and use [HuBoard](https://huboard.com/) to provide a more user-friendly, Kanban-style user experience for prioritizing and updating progress. As mentioned, all of these tools are integrated with our Slack channel, where most internal feedback is captured and used to inform subsequent work. For example, we solicited early feedback on some of our design ideas, as recorded in https://github.com/atsid/drugfax-18f/issues/10
 
 
 ## Development Instructions (k.)
