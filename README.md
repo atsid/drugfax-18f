@@ -15,6 +15,8 @@ https://drugfax.atsid.net
 * Users may save drugs that they are interested in. 
 * Facebook and Twitter authentication.
 
+_Note_: The letters in the headings below map to the Agile Delivery Services technical approach evaluation factors for Pool 2 submissions.
+
 ## Team (a. & b.)
 ![Chris Trevino](https://avatars0.githubusercontent.com/u/113544?v=3&s=40) **[Chris Trevino](http://www.github.com/darthtrevino)** *Team Leader, Technical Architect*
 
