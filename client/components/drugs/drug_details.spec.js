@@ -42,7 +42,7 @@ describe("Drug Details Component", () => {
         let drugPromise = util.fakePromise();
         let ap = animationPromise.bind(null, 0);
         let subPromise = util.fakePromise();
-        let DrugChart = util.fakeComponent();
+        let DrugStats = util.fakeComponent();
         let StyledButton = util.fakeComponent("styled-button");
 
         drugStoreStub.get.withArgs(sinon.match.any).returns(drugPromise);
@@ -53,7 +53,7 @@ describe("Drug Details Component", () => {
         DrugDetails.__set__("drugStore", drugStoreStub);
         DrugDetails.__set__("subscriptionStore", subStoreStub);
         DrugDetails.__set__("animationPromise", ap);
-        DrugDetails.__set__("DrugChart", DrugChart);
+        DrugDetails.__set__("DrugStats", DrugStats);
         DrugDetails.__set__("StyledButton", StyledButton);
         let Stubbed = util.stubRouterContext(DrugDetails, "object");
         let renderedComponent = ReactTestUtils.renderIntoDocument(

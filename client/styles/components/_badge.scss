@@ -1,5 +1,6 @@
 .badge {
     margin: 0 auto 30px 0;
+    position: relative;
 }
 
 .badge__circle {
@@ -22,6 +23,7 @@
     text-transform: uppercase;
     text-align: center;
     margin: -40px auto 0 auto;
+    position: relative;
     width: 10em;
     color: $color-muted;
     border: 2px solid #e3e3e3;

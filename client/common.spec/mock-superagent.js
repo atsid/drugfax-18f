@@ -48,6 +48,10 @@ class MockSuperagent {
         return Bluebird.resolve(this.response);
     }
 
+    then() {
+        return Bluebird.resolve(this.response);
+    }
+
     run() {
         return this.promise();
     }

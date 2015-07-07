@@ -13,10 +13,16 @@ describe("The Drug Store", () => {
         store = new DrugStore();
     });
 
+    it("can retrieve a drug's stats by spl-set-id", () => {
+        agent.respondWith({body: {totalDeaths: 592}});
+        return store.getDrugStats("abc-123")
+            .then((resp) => expect(resp.body.totalDeaths).to.equal(592));
+    });
+
     it("can retrieve a drug by spl-set-id", () => {
         agent.respondWith({body: {id: "abc-123"}});
         return store.get("abc-123")
-            .then((resp) => expect(resp.id).to.equal("abc-123"));
+            .then((resp) => expect(resp.body.id).to.equal("abc-123"));
     });
 
     describe("list", () => {
@@ -107,8 +113,7 @@ describe("The Drug Store", () => {
             });
             return store.getEnforcementCounts("1", "20050101", "20150101").then((result) => {
                 expect(result.body.data.length).to.equal(2);
-                expect(agent.invocation.query.count).to.equal("report_date");
-                expect(agent.invocation.query.search).to.equal("report_date:[20050101+TO+20150101]+AND+openfda.spl_set_id:\"1\"");
+                expect(agent.invocation.query.count).to.equal("openfda.spl_set_id.exact");
             });
         });
     });

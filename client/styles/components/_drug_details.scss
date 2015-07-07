@@ -48,4 +48,31 @@
         margin-top: 1.25em;
         margin-bottom: 0;
     }
+
+    .chart {
+        margin-bottom: 60px;
+    }
+
+    .drug-details__stats {
+        @extend .row;
+        text-align: center;
+        padding: 60px 0;
+        min-height: 262px;
+        position: relative;
+        h3 {
+            margin-top: 35px;
+            margin-bottom: 0;
+            font-weight: 300;
+            line-height: 1;
+            font-size: 40px;
+        }
+        h5 {
+            margin-top: 0;
+            color: $color-muted;
+        }
+        .drug-details__stats__loading {
+            @extend .center-vh;
+            color: #aaa;
+        }
+    }
 }

@@ -2,7 +2,7 @@
 let React = require("react/addons");
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let DrugStore = require("../../stores/drug_store");
-let DrugChart = require("./../common/drug_chart");
+let DrugStats = require("./../common/drug_stats");
 let Loader = require("./../common/loader");
 let StyledButton = require("./../common/styled_button");
 let SubscriptionStore = require("../../stores/subscription_store");
@@ -21,8 +21,7 @@ let DrugDetails = React.createClass({
 
     getInitialState: function () {
         return {
-            loading: true,
-            data: null
+            loading: true
         };
     },
 
@@ -88,23 +87,22 @@ let DrugDetails = React.createClass({
                             <h5>Indications and Usage</h5>
                             <p>{this.state.data.indications_and_usage}</p>
                             <div className="row">
-                                <div className="col-3">
+                                <div className="col-4">
                                     <h5>Manufacturer</h5>
                                     <p>
                                         <Link to={"/manufacturers/" + encodeURIComponent(this.state.data.openfda.manufacturer_name[0])}>{this.state.data.openfda.manufacturer_name[0]}</Link>
                                     </p>
                                 </div>
-                                <div className="col-3">
+                                <div className="col-4">
                                     <h5>Type</h5>
                                     <p>{this.state.data.openfda.product_type ? this.state.data.openfda.product_type[0] : "n/a"}</p>
                                 </div>
-                                <div className="col-3">
+                                <div className="col-4">
                                     <h5>Route</h5>
                                     <p>{this.state.data.openfda.route ? this.state.data.openfda.route[0] : "n/a"}</p>
                                 </div>
                             </div>
-                            <h5>Adverse Events</h5>
-                            <DrugChart store={drugStore} storeMethod={"getEventCounts"} dataId={this.props.params.detailId}/>
+                            <DrugStats dataId={this.props.params.detailId}/>
                             <h5>Dosage and Administration</h5>
                             <p>{this.state.data.dosage_and_administration}</p>
                             <h5>Warnings</h5>
