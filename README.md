@@ -15,14 +15,14 @@ https://drugfax.atsid.net
 * Users may save drugs that they are interested in. 
 * Facebook and Twitter authentication.
 
-## Team
+## Team (a. & b.)
 ![Chris Trevino](https://avatars0.githubusercontent.com/u/113544?v=3&s=40) **[Chris Trevino](http://www.github.com/darthtrevino)** *Team Leader, Technical Architect*
 
 ![David Tittsworth](https://avatars0.githubusercontent.com/u/2513737?v=3&s=40) **[David Tittsworth](http://www.github.com/stopyoukid)** *Back-End Developer*
 
 ![Brian Mathews](https://avatars0.githubusercontent.com/u/848347?v=3&s=40) **[Brian Mathews](http://ww.github.com/bmathews)** *Front-End Developer*
 
-## Technology Stack
+## Technology Stack (c.)
 ![Technology Stack Logos](./documentation/application_stack.png)
 
 DrugFax has been written using a variety of open-source technologies. Including:
@@ -56,7 +56,7 @@ DrugFax has been written using a variety of open-source technologies. Including:
 * [rewire](https://github.com/jhnns/rewire)
 * [nock](https://github.com/pgte/nock)
 
-## Infrastructure
+## Infrastructure (d.)
 DrugFax has been containerized using [Docker](https://www.docker.com/) and is hosted on [AWS Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/), AWS' Platform-as-a-Service (PaaS) offering, using the Beanstalk/Docker template. 
 The creation of necessary infrastructure has been automated by using [AWS CloudFormation](https://aws.amazon.com/cloudformation/). 
 The CloudFormation document we used to generate the live infrastructure has been provided in [cloudformation.json](https://github.com/atsid/18f-RFQ993471-POOL2/blob/master/cloudformation.json).
@@ -64,12 +64,12 @@ The database instances for the application are hosted in [compose.io](http://com
 
 ![Infrastructure Diagram](./documentation/infrastructure.png)
 
-## Testing
+## Testing (e.)
 The entire application has been tested using [mocha](https://github.com/mochajs/mocha), [chai](http://chaijs.com/), and [SuperAgent](https://visionmedia.github.io/superagent/). 
 The client-tests use [jsdom](https://github.com/tmpvar/jsdom) to emulate DOM interactions. 
 Unit testing coverage has been reported to [CodeClimate](codeclimate.com), and metrics may be viewable at the CodeClimate badge link at the top of this file.
 
-## Development / Continuous Integration Practices
+## Development / Continuous Integration Practices (f.)
 
 ![Developer Flow Diagram](./documentation/developer_flow.png)
 
@@ -80,7 +80,7 @@ Successful Wercker builds are saved as new tagged version of the application in 
 Wercker supports Github Flow and provides build information with every build on every branch, this allows us some level of verification before code is merged into the stable branch.
 Wercker, CodeClimate, and Github all emit WebHook events into Slack, which we have utilized as our team communication mechanism.
 
-## Configuration Management
+## Configuration Management (g.)
 We use [node-config](https://www.npmjs.com/package/config) to manage our application configuration. 
 Node-Config allows you to define a default configuration object, and optional overrides per each NODE_ENV environment. 
 Additionally, it provides a bridge for environment variables to be injected into the configuration object. 
@@ -88,19 +88,19 @@ We use environment variables exclusively to manage sensitive API keys and connec
 
 ![Config Stack Diagram](./documentation/config_stack.png)
 
-## Continuous Monitoring
+## Continuous Monitoring (h.)
 DrugFax is monitored using [NewRelic](http://newrelic.com/). NewRelic provides performance and availability monitoring, and can alert us to critical events using a service integration with PagerDuty. If the NEWRELIC_LICENSE_KEY environment variable is set, the application will start up the NewRelic monitor.
 
-## Containerization/Virtualization
+## Containerization/Virtualization (i.)
 
 As mentioned above, we package the DrugFax app as a Docker container, and use this to deploy to AWS' Elastic Beanstalk (although any other IaaS/Paas provider that supports Docker containers could be used). In the developer getting-started instructions below, we also provide a Vagrantfile that can be used to spin up a development instance for those who do not have native Docker support.
 
-## Iterative approach
+## Iterative approach (j.)
 
 The GitHub Flow process allows us to receive feedback via peer reviews throughout the development process. We use GitHub Issues to track development progress, and use [HuBoard](https://huboard.com/) to provide a more user-friendly, Kanban-style user experience for prioritizing and updating progress. As mentioned, all of these tools are integrated with our Slack channel, where most internal feedback is captured and used to inform subsequent work.
 
 
-## Development Instructions
+## Development Instructions (k.)
 ### Installation
 #### Using Docker Compose (Recommended for Linux)
     > docker-compose build && docker-compose up
@@ -113,7 +113,7 @@ The GitHub Flow process allows us to receive feedback via peer reviews throughou
 * **Linux or Vagrant**: `> open http://localhost:9000/`
 * **OSX via Docker Compose**: `> open http://$(boot2docker ip 2>/dev/null):9000`
 
-## License
+## License (l.)
 [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
 <sub>ATS ❤ Open Source</sub>
