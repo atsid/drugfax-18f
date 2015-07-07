@@ -95,7 +95,7 @@ describe("Drug Details Component", () => {
 
         setImmediate(() => {
             let button = ReactTestUtils.findRenderedDOMComponentWithClass(renderedComponent, "styled-button-fake-component");
-            expect(button.getDOMNode().innerHTML).to.contain(buttonText || "Save to my profile");
+            expect(button.getDOMNode().innerHTML).to.contain(buttonText || "Save to My Drugs");
             done();
         });
     };
@@ -168,7 +168,7 @@ describe("Drug Details Component", () => {
     });
 
     it("should show the remove text if there is a subscription", (done) => {
-        subscribeButtonTextTest({ id: 1234 }, "Remove from my profile", done);
+        subscribeButtonTextTest({ id: 1234 }, "Remove from My Drugs", done);
     });
 
     it("should unsubscribe if the user is already subscribed and they click the button", (done) => {

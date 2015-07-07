@@ -36,8 +36,8 @@ let MyProfile = React.createClass({
             if (value) {
                 profileBits.push(
                     <div className={"profile_" + key} key={key}>
-                        <span>{name}:&nbsp;</span>
-                        <span>{value}</span>
+                        <span className="profile-key">{name}:</span>
+                        <span className="profile-value">{value}</span>
                     </div>
                 );
             }
@@ -55,7 +55,7 @@ let MyProfile = React.createClass({
                 <ReactCSSTransitionGroup component="div" transitionName="transition" transitionAppear={true}>
                     { !this.state.loading ?
                         <div key="my-profile" className={"my-profile"}>
-                            <h1>My Profile</h1>
+                            <h1>My profile</h1>
                             {profileBits}
                         </div> : null
                     }
