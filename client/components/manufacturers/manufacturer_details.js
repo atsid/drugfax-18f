@@ -107,7 +107,7 @@ let ManufacturerDetail = React.createClass({
             <div key="manufacturer-details" className={"manufacturer-details"}>
                 <h1>{decodeURIComponent(name)}</h1>
                 <div className="row manufacturer-details__info">
-                    <div className="col-3">
+                    <div className="col-4">
                         <div className="badge badge--drugs">
                             <div className="badge__circle">
                                 <div className="badge__circle__number">
@@ -119,7 +119,7 @@ let ManufacturerDetail = React.createClass({
                             </div>
                         </div>
                     </div>
-                    <div className="col-3">
+                    <div className="col-4">
                         <div className={"badge badge--grade badge--large " + this.getClassNameForGrade(stats.grade)}>
                             <div className="badge__circle">
                                 <div className="badge__circle__number">
@@ -131,7 +131,7 @@ let ManufacturerDetail = React.createClass({
                             </div>
                         </div>
                     </div>
-                    <div className="col-3">
+                    <div className="col-4">
                         <div className="badge badge--incidents">
                             <div className="badge__circle">
                                 <div className="badge__circle__number">

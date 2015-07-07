@@ -43,27 +43,30 @@ class DrugStore extends BaseStore {
     }
 
     get(id) {
-        return request.get(`/api/drugs/by-spl-set-id/${id}`).promise().then(res => res.body).catch(this.errorHandler.bind(this, "Could not load drug: "));
+        return request.get(`/api/drugs/by-spl-set-id/${id}`).then(res => res.body).catch(this.errorHandler.bind(this, "Could not load drug: "));
     }
 
-    getEventCounts(id, startDate, endDate, opts={}) {
+    getEventCounts(id, startDate, endDate) {
         let req = request.get("/api/drugs/events");
-        this._applyBaseParams(req, opts);
         req.query({
             search: `receivedate:[${startDate}+TO+${endDate}]+AND+patient.drug.openfda.spl_set_id:"${id}"`,
             count: "receivedate"
         });
-        return req.promise().catch(this.errorHandler.bind(this, "Could not load adverse drug events: "));
+        return req.then(res => res.body.data).catch(this.errorHandler.bind(this, "Could not load adverse drug events: "));
     }
 
-    getEnforcementCounts(id, startDate, endDate, opts={}) {
+    getEnforcementCounts(id) {
         let req = request.get("/api/drugs/enforcements");
-        this._applyBaseParams(req, opts);
         req.query({
-            search: `report_date:[${startDate}+TO+${endDate}]+AND+openfda.spl_set_id:"${id}"`,
-            count: "report_date"
+            search: `openfda.spl_set_id:"${id}"`,
+            count: "openfda.spl_set_id.exact"
         });
-        return req.promise().catch(this.errorHandler.bind(this, "Could not load adverse drug enforcements: "));
+        return req.then(res => res.body.data).catch(this.errorHandler.bind(this, "Could not load adverse drug enforcements: "));
+    }
+
+    getDrugStats(id) {
+        let req = request.get(`/api/drugs/by-spl-set-id/${id}/stats`);
+        return req.then(res => res.body).catch(this.errorHandler.bind(this, "Could not load adverse drug enforcements: "));
     }
 }
 

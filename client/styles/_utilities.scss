@@ -93,7 +93,7 @@
     }
 }
 
-.col-3 {
+.col-4 {
     width: 33.3%;
     float: left;
     @media (max-width: $width-tablet) {
@@ -102,6 +102,17 @@
         float: none;
     }
 }
+
+.col-3 {
+    width: 25%;
+    float: left;
+    @media (max-width: $width-tablet) {
+        width: 100%;
+        clear: both;
+        float: none;
+    }
+}
+
 .col-6 {
     width: 50%;
     float: left;
