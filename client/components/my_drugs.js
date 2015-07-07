@@ -42,7 +42,8 @@ let MyDrugs = React.createClass({
     _getEmptyState: function () {
         return (
             <EmptyState>
-                No subscriptions yet.
+                <div>No saved drugs yet.</div>
+                <div>Search for drugs, then save them for later.</div>
             </EmptyState>
         );
     },
@@ -58,7 +59,7 @@ let MyDrugs = React.createClass({
                 <ReactCSSTransitionGroup component="div" transitionName="transition" transitionAppear={true}>
                     { !this.state.loading ?
                         <div className="my-drugs">
-                            <h1>Saved Drugs</h1>
+                            <h1>My saved drugs</h1>
                             { this.state.subscriptions.length ?
                                 <ListDisplay
                                     itemName={"drug"}

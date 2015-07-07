@@ -16,11 +16,11 @@ class NavigationItemStore {
             icon: "hospital-o",
             route: "/manufacturers"
         }, {
-            name: "My Drugs",
+            name: "My saved drugs",
             icon: "star",
             route: "/myDrugs"
         }, {
-            name: "My Profile",
+            name: "My profile",
             icon: "user",
             route: "/myProfile"
         }, {

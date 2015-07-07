@@ -64,7 +64,7 @@ let DrugDetails = React.createClass({
     },
 
     subscribeText: function() {
-        return this.state.subscription ? "Remove from my profile" : "Save to my profile";
+        return this.state.subscription ? "Remove from My Drugs" : "Save to My Drugs";
     },
 
     subscribeButtonClass: function() {
