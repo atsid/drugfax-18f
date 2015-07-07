@@ -17,6 +17,11 @@ var helpers = {
                 then: function(callback, failureCallback) {
                     me.thenHandler = callback;
                     me.failureHandler = failureCallback;
+                    return this;
+                },
+                catch: function (failureCallback) {
+                    me.failureHandler = failureCallback;
+                    return this;
                 }
             };
 
